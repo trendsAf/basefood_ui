@@ -1,17 +1,16 @@
 import { LuMoon } from "react-icons/lu";
 import { BsSun } from "react-icons/bs";
+import { toggleTheme } from "../../redux/reducers/themeReducer";
+import { useAppDispatch } from "../../redux/hooks";
 
 interface ModeToggleProps {
   isCollapsed: boolean;
   isDarkMode: boolean;
-  toggleDarkMode: () => void;
 }
 
-const ModeToggle = ({
-  isCollapsed,
-  isDarkMode,
-  toggleDarkMode,
-}: ModeToggleProps) => {
+const ModeToggle = ({ isCollapsed, isDarkMode }: ModeToggleProps) => {
+  const dispatch = useAppDispatch();
+
   return (
     <div
       className={`flex items-center ${isCollapsed ? "justify-center" : "justify-between px-4"} w-full py-4`}
@@ -29,7 +28,7 @@ const ModeToggle = ({
         </>
       )}
       <div
-        onClick={toggleDarkMode}
+        onClick={() => dispatch(toggleTheme())}
         className={`ml-2 relative inline-flex h-6 w-11 items-center rounded-full cursor-pointer transition-colors ${
           isDarkMode ? "bg-gray-600" : "bg-gray-300"
         }`}

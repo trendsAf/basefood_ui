@@ -1,3 +1,13 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.active {
+  color: blue !important;
+  background-color: #f5f5f5;
+}
+
+.dark .active {
+  background-color: #424242;
+  border-radius: 5px;
+}

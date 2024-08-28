@@ -16,6 +16,7 @@ export default [
 			},
 		},
 		rules: {
+			"@typescript-eslint/ban-ts-comment": "off",
 			"no-console": "warn",
 			"react/prop-types": "off",
 			"react/no-unescaped-entities": "off",

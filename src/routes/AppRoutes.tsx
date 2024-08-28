@@ -1,18 +1,20 @@
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import RootLayout from "../components/layouts/RootLayout";
 
 const AppRoutes = () => {
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<RootLayout />}>
-          <Route
-            index
-            element={<h1 className="dark:text-white ml-4">Hello world</h1>}
-          />
-        </Route>
-      </Routes>
-    </BrowserRouter>
+    <Routes>
+      <Route path="/" element={<RootLayout />}>
+        <Route
+          index
+          element={<h1 className="dark:text-white">Today's market</h1>}
+        />
+        <Route
+          path="news"
+          element={<h1 className="dark:text-white">Market News</h1>}
+        />
+      </Route>
+    </Routes>
   );
 };
 
