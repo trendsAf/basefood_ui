@@ -18,6 +18,7 @@ export default [
 		rules: {
 			"no-console": "warn",
 			"react/prop-types": "off",
+			"react/no-unescaped-entities": "off",
 			semi: ["error", "always"],
 			quotes: ["error", "double"],
 			"react/react-in-jsx-scope": "off",
