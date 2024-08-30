@@ -61,7 +61,7 @@ const Sidebar = ({
             {!isCollapsed && (
               <div className="flex items-center">
                 <FiDatabase className="text-2xl text-gray-900 dark:text-white mr-2" />
-                <span className="text-xl font-bold dark:text-white">
+                <span className="text-xl logo font-bold dark:text-white">
                   baseFood
                 </span>
               </div>

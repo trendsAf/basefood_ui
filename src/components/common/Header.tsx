@@ -11,11 +11,11 @@ interface HeaderProps {
 const Header = ({ toggleSidebar, isCollapsed }: HeaderProps) => {
   return (
     <header
-      className={` ${
+      className={`fixed ${
         isCollapsed
           ? "lg:w-[100%] lg:ml-0 pl-24 pr-6"
           : "lg:w-[80%] lg:ml-[20%] px-8"
-      } flex items-center w-[100%] bg-white justify-between p-4 dark:bg-black dark:text-white border-b border-gray-200 dark:border-gray-700`}
+      } flex items-center w-[100%] bg-white justify-between p-4 dark:bg-black dark:text-white border-b border-gray-200 z-20 dark:border-gray-700`}
     >
       <div className="flex items-center gap-3 relative w-[25%]">
         <button onClick={toggleSidebar} className="md:hidden">
