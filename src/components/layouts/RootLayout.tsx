@@ -4,7 +4,7 @@ import { Outlet } from "react-router-dom";
 import { useEffect, useState } from "react";
 
 const RootLayout = () => {
-  const [isSidebarVisible, setIsSidebarVisible] = useState(true);
+  const [isSidebarVisible, setIsSidebarVisible] = useState(false);
   const toggleSidebar = () => setIsSidebarVisible(!isSidebarVisible);
   const [isCollapsed, setIsCollapsed] = useState(false);
 
@@ -35,8 +35,10 @@ const RootLayout = () => {
         <Header toggleSidebar={toggleSidebar} isCollapsed={isCollapsed} />
 
         <main
-          className={`py-4 px-8 transition-transform w-[100%] sm:w-[100%] md:w-[100%] ${
-            isCollapsed ? "lg:w-[96%] lg:ml-[5%] " : "lg:w-[95%] lg:ml-[20%]"
+          className={`py-4 px-8 mt-20 transition-transform w-[100%] sm:w-[100%] md:w-[100%] ${
+            isCollapsed
+              ? "lg:w-[95%] lg:ml-[5%] w-[100%]"
+              : "lg:w-[80%] lg:ml-[20%] w-[100%]"
           }  duration-300`}
         >
           <Outlet />

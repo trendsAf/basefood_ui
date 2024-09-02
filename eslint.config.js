@@ -19,6 +19,7 @@ export default [
 			"@typescript-eslint/ban-ts-comment": "off",
 			"no-console": "warn",
 			"react/prop-types": "off",
+			"@typescript-eslint/no-explicit-any": "off",
 			"react/no-unescaped-entities": "off",
 			semi: ["error", "always"],
 			quotes: ["error", "double"],
