@@ -3,6 +3,8 @@ import RootLayout from "../components/layouts/RootLayout";
 import Dashboard from "../pages/Index";
 import Login from "../pages/Auth/Login";
 import Signup from "../pages/Auth/Signup";
+import NewsPage from "../pages/News";
+import NewDashboard from "../pages/NewDashboard";
 
 const AppRoutes = () => {
   return (
@@ -11,10 +13,8 @@ const AppRoutes = () => {
       <Route path="/signup" element={<Signup />} />
       <Route path="/" element={<RootLayout />}>
         <Route index element={<Dashboard />} />
-        <Route
-          path="news"
-          element={<h1 className="dark:text-white">Market News</h1>}
-        />
+        <Route path="news" element={<NewsPage />} />
+        <Route path="dashboards/new" element={<NewDashboard />} />
       </Route>
     </Routes>
   );

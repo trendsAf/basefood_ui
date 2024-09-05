@@ -17,7 +17,7 @@ export default {
 				"green": "#66C87B",
 				"light-green": "#E8F3ED",
 				"black": "#161616",
-				"secondary-black": "#262626",
+				"secondary-black": "#1E1E1E",
 				"transparent": "transparent",
 			  },
 		},

@@ -56,12 +56,12 @@ const Dashboard: React.FC = () => {
         <Categories />
       </div>
       <div className="md:col-span-2 flex flex-col gap-2">
-        <MarketNews />
         <Chart
           selectedCountries={selectedCountries}
           //@ts-ignore
           selectedCrops={selectedCrops}
         />
+        <MarketNews />
       </div>
       <div className="md:col-span-1">
         <Countries
