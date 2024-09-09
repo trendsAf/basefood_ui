@@ -45,7 +45,7 @@ const CropsMarket: React.FC<CropsMarketProps> = ({ onCropSelect }) => {
   };
 
   return (
-    <div className="p-4 bg-white dark:text-white rounded-lg dark:bg-secondary-black">
+    <div className="p-4 bg-white dark:text-white rounded-lg dark:bg-[#1E1E1E]">
       <h2 className="text-xl font-bold mb-4">Crops Market</h2>
       <table className="w-full text-left px-2">
         <thead className="bg-bg-gray dark:bg-black dark:text-white">
@@ -68,6 +68,8 @@ const CropsMarket: React.FC<CropsMarketProps> = ({ onCropSelect }) => {
                     "&.Mui-checked": {
                       color: cropColors[crop.name],
                     },
+                    "& .MuiSvgIcon-root": { fontSize: 18 },
+                    padding: "4px",
                   }}
                 />
                 <span className="text-gray-700 dark:text-white">

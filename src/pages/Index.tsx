@@ -8,9 +8,9 @@ import Chart from "../components/market/Chart";
 const countriesData = [
   { name: "Rwanda", color: "#FF5733", checked: true },
   { name: "Uganda", color: "#33FF57", checked: true },
-  { name: "D.R. Congo", color: "#3357FF", checked: false },
-  { name: "Burundi", color: "#FF33A1", checked: false },
-  { name: "Kenya", color: "#33FFA1", checked: false },
+  { name: "D.R. Congo", color: "#3357FF", checked: true },
+  { name: "Burundi", color: "#FF33A1", checked: true },
+  { name: "Kenya", color: "#33FFA1", checked: true },
   { name: "Zambia", color: "#A133FF", checked: false },
   { name: "Zimbabwe", color: "#FFA133", checked: false },
   { name: "Somalia", color: "#33A1FF", checked: false },
@@ -56,12 +56,12 @@ const Dashboard: React.FC = () => {
         <Categories />
       </div>
       <div className="md:col-span-2 flex flex-col gap-2">
-        <MarketNews />
         <Chart
           selectedCountries={selectedCountries}
           //@ts-ignore
           selectedCrops={selectedCrops}
         />
+        <MarketNews />
       </div>
       <div className="md:col-span-1">
         <Countries

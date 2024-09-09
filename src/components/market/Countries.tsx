@@ -33,6 +33,8 @@ const Countries: React.FC<{
                 "&.Mui-checked": {
                   color: color,
                 },
+                "& .MuiSvgIcon-root": { fontSize: 18 },
+                padding: "4px",
               }}
             />
             <label>{name}</label>
