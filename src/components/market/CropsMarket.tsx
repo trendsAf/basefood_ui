@@ -68,6 +68,8 @@ const CropsMarket: React.FC<CropsMarketProps> = ({ onCropSelect }) => {
                     "&.Mui-checked": {
                       color: cropColors[crop.name],
                     },
+                    "& .MuiSvgIcon-root": { fontSize: 18 },
+                    padding: "4px",
                   }}
                 />
                 <span className="text-gray-700 dark:text-white">

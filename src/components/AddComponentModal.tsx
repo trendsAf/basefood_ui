@@ -1,4 +1,10 @@
 import React from "react";
+import { VscGraph } from "react-icons/vsc";
+import { LuTable } from "react-icons/lu";
+import { BsGraphUp } from "react-icons/bs";
+import { TbNews } from "react-icons/tb";
+import { FaTruck } from "react-icons/fa6";
+import { MdOutlineScatterPlot } from "react-icons/md";
 
 interface ComponentOption {
   type: string;
@@ -9,88 +15,42 @@ interface ComponentOption {
 
 const componentOptions: ComponentOption[] = [
   {
-    type: "watchlist",
+    type: "table",
     title: "Watchlist Table",
-    description: "View a table of commodities with columns.",
-    icon: (
-      <svg
-        className="w-8 h-8"
-        fill="none"
-        stroke="currentColor"
-        viewBox="0 0 24 24"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <path
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          strokeWidth={2}
-          d="M3 10h18M3 14h18m-9-4v8m-7 0h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"
-        />
-      </svg>
-    ),
+    description: "Display a table of commodities with columns.",
+    icon: <LuTable className="text-2xl" />,
   },
   {
     type: "historical",
-    title: "Historical Graph Templates",
-    description: "Display a historical graph of one of your graph templates.",
-    icon: (
-      <svg
-        className="w-8 h-8"
-        fill="none"
-        stroke="currentColor"
-        viewBox="0 0 24 24"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <path
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          strokeWidth={2}
-          d="M7 12l3-3 3 3 4-4M8 21l4-4 4 4M3 4h18M4 4h16v12a1 1 0 01-1 1H5a1 1 0 01-1-1V4z"
-        />
-      </svg>
-    ),
+    title: "Price Historical Graph",
+    description: "Display a price historical graph.",
+    icon: <BsGraphUp className="text-2xl" />,
+  },
+
+  {
+    type: "graph",
+    title: "Production Historical Graph",
+    description: "Display a production historical graph.",
+    icon: <VscGraph className="text-2xl" />,
   },
   {
-    type: "intraday",
-    title: "Intraday Graph",
-    description: "Display an intraday graph.",
-    icon: (
-      <svg
-        className="w-8 h-8"
-        fill="none"
-        stroke="currentColor"
-        viewBox="0 0 24 24"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <path
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          strokeWidth={2}
-          d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"
-        />
-      </svg>
-    ),
-  },
-  {
-    type: "performance",
-    title: "Performance Graph",
+    type: "news",
+    title: "Latest news.",
     description: "Display a performance graph.",
-    icon: (
-      <svg
-        className="w-8 h-8"
-        fill="none"
-        stroke="currentColor"
-        viewBox="0 0 24 24"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <path
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          strokeWidth={2}
-          d="M16 8v8m-4-5v5m-4-2v2m-2 4h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"
-        />
-      </svg>
-    ),
+    icon: <TbNews className="text-2xl" />,
+  },
+  {
+    type: "list",
+    title: "Track shipping and logistics ",
+    description:
+      "Get quick estimates on trucking and freight forwarding rates from multiple providers.",
+    icon: <FaTruck className="text-2xl" />,
+  },
+  {
+    type: "chart",
+    title: "Scatter Plot",
+    description: "Plot a chart of price and production quantities.",
+    icon: <MdOutlineScatterPlot className="text-2xl" />,
   },
 ];
 
@@ -120,7 +80,7 @@ const AddComponentModal: React.FC<AddComponentModalProps> = ({
               <button
                 key={option.type}
                 onClick={() => onAdd(option.type)}
-                className="flex items-center p-4 border rounded-lg hover:bg-gray-50 dark:hover:bg-gray-900 transition-colors text-left"
+                className="flex items-center px-4 py-3 border rounded-lg hover:bg-gray-50 dark:hover:bg-gray-900 transition-colors text-left"
               >
                 <div className="mr-4">{option.icon}</div>
                 <div>
