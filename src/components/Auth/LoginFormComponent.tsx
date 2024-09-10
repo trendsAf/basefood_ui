@@ -16,55 +16,59 @@ const LoginFormComponent = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-8">
-      <div className="mt-8">
-        <InputFieldComponent
-          className="px-4 py-3 rounded-lg border w-full border-secondary-black/30"
-          {...register("email")}
-          name="email"
-          placeholder="Email Address"
-        />
-      </div>
-      <div>
-        <InputFieldComponent
-          className="px-4 py-3 rounded-lg border w-full border-secondary-black/30"
-          {...register("password")}
-          name="password"
-          placeholder="Password"
-          type="password"
-        />
-      </div>
-      <div className="flex items-center justify-between">
-        <div className="flex gap-2 text-dark-gray items-center">
+    <form onSubmit={handleSubmit(onSubmit)} className="w-full max-w-md">
+      <div className="flex flex-col gap-6">
+        <div>
           <InputFieldComponent
-            {...register("rememberMe")}
-            name="rememberMe"
-            type="checkbox"
-            className="w-5 h-5 rounded mt-1 cursor-pointer"
+            className="px-4 py-3 rounded-lg border w-full border-secondary-black/30 focus:border-brand-blue focus:outline-none transition-all duration-300"
+            {...register("email")}
+            name="email"
+            placeholder="Email Address"
+            label="Email"
           />
-          <span>Remember me</span>
         </div>
-        <div className="text-sm text-brand-blue">
-          <span className="cursor-pointer">Forgot password?</span>
+        <div>
+          <InputFieldComponent
+            className="px-4 py-3 rounded-lg border w-full border-secondary-black/30 focus:border-brand-blue focus:outline-none transition-all duration-300"
+            {...register("password")}
+            name="password"
+            placeholder="Password"
+            type="password"
+            label="Password"
+          />
         </div>
-      </div>
-      <div className="flex justify-center mt-16">
-        <Link to={"/"} className="flex justify-center mt-16 w-4/6">
+        <div className="flex items-center justify-between">
+          <div className="flex gap-2 items-center">
+            <InputFieldComponent
+              {...register("rememberMe")}
+              name="rememberMe"
+              type="checkbox"
+              className="rounded cursor-pointer focus:ring-2 focus:ring-brand-blue"
+            />
+            <span className="text-dark-gray">Remember me</span>
+          </div>
+          <div className="text-sm text-brand-blue cursor-pointer hover:underline">
+            Forgot password?
+          </div>
+        </div>
+        <div className="flex justify-center">
           <button
             type="submit"
-            className="text-white bg-brand-blue px-5 py-2 w-4/6 rounded-lg font-bold"
+            className="text-white bg-brand-blue px-5 py-3 w-full rounded-lg font-bold hover:bg-blue-600 transition-all duration-300"
           >
             Login
           </button>
-        </Link>
-      </div>
-      <div className="text-sm">
-        <h1 className="text-center">
-          Don’t have a baseFood account yet?
-          <Link to={"/signup"}>
-            <b className="text-brand-blue cursor-pointer ml-2">Sign Up</b>
-          </Link>
-        </h1>
+        </div>
+        <div className="text-sm text-center">
+          <h1>
+            Don’t have a baseFood account yet?
+            <Link to={"/signup"}>
+              <b className="text-brand-blue cursor-pointer ml-2 hover:underline">
+                Sign Up
+              </b>
+            </Link>
+          </h1>
+        </div>
       </div>
     </form>
   );

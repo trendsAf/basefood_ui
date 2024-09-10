@@ -37,22 +37,23 @@ const CompanyDetailsComponent: React.FC<CompanyDetailsComponentProps> = ({
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
-      <h1 className="text-center text-xl md:text-2xl font-bold my-2">
+    <form onSubmit={handleSubmit(onSubmit)} className="w-full  bg-white">
+      <h1 className="text-center text-2xl font-bold mb-4">
         Add your Company Details
       </h1>
-      <p className="text-sm md:text-xl text-center mb-8">
+      <p className="text-sm text-center text-gray-600 mb-6">
         Link your account to your company, and you'll be able to add your team
         and manage applications.
       </p>
-      <div className="my-4 space-y-5">
+
+      <div className="space-y-4 mb-6">
         <InputFieldComponent
           placeholder="Enter your company name"
           {...register("companyName", { required: "Company Name is required" })}
-          className="px-4 py-2 md:py-3 rounded-lg border border-secondary-black/30 w-full"
+          className="px-4 py-3 rounded-lg border border-gray-300 w-full focus:border-brand-blue focus:ring-2 focus:ring-brand-blue outline-none transition duration-200"
         />
         {errors.companyName && (
-          <p className="text-red-500">{errors.companyName.message}</p>
+          <p className="text-red-500 text-sm">{errors.companyName.message}</p>
         )}
 
         <InputFieldComponent
@@ -60,117 +61,114 @@ const CompanyDetailsComponent: React.FC<CompanyDetailsComponentProps> = ({
           {...register("companyAddress", {
             required: "Company Address is required",
           })}
-          className="px-4 py-2 md:py-3 rounded-lg border border-secondary-black/30 w-full"
+          className="px-4 py-3 rounded-lg border border-gray-300 w-full focus:border-brand-blue focus:ring-2 focus:ring-brand-blue outline-none transition duration-200"
         />
         {errors.companyAddress && (
-          <p className="text-red-500">{errors.companyAddress.message}</p>
+          <p className="text-red-500 text-sm">
+            {errors.companyAddress.message}
+          </p>
         )}
       </div>
 
-      {/* How do you buy */}
-
-      <h1 className="mt-5">How do you buy?</h1>
-      <div className="flex gap-2 text-dark-gray items-center text-sm md:text-lg mt-2">
-        <div className="flex gap-2 items-center">
+      <h2 className="text-lg font-semibold mt-6 mb-2">How do you buy?</h2>
+      <div className="flex gap-4 flex-wrap">
+        <div className="flex items-center gap-2">
           <InputFieldComponent
             {...register("Adhoc")}
             name="adhoc"
             type="checkbox"
-            className="w-5 h-5 rounded mt-1 cursor-pointer"
+            className="w-4 h-4 rounded focus:ring-2 focus:ring-brand-blue cursor-pointer"
           />
           <span>Adhoc</span>
         </div>
-        <div className="flex gap-2 items-center">
+        <div className="flex items-center gap-2">
           <InputFieldComponent
             {...register("Contract")}
             name="Contract"
             type="checkbox"
-            className="w-5 h-5 rounded mt-1 cursor-pointer"
+            className="w-4 h-4 rounded focus:ring-2 focus:ring-brand-blue cursor-pointer"
           />
           <span>Contract</span>
         </div>
       </div>
 
-      {/* What category does your company fall under */}
-
-      <h1 className="mt-5">What category does your company fall under?</h1>
-      <div className="grid grid-cols-2 gap-2 text-dark-gray text-sm md:text-lg mt-2">
-        <div className="flex gap-2 items-center">
+      <h2 className="text-lg font-semibold mt-6 mb-2">Company Category</h2>
+      <div className="grid grid-cols-2 gap-4">
+        <div className="flex items-center gap-2">
           <InputFieldComponent
             {...register("Retail")}
             name="Retail"
             type="checkbox"
-            className="w-5 h-5 rounded mt-1 cursor-pointer"
+            className="w-4 h-4 rounded focus:ring-2 focus:ring-brand-blue cursor-pointer"
           />
           <span>Retail</span>
         </div>
-        <div className="flex gap-2 items-center">
+        <div className="flex items-center gap-2">
           <InputFieldComponent
             {...register("Warehouse")}
-            name="Contract"
+            name="Warehouse"
             type="checkbox"
-            className="w-5 h-5 rounded mt-1 cursor-pointer"
+            className="w-4 h-4 rounded focus:ring-2 focus:ring-brand-blue cursor-pointer"
           />
           <span>Warehouse/Packhouse</span>
         </div>
-        <div className="flex gap-2 items-center">
+        <div className="flex items-center gap-2">
           <InputFieldComponent
             {...register("Processor")}
             name="Processor"
             type="checkbox"
-            className="w-5 h-5 rounded mt-1 cursor-pointer"
+            className="w-4 h-4 rounded focus:ring-2 focus:ring-brand-blue cursor-pointer"
           />
           <span>Processor</span>
         </div>
-        <div className="flex gap-2 items-center">
+        <div className="flex items-center gap-2">
           <InputFieldComponent
             {...register("Other")}
             name="Other"
             type="checkbox"
-            className="w-5 h-5 rounded mt-1 cursor-pointer"
+            className="w-4 h-4 rounded focus:ring-2 focus:ring-brand-blue cursor-pointer"
           />
           <span>Other</span>
         </div>
       </div>
 
-      {/* Company type */}
-
-      <h1 className="mt-5">Company Type</h1>
-      <div className="grid grid-cols-2 gap-2 text-dark-gray text-sm md:text-lg mt-2">
-        <div className="flex gap-2 items-center">
+      <h2 className="text-lg font-semibold mt-6 mb-2">Company Type</h2>
+      <div className="grid grid-cols-2 gap-4">
+        <div className="flex items-center gap-2">
           <InputFieldComponent
             {...register("SMME")}
             name="SMME"
             type="checkbox"
-            className="w-5 h-5 rounded mt-1 cursor-pointer"
+            className="w-4 h-4 rounded focus:ring-2 focus:ring-brand-blue cursor-pointer"
           />
           <span>SMME</span>
         </div>
-        <div className="flex gap-2 items-center">
+        <div className="flex items-center gap-2">
           <InputFieldComponent
             {...register("ListedCompany")}
             name="ListedCompany"
             type="checkbox"
-            className="w-5 h-5 rounded mt-1 cursor-pointer"
+            className="w-4 h-4 rounded focus:ring-2 focus:ring-brand-blue cursor-pointer"
           />
-          <span>Listed/Company</span>
+          <span>Listed Company</span>
         </div>
-        <div className="flex gap-2 items-center">
+        <div className="flex items-center gap-2">
           <InputFieldComponent
             {...register("MeduimLarge")}
             name="MeduimLarge"
             type="checkbox"
-            className="w-5 h-5 rounded mt-1 cursor-pointer"
+            className="w-4 h-4 rounded focus:ring-2 focus:ring-brand-blue cursor-pointer"
           />
-          <span>Meduim/Large</span>
+          <span>Medium/Large</span>
         </div>
       </div>
-      <div className="flex items-center justify-center mt-12">
+
+      <div className="flex items-center justify-center mt-8 w-full">
         <PrimaryButton
           text="Next"
           onClick={onNext}
           type="button"
-          className="text-white bg-brand-blue px-5 py-2 w-4/6 rounded-lg font-bold"
+          className="text-white w-full bg-brand-blue px-5 py-3 rounded-lg font-bold hover:bg-blue-600 transition-all duration-300"
         />
       </div>
     </form>

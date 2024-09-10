@@ -29,17 +29,23 @@ const CreatePasswordComponent: React.FC<CreatePasswordComponentProps> = ({
     console.log(data);
     onNext();
   };
+
   const password = watch("password");
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
-      <h1 className="text-center text-xl md:text-2xl font-bold my-2">
+    <form
+      onSubmit={handleSubmit(onSubmit)}
+      className="w-full bg-white rounded-lg"
+    >
+      <h1 className="text-center text-2xl font-bold mb-4">
         Create your password
       </h1>
-      <p className="text-sm md:text-xl text-center mb-8">
+      <p className="text-center text-gray-600 mb-6">
         Please set a password for your account
       </p>
-      <div className="my-4 space-y-6">
+
+      {/* Password Fields */}
+      <div className="space-y-5 mb-6">
         <InputFieldComponent
           type="password"
           placeholder="Enter your password"
@@ -50,31 +56,35 @@ const CreatePasswordComponent: React.FC<CreatePasswordComponentProps> = ({
               message: "Password must be at least 6 characters",
             },
           })}
-          className="px-4 py-2 md:py-3 rounded-lg border w-full border-secondary-black/30"
+          className="px-4 py-3 rounded-lg border w-full border-gray-300 focus:border-brand-blue focus:ring-2 focus:ring-brand-blue outline-none transition duration-200"
         />
         {errors.password && (
-          <p className="text-red-500">{errors.password.message}</p>
+          <p className="text-red-500 text-sm">{errors.password.message}</p>
         )}
 
         <InputFieldComponent
           type="password"
           placeholder="Confirm your password"
-          className="px-4 py-2 md:py-3 rounded-lg border w-full border-secondary-black/30"
           {...register("confirmPassword", {
             required: "Confirm Password is required",
             validate: (value) => value === password || "Passwords do not match",
           })}
+          className="px-4 py-3 rounded-lg border w-full border-gray-300 focus:border-brand-blue focus:ring-2 focus:ring-brand-blue outline-none transition duration-200"
         />
         {errors.confirmPassword && (
-          <p className="text-red-500">{errors.confirmPassword.message}</p>
+          <p className="text-red-500 text-sm">
+            {errors.confirmPassword.message}
+          </p>
         )}
       </div>
-      <div className="flex items-center justify-center mt-12">
+
+      {/* Submit Button */}
+      <div className="flex items-center justify-center mt-8">
         <PrimaryButton
           text="Next"
           onClick={onNext}
           type="button"
-          className="text-white bg-brand-blue px-5 py-2 w-4/6 rounded-lg font-bold"
+          className="text-white bg-brand-blue px-5 py-3 w-full rounded-lg font-bold hover:bg-blue-600 transition-all duration-300"
         />
       </div>
     </form>
