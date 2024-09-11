@@ -41,7 +41,7 @@ const CompanyDetailsComponent: React.FC<CompanyDetailsComponentProps> = ({
       <h1 className="text-center text-2xl font-bold mb-4">
         Add your Company Details
       </h1>
-      <p className="text-sm text-center text-gray-600 mb-6">
+      <p className="text-sm text-gray-600 mb-6">
         Link your account to your company, and you'll be able to add your team
         and manage applications.
       </p>
@@ -70,7 +70,7 @@ const CompanyDetailsComponent: React.FC<CompanyDetailsComponentProps> = ({
         )}
       </div>
 
-      <h2 className="text-lg font-semibold mt-6 mb-2">How do you buy?</h2>
+      {/* <h2 className="text-lg font-semibold mt-6 mb-2">How do you buy?</h2>
       <div className="flex gap-4 flex-wrap">
         <div className="flex items-center gap-2">
           <InputFieldComponent
@@ -90,7 +90,7 @@ const CompanyDetailsComponent: React.FC<CompanyDetailsComponentProps> = ({
           />
           <span>Contract</span>
         </div>
-      </div>
+      </div> */}
 
       <h2 className="text-lg font-semibold mt-6 mb-2">Company Category</h2>
       <div className="grid grid-cols-2 gap-4">

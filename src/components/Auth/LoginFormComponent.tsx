@@ -59,7 +59,7 @@ const LoginFormComponent = () => {
             Login
           </button>
         </div>
-        <div className="text-sm text-center">
+        <div className="text-sm">
           <h1>
             Don’t have a baseFood account yet?
             <Link to={"/signup"}>

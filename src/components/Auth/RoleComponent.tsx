@@ -19,17 +19,17 @@ const RoleComponent: React.FC<RoleComponentProps> = ({ onNext }) => {
       <h1 className="text-center text-2xl md:text-3xl font-bold text-gray-800">
         What is your role?
       </h1>
-      <p className="text-center mt-4 text-base md:text-lg text-gray-600">
+      <p className="text-start mt-4 text-base md:text-lg text-gray-600">
         Tell us about your role at your company, and we'll tailor your profile
         to fit your daily responsibilities.
       </p>
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5 my-8">
+      <div className="flex items-center flex-wrap gap-2 my-8">
         {data.map((item, index) => (
           <div key={index} className="relative mt-5">
             <PrimaryButton
               text={item.name}
               onClick={() => handleClick(item.name)}
-              className={`rounded-full text-secondary-black bg-white border border-secondary-black/30 w-full py-3 transition-colors duration-200 ${
+              className={`rounded-[12px] !text-[#121212] bg-white border whitespace-nowrap border-secondary-black/30 w-full py-2 transition-colors duration-200 ${
                 selectedRole === item.name
                   ? "!border-green-500 !text-green-500"
                   : "hover:border-brand-blue hover:text-brand-blue"
@@ -44,7 +44,7 @@ const RoleComponent: React.FC<RoleComponentProps> = ({ onNext }) => {
           </div>
         ))}
       </div>
-      <div className="flex w-full items-center justify-center mt-12">
+      <div className="flex w-full items-center justify-center mt-8">
         <PrimaryButton
           text="Next"
           onClick={onNext}
@@ -52,8 +52,8 @@ const RoleComponent: React.FC<RoleComponentProps> = ({ onNext }) => {
           className="text-white w-full bg-brand-blue px-5 py-2 rounded-lg font-bold hover:bg-blue-600 transition-all duration-300"
         />
       </div>
-      <div className="text-lg font-thin mt-6">
-        <h1 className="text-center">
+      <div className="font-thin mt-6">
+        <h1 className="text-base md:text-lg text-gray-600">
           Already have a baseFood account?
           <b className="text-brand-blue cursor-pointer ml-2 hover:underline">
             Login

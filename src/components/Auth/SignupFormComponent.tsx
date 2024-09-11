@@ -25,7 +25,7 @@ const SignupFormComponent: React.FC<SignupFormComponentProps> = ({
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="w-full max-w-md mx-auto">
-      <div className="flex flex-col gap-6">
+      <div className="flex flex-col gap-4">
         {/* First Name Input */}
         <InputFieldComponent
           className="px-4 py-3 rounded-lg border w-full border-secondary-black/30 focus:border-brand-blue focus:outline-none transition-all duration-300"
@@ -67,7 +67,7 @@ const SignupFormComponent: React.FC<SignupFormComponentProps> = ({
             <span className="text-dark-gray">
               I accept <b className="text-brand-blue">baseFood</b>{" "}
               <small className="text-brand-blue cursor-pointer hover:underline">
-                terms & conditions
+                Terms & conditions
               </small>
             </span>
           </div>
@@ -85,7 +85,7 @@ const SignupFormComponent: React.FC<SignupFormComponentProps> = ({
           </button>
         </div>
 
-        <div className="text-sm text-center">
+        <div className="text-sm ">
           <h1>
             Already have a baseFood account?
             <Link to={"/login"}>
