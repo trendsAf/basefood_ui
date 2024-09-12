@@ -38,9 +38,7 @@ const CompanyDetailsComponent: React.FC<CompanyDetailsComponentProps> = ({
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="w-full  bg-white">
-      <h1 className="text-center text-2xl font-bold mb-4">
-        Add your Company Details
-      </h1>
+      <h1 className="text-2xl font-bold mb-4">Add your Company Details</h1>
       <p className="text-sm text-gray-600 mb-6">
         Link your account to your company, and you'll be able to add your team
         and manage applications.

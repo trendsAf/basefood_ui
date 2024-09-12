@@ -1,15 +1,12 @@
 import { useState } from "react";
-import SignupFormComponent from "../../components/Auth/SignupFormComponent";
-import RoleComponent from "../../components/Auth/RoleComponent";
+import { TbWorldUpload } from "react-icons/tb";
 import CompanyDetailsComponent from "../../components/Auth/CompanyDetailsComponent";
-import CreatePasswordComponent from "../../components/Auth/CreatePasswordComponent";
-import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
-import "react-circular-progressbar/dist/styles.css";
 import CompleteComponent from "../../components/Auth/CompleteComponent";
-
+import CreatePasswordComponent from "../../components/Auth/CreatePasswordComponent";
+import RoleComponent from "../../components/Auth/RoleComponent";
+import SignupFormComponent from "../../components/Auth/SignupFormComponent";
 const Signup = () => {
   const [step, setStep] = useState(1);
-  const totalSteps = 5;
 
   const handleNextStep = () => {
     setStep((prevStep) => prevStep + 1);
@@ -21,74 +18,46 @@ const Signup = () => {
     }
   };
 
-  const progressPercentage = (step / totalSteps) * 100;
-
-  const getStepLabel = (step: number) => {
-    switch (step) {
-      case 1:
-        return { current: "Personal Details", next: "Role" };
-      case 2:
-        return { current: "Role", next: "Company Details" };
-      case 3:
-        return { current: "Company Details", next: "Create Password" };
-      case 4:
-        return { current: "Create Password", next: "Complete" };
-      default:
-        return { current: "", next: "" };
-    }
-  };
-
-  const { current, next } = getStepLabel(step);
+  const data = [
+    "delectus exercitationem. Eius est exercitationem",
+    "delectus exercitationem. Eius est exercitationem",
+    "delectus exercitationem. Eius est exercitationem",
+    "delectus exercitationem. Eius est exercitationem",
+  ];
 
   return (
     <div className="bg-white flex h-screen">
-      <div className="hidden lg:flex flex-col justify-between w-[50%] h-full bg-brand-blue/80">
-        <video autoPlay muted loop className="w-full h-full object-cover">
+      <div className="hidden lg:flex flex-col justify-between w-[50%] h-full relative">
+        <div className="absolute w-full h-full bg-gradient-to-b from-black via-black/90 to-black/10 inset-0 z-10"></div>
+        {/* <video autoPlay muted loop className="w-full h-full object-cover">
           <source
-            src="https://res.cloudinary.com/dq6npfdgz/video/upload/v1725639485/4778066-uhd_2562_1440_25fps_ytvf2g.mp4"
+            src="https://res.cloudinary.com/dq6npfdgz/video/upload/v1725645136/small_3075999-hd_1280_720_30fps_ar9d0k.mp4"
             type="video/mp4"
           />
-        </video>
-        {/* <div className="flex flex-col gap-6">
-          <h1 className="text-3xl font-bold text-center text-white">
-            Welcome to baseFood!
-          </h1>
-          <p className="text-center text-lg text-white">
-            Sign up to explore the best agricultural products and get insights
-            into the market.
-          </p>
-          <button className="w-full py-3 border text-white mt-8 border-white/40 hover:bg-white hover:text-brand-blue transition-all duration-300">
-            Login
-          </button>
+        </video> */}
+        <div className="w-fu h-full">
+          <img
+            src="https://res.cloudinary.com/dq6npfdgz/image/upload/v1725875253/data_image7_tqfxiu.jpg"
+            alt="image"
+            className="w-full h-full object-cover"
+          />
         </div>
-        <div>
-          <h1 className="text-white text-center text-2xl md:text-4xl font-black font-sans">
-            baseFood
+        <div className="absolute w-full z-30 top-52 text-white flex flex-col gap-4 items-center justify-center">
+          <h1 className="text-3xl font-extrabold font-sans">
+            Lorem ipsum dolor sit amet consec
           </h1>
-        </div> */}
+          <div className="grid grid-cols-2 gap-2 px-10 w-2/3">
+            {data.map((item, idx) => (
+              <div key={idx} className="flex gap-1">
+                <TbWorldUpload className="text-3xl" />
+                <h1>{item}</h1>
+              </div>
+            ))}
+          </div>
+        </div>
       </div>
 
       <div className="flex flex-1 items-center justify-center w-full relative">
-        <div className="absolute top-10 right-10 w-10 h-10 md:w-16 md:h-16">
-          <CircularProgressbar
-            value={progressPercentage}
-            text={`${step}/${totalSteps}`}
-            styles={buildStyles({
-              textColor: "#1D4ED8",
-              pathColor: "#1D4ED8",
-              trailColor: "#d6d6d6",
-            })}
-          />
-        </div>
-        <div className="absolute top-10 right-24 md:right-32">
-          <p className="text-sm md:text-lg font-bold text-brand-blue">
-            {current}
-          </p>
-          {step < totalSteps && (
-            <p className="text-xs md:text-sm text-gray-500">Next: {next}</p>
-          )}
-        </div>
-
         <div className="px-2 flex flex-col items-center justify-center space-y-6 w-[80%] py-5  rounded-lg">
           <div className="w-full max-w-md">
             {step === 1 && (
