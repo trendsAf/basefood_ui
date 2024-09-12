@@ -1,20 +1,17 @@
+import { createTheme, ThemeProvider, Tooltip } from "@mui/material";
 import { useEffect, useState } from "react";
-import { FaBars, FaPlus, FaChevronDown, FaChevronUp } from "react-icons/fa";
-import {
-  AiOutlineBell,
-  AiOutlineClockCircle,
-  AiOutlineShop,
-} from "react-icons/ai";
-import { GoHome } from "react-icons/go";
+import { AiOutlineBell, AiOutlineShop } from "react-icons/ai";
+import { FaBars, FaChevronDown, FaChevronUp, FaPlus } from "react-icons/fa";
 import { FiDatabase } from "react-icons/fi";
-import { MdOutlineLogout } from "react-icons/md";
-import { Tooltip, createTheme, ThemeProvider } from "@mui/material";
-import ModeToggle from "./ModeToggle";
-import { RxDashboard } from "react-icons/rx";
+import { GoHome } from "react-icons/go";
+import { LiaMoneyCheckAltSolid } from "react-icons/lia";
 import { LuNewspaper } from "react-icons/lu";
+import { MdOutlineLogout } from "react-icons/md";
+import { RxDashboard } from "react-icons/rx";
 import { useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
 import { RootState } from "../../redux/store";
+import ModeToggle from "./ModeToggle";
 
 const tooltipTheme = createTheme({
   components: {
@@ -202,21 +199,40 @@ const Sidebar = ({
                   </li>
                 </Tooltip>
               </ThemeProvider>
-              <ThemeProvider theme={tooltipTheme}>
-                <Tooltip
-                  title={`${isCollapsed ? "Analytics" : ""}`}
-                  placement="right"
-                >
-                  <li className="flex items-center px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-800 cursor-pointer rounded">
-                    <AiOutlineClockCircle className="text-xl text-gray-900 dark:text-white" />
-                    {!isCollapsed && (
-                      <span className="ml-4 text-gray-900 dark:text-white">
-                        Analytics
-                      </span>
-                    )}
-                  </li>
-                </Tooltip>
-              </ThemeProvider>
+              <a href="buyers" target="_blank">
+                <ThemeProvider theme={tooltipTheme}>
+                  <Tooltip
+                    title={`${isCollapsed ? "Analytics" : ""}`}
+                    placement="right"
+                  >
+                    <li className="flex items-center px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-800 cursor-pointer rounded">
+                      <LiaMoneyCheckAltSolid className="text-xl text-gray-900 dark:text-white" />
+                      {!isCollapsed && (
+                        <span className="ml-4 text-gray-900 dark:text-white">
+                          Find buyers
+                        </span>
+                      )}
+                    </li>
+                  </Tooltip>
+                </ThemeProvider>
+              </a>
+              {/* <NavLink to="buyers">
+                <ThemeProvider theme={tooltipTheme}>
+                  <Tooltip
+                    title={`${isCollapsed ? "Analytics" : ""}`}
+                    placement="right"
+                  >
+                    <li className="flex items-center px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-800 cursor-pointer rounded">
+                      <LiaMoneyCheckAltSolid className="text-xl text-gray-900 dark:text-white" />
+                      {!isCollapsed && (
+                        <span className="ml-4 text-gray-900 dark:text-white">
+                          Find buyers
+                        </span>
+                      )}
+                    </li>
+                  </Tooltip>
+                </ThemeProvider>
+              </NavLink> */}
               <ThemeProvider theme={tooltipTheme}>
                 <Tooltip
                   title={`${isCollapsed ? "Subscriptions" : ""}`}
