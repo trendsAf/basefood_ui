@@ -23,14 +23,14 @@ const LoginFormComponent = () => {
         <div className="flex flex-col gap-6">
           <div>
             <InputFieldComponent
-              className="px-4 py-3 pt-8 rounded-lg border w-full border-secondary-black/30 focus:border-brand-blue focus:outline-none transition-all duration-300"
+              className="px-4 py-2 pt-8 rounded-lg border w-full border-secondary-black/30 focus:border-brand-blue focus:outline-none transition-all outline-none duration-300"
               {...register("email")}
               label="Email"
             />
           </div>
           <div>
             <InputFieldComponent
-              className="px-4 py-3 pt-8 rounded-lg border w-full border-secondary-black/30 focus:border-brand-blue focus:outline-none transition-all duration-300"
+              className="px-4 py-2 pt-8 rounded-lg border w-full border-secondary-black/30 focus:border-brand-blue focus:outline-none outline-none transition-all duration-300"
               {...register("password")}
               name="password"
               label="Password"
@@ -48,7 +48,9 @@ const LoginFormComponent = () => {
         </div>
       </form>
       <div className="flex justify-center items-center w-full">
-        <button className="text-center text-sm my-5">Forgot password?</button>
+        <button className="text-center text-sm my-5 text-brand-blue">
+          Forgot password?
+        </button>
       </div>
       <div>
         <div className="flex justify-center my-4">
@@ -57,7 +59,7 @@ const LoginFormComponent = () => {
             className=" bg-[#e5e5e5] text-black px-5 py-3 w-full rounded-lg font-bold hover:bg-[#d1d0d0] transition-all duration-300 flex items-center justify-center gap-3"
           >
             <FcGoogle className="text-2xl" />
-            Create Account
+            Continue with Google
           </button>
         </div>
         <div className="flex justify-center my-4">
@@ -66,7 +68,7 @@ const LoginFormComponent = () => {
             className=" bg-[#e5e5e5]  text-black px-5 py-3 w-full rounded-lg font-bold hover:bg-[#d1d0d0] transition-all duration-300 flex items-center justify-center gap-3"
           >
             <FaLinkedinIn className="text-2xl text-blue-700" />
-            Create Account
+            Continue with Linkedin
           </button>
         </div>
       </div>

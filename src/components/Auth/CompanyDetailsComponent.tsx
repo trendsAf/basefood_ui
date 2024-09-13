@@ -48,7 +48,7 @@ const CompanyDetailsComponent: React.FC<CompanyDetailsComponentProps> = ({
         <InputFieldComponent
           placeholder="Enter your company name"
           {...register("companyName", { required: "Company Name is required" })}
-          className="px-4 py-3 rounded-lg border border-gray-300 w-full focus:border-brand-blue focus:ring-2 focus:ring-brand-blue outline-none transition duration-200"
+          className="px-4 py-3 rounded-lg border border-gray-300 w-full focus:border-brand-blue focus:ring-1 focus:ring-brand-blue outline-none transition duration-200"
         />
         {errors.companyName && (
           <p className="text-red-500 text-sm">{errors.companyName.message}</p>
@@ -59,7 +59,7 @@ const CompanyDetailsComponent: React.FC<CompanyDetailsComponentProps> = ({
           {...register("companyAddress", {
             required: "Company Address is required",
           })}
-          className="px-4 py-3 rounded-lg border border-gray-300 w-full focus:border-brand-blue focus:ring-2 focus:ring-brand-blue outline-none transition duration-200"
+          className="px-4 py-3 rounded-lg border border-gray-300 w-full focus:border-brand-blue focus:ring-1 focus:ring-brand-blue outline-none transition duration-200"
         />
         {errors.companyAddress && (
           <p className="text-red-500 text-sm">
@@ -67,28 +67,6 @@ const CompanyDetailsComponent: React.FC<CompanyDetailsComponentProps> = ({
           </p>
         )}
       </div>
-
-      {/* <h2 className="text-lg font-semibold mt-6 mb-2">How do you buy?</h2>
-      <div className="flex gap-4 flex-wrap">
-        <div className="flex items-center gap-2">
-          <InputFieldComponent
-            {...register("Adhoc")}
-            name="adhoc"
-            type="checkbox"
-            className="w-4 h-4 rounded focus:ring-2 focus:ring-brand-blue cursor-pointer"
-          />
-          <span>Adhoc</span>
-        </div>
-        <div className="flex items-center gap-2">
-          <InputFieldComponent
-            {...register("Contract")}
-            name="Contract"
-            type="checkbox"
-            className="w-4 h-4 rounded focus:ring-2 focus:ring-brand-blue cursor-pointer"
-          />
-          <span>Contract</span>
-        </div>
-      </div> */}
 
       <h2 className="text-lg font-semibold mt-6 mb-2">Company Category</h2>
       <div className="grid grid-cols-2 gap-4">
