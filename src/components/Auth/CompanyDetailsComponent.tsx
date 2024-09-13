@@ -91,7 +91,7 @@ const CompanyDetailsComponent: React.FC<CompanyDetailsComponentProps> = ({
           render={({ field }) => (
             <FormControl fullWidth variant="outlined">
               <InputLabel id="company-category-label">
-                Company Category
+                Select Company Category
               </InputLabel>
               <Select
                 {...field}
