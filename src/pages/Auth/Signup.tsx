@@ -1,14 +1,16 @@
 import { useState } from "react";
 import { TbPlant, TbChartBar, TbCloudComputing, TbUsers } from "react-icons/tb";
 import CompanyDetailsComponent from "../../components/Auth/CompanyDetailsComponent";
-import CompleteComponent from "../../components/Auth/CompleteComponent";
 import CreatePasswordComponent from "../../components/Auth/CreatePasswordComponent";
-import RoleComponent from "../../components/Auth/RoleComponent";
 import SignupFormComponent from "../../components/Auth/SignupFormComponent";
 import Logo from "../../assets/basefood_lowercase.png";
+import { IoIosArrowRoundBack, IoMdCheckmark } from "react-icons/io";
+import { data } from "../../utils/roleButtonUtils";
+import PrimaryButton from "../../components/common/PrimaryButton";
 
 const Signup = () => {
   const [step, setStep] = useState(1);
+  const [selectedRole, setSelectedRole] = useState<string | null>(null);
 
   const handleNextStep = () => {
     setStep((prevStep) => prevStep + 1);
@@ -18,6 +20,9 @@ const Signup = () => {
     if (step > 1) {
       setStep((prevStep) => prevStep - 1);
     }
+  };
+  const handleClick = (role: string) => {
+    setSelectedRole(role);
   };
 
   const features = [
@@ -66,29 +71,66 @@ const Signup = () => {
       </div>
 
       <div className="flex flex-1 items-center justify-center w-full relative">
-        <div className="px-2 flex flex-col items-center justify-center space-y-6 w-[80%] py-5 rounded-lg">
+        <div className=" flex flex-col items-center justify-center space-y-6 w-[80%] py-5 rounded-lg">
           <div className="w-full max-w-md">
             {step === 1 && (
               <div>
-                <h1 className="text-brand-blue text-3xl md:text-4xl font-black text-left"></h1>
-                <h1 className="text-2xl mb-10">
+                <h1 className="text-2xl space_grotesk2 font-medium text-center mb-10">
                   Sign up for a <b className="font-bold">basefood</b> Account
                 </h1>
               </div>
             )}
-
             {step === 1 && <SignupFormComponent onNext={handleNextStep} />}
-            {step === 2 && <RoleComponent onNext={handleNextStep} />}
-            {step === 3 && <CompanyDetailsComponent onNext={handleNextStep} />}
+            {step === 2 && <CompanyDetailsComponent onNext={handleNextStep} />}
+            {step === 3 && (
+              <div className="">
+                <h1 className="text-2xl space_grotesk2 text-center font-medium">
+                  What is your role?
+                </h1>
+                <p className="text-center helvetica mt-4 text-md text-gray-600">
+                  Tell us about your role at your company, and we'll tailor your
+                  profile to fit your daily responsibilities.
+                </p>
+                <div className="grid grid-cols-2 gap-x-2">
+                  {data.map((item, index) => (
+                    <div key={index} className="relative mt-5">
+                      <PrimaryButton
+                        text={item.name}
+                        onClick={() => handleClick(item.name)}
+                        className={`rounded-[5px] helvetica !text-[#121212]  text-left bg-white border whitespace-nowrap border-secondary-black/30 w-full py-2 transition-colors duration-300 ${
+                          selectedRole === item.name
+                            ? "!border-green-500 !text-brand-blue !border-brand-blue"
+                            : "hover:border-brand-blue hover:!text-brand-blue"
+                        }`}
+                      />
+                      {selectedRole === item.name && (
+                        <IoMdCheckmark
+                          className="absolute text-brand-blue top-1/2 right-4 text-green-500 text-lg"
+                          style={{ transform: "translateY(-50%)" }}
+                        />
+                      )}
+                    </div>
+                  ))}
+                </div>
+                <div className="flex w-full items-center justify-center mt-8">
+                  <PrimaryButton
+                    text="Next"
+                    onClick={handleNextStep}
+                    type="button"
+                    className="text-white helvetica w-full bg-brand-blue px-5 py-2 rounded-[5px] font-bold hover:bg-blue-600 transition-all duration-300"
+                  />
+                </div>
+              </div>
+            )}
             {step === 4 && <CreatePasswordComponent onNext={handleNextStep} />}
-            {step === 5 && <CompleteComponent />}
-
+            {/* {step === 5 && <CompleteComponent />} */}
             {step > 1 && (
               <button
                 type="button"
                 onClick={handlePrevStep}
-                className="text-brand-blue px-4 py-2 mt-4 rounded-lg"
+                className="text-brand-blue helvetica flex gap-1 items-center px-4 mt-4 py-2 rounded-lg"
               >
+                <IoIosArrowRoundBack className="text-xl " />
                 Back
               </button>
             )}

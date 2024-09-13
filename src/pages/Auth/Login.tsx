@@ -29,7 +29,7 @@ const Login = () => {
           />
         </div>
         <div className="absolute inset-0 z-20 flex flex-col justify-center items-center text-white p-12">
-          <h1 className="text-4xl font-bold mb-8">
+          <h1 className="text-4xl space_grotesk font-bold mb-8">
             Cultivate smarter decisions
           </h1>
           <div className="grid grid-cols-1 gap-6 w-full max-w-md">
@@ -41,7 +41,7 @@ const Login = () => {
                   <TbCloudComputing className="text-2xl flex-shrink-0" />
                 )}
                 {idx === 3 && <TbUsers className="text-2xl flex-shrink-0" />}
-                <p className="text-lg">{feature}</p>
+                <p className="text-lg helvetica">{feature}</p>
               </div>
             ))}
           </div>
@@ -50,8 +50,7 @@ const Login = () => {
       <div className="flex flex-1 items-center justify-center w-[50%] bg-[url('https://res.cloudinary.com/dq6npfdgz/video/upload/v1725639485/4778066-uhd_2562_1440_25fps_ytvf2g.mp4')]">
         <div className="px-2 flex flex-col items-center justify-center space-y-6 w-[80%] h-3/5 rounded-lg">
           <div className="w-full max-w-md">
-            <h1 className="text-brand-blue text-3xl md:text-4xl font-black text-left"></h1>
-            <h1 className="text-2xl mb-10">
+            <h1 className="text-2xl text-center space_grotesk2 font-medium mb-10">
               Log in to your <b className="font-bold">basefood</b> Account
             </h1>
             <LoginFormComponent />
