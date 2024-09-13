@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { data } from "../../utils/roleButtonUtils";
 import PrimaryButton from "../common/PrimaryButton";
-import { FaCheck } from "react-icons/fa"; // Import a tick icon
+import { IoMdCheckmark } from "react-icons/io";
 
 interface RoleComponentProps {
   onNext: () => void;
@@ -15,29 +15,29 @@ const RoleComponent: React.FC<RoleComponentProps> = ({ onNext }) => {
   };
 
   return (
-    <div className="px-4 py-8">
-      <h1 className="text-2xl md:text-3xl font-bold text-gray-800">
+    <div className="py-8">
+      <h1 className="text-2xl text-center space_grotesk2 md:text-3xl font-medium text-gray-800">
         What is your role?
       </h1>
-      <p className="text-start mt-4 text-base md:text-lg text-gray-600">
+      <p className="text-center mt-4 text-sm text-gray-600">
         Tell us about your role at your company, and we'll tailor your profile
         to fit your daily responsibilities.
       </p>
-      <div className="flex items-center flex-wrap gap-2 my-8">
+      <div className="grid grid-cols-2 gap-x-2">
         {data.map((item, index) => (
           <div key={index} className="relative mt-5">
             <PrimaryButton
               text={item.name}
               onClick={() => handleClick(item.name)}
-              className={`rounded-[12px] !text-[#121212] bg-white border whitespace-nowrap border-secondary-black/30 w-full py-2 transition-colors duration-200 ${
+              className={`rounded-lg !text-[#121212]  text-left bg-white border whitespace-nowrap border-secondary-black/30 w-full py-2 transition-colors duration-300 ${
                 selectedRole === item.name
-                  ? "!border-green-500 !text-green-500"
-                  : "hover:border-brand-blue hover:text-brand-blue"
+                  ? "!border-green-500 !text-brand-blue !border-brand-blue"
+                  : "hover:border-brand-blue hover:!text-brand-blue"
               }`}
             />
             {selectedRole === item.name && (
-              <FaCheck
-                className="absolute top-1/2 right-4 text-green-500 text-lg"
+              <IoMdCheckmark
+                className="absolute text-brand-blue top-1/2 right-4 text-green-500 text-lg"
                 style={{ transform: "translateY(-50%)" }}
               />
             )}
@@ -53,8 +53,8 @@ const RoleComponent: React.FC<RoleComponentProps> = ({ onNext }) => {
         />
       </div>
       <div className="font-thin mt-6">
-        <h1 className="text-base md:text-lg text-gray-600">
-          Already have a baseFood account?
+        <h1 className="text-base text-center md:text-lg text-gray-600">
+          Already have an account?
           <b className="text-brand-blue cursor-pointer ml-2 hover:underline">
             Login
           </b>
