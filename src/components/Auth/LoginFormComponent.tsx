@@ -1,21 +1,61 @@
 /* eslint-disable no-console */
 import { SubmitHandler, useForm, Controller } from "react-hook-form";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { FaLinkedinIn } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
 import { TextField } from "@mui/material";
+import * as yup from "yup";
+import { yupResolver } from "@hookform/resolvers/yup";
+import api from "../../redux/api";
+import { useState } from "react";
+import { toast, ToastContainer } from "react-toastify";
 
 interface LoginFormComponentFieldProps {
   email: string;
   password: string;
-  rememberMe: boolean;
 }
 
+const schema = yup.object().shape({
+  email: yup
+    .string()
+    .email("Invalid email format")
+    .required("Email is required"),
+  password: yup.string().required("Password is required"),
+});
+
 const LoginFormComponent = () => {
-  const { handleSubmit, control } = useForm<LoginFormComponentFieldProps>();
-  const onSubmit: SubmitHandler<LoginFormComponentFieldProps> = (data) => {
-    console.log(data);
+  const {
+    handleSubmit,
+    control,
+    formState: { errors },
+  } = useForm<LoginFormComponentFieldProps>({
+    resolver: yupResolver(schema),
+    mode: "onBlur",
+  });
+  const onSubmit: SubmitHandler<LoginFormComponentFieldProps> = async (
+    data,
+  ) => {
+    setIsLoading(true);
+    try {
+      const response = await api.post("/users/login", data);
+      console.log(response.data);
+      toast.success("you're logged in!");
+      setTimeout(() => {
+        navigate("/");
+      }, 3000);
+    } catch (error: any) {
+      toast.error(
+        error.response?.data.message ||
+          "Login failed. Please check your credentials.",
+      );
+      console.error("Login error:", error);
+    } finally {
+      setIsLoading(false);
+    }
   };
+
+  const [isLoading, setIsLoading] = useState(false);
+  const navigate = useNavigate();
 
   const textFieldSx = {
     "& .MuiOutlinedInput-input": {
@@ -31,6 +71,7 @@ const LoginFormComponent = () => {
 
   return (
     <div>
+      <ToastContainer />
       <form onSubmit={handleSubmit(onSubmit)} className="w-full max-w-md">
         <div className="flex flex-col gap-6">
           <Controller
@@ -45,6 +86,8 @@ const LoginFormComponent = () => {
                 fullWidth
                 className="bg-white"
                 sx={textFieldSx}
+                error={!!errors.email}
+                helperText={errors.email?.message}
               />
             )}
           />
@@ -61,17 +104,19 @@ const LoginFormComponent = () => {
                 fullWidth
                 className="bg-white"
                 sx={textFieldSx}
+                error={!!errors.password}
+                helperText={errors.password?.message}
               />
             )}
           />
 
           <div className="flex justify-center">
-            <Link
-              to="/"
+            <button
               className="text-white text-center bg-brand-blue px-5 py-3 w-full rounded-[5px] font-bold hover:bg-blue-600 transition-all duration-300"
+              type="submit"
             >
-              <button type="submit">Login</button>
-            </Link>
+              {isLoading ? "Loading..." : "Login"}
+            </button>
           </div>
         </div>
       </form>

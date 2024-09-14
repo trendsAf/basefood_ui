@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import React from "react";
 import { useForm, SubmitHandler, Controller } from "react-hook-form";
 import {
@@ -11,7 +10,11 @@ import {
 import PrimaryButton from "../common/PrimaryButton";
 
 interface CompanyDetailsComponentProps {
-  onNext: () => void;
+  onNext: (data: {
+    companyName: string;
+    companyAddress: string;
+    companyCategory: string;
+  }) => void;
 }
 
 interface CompanyDetailsFormInputs {
@@ -26,8 +29,11 @@ const CompanyDetailsComponent: React.FC<CompanyDetailsComponentProps> = ({
   const { control, handleSubmit } = useForm<CompanyDetailsFormInputs>();
 
   const onSubmit: SubmitHandler<CompanyDetailsFormInputs> = (data) => {
-    console.log(data);
-    onNext();
+    onNext({
+      companyName: data.companyName,
+      companyAddress: data.companyAddress,
+      companyCategory: data.companyCategory,
+    });
   };
 
   const textFieldSx = {
@@ -113,7 +119,7 @@ const CompanyDetailsComponent: React.FC<CompanyDetailsComponentProps> = ({
       <div className="flex items-center justify-center mt-8 w-full">
         <PrimaryButton
           text="Next"
-          onClick={onNext}
+          onClick={handleSubmit(onSubmit)}
           type="button"
           className="text-white helvetica w-full bg-brand-blue px-5 py-3 rounded-[5px] font-bold hover:bg-blue-600 transition-all duration-300"
         />

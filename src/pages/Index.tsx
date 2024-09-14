@@ -50,12 +50,12 @@ const Dashboard: React.FC = () => {
   };
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-3 xl:grid-cols-4 gap-4 min-h-screen w-[100%]">
+    <div className="grid grid-cols-1 md:grid-cols-3 xl:grid-cols-4 gap-4 min-h-screen w-full">
       <div className="md:col-span-1 flex flex-col gap-2">
         <CropsMarket onCropSelect={handleCropSelect} />
         <Categories />
       </div>
-      <div className="md:col-span-2 flex flex-col gap-2">
+      <div className="md:col-span-2 xl:col-span-2 flex flex-col gap-2">
         <Chart
           selectedCountries={selectedCountries}
           //@ts-ignore
@@ -63,7 +63,7 @@ const Dashboard: React.FC = () => {
         />
         <MarketNews />
       </div>
-      <div className="md:col-span-1">
+      <div className="md:col-span-3 xl:col-span-1 mx-auto w-full md:w-2/3">
         <Countries
           countriesData={countriesData}
           onCountrySelect={handleCountrySelect}

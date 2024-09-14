@@ -1,11 +1,9 @@
-/* eslint-disable no-console */
 import React from "react";
 import { useForm, SubmitHandler, Controller } from "react-hook-form";
 import { TextField } from "@mui/material";
-import { Link } from "react-router-dom";
 
 interface CreatePasswordComponentProps {
-  onNext: () => void;
+  onNext: (password: string) => void;
 }
 
 interface CreatePasswordFormInputs {
@@ -26,8 +24,7 @@ const CreatePasswordComponent: React.FC<CreatePasswordComponentProps> = ({
   });
 
   const onSubmit: SubmitHandler<CreatePasswordFormInputs> = (data) => {
-    console.log(data);
-    onNext();
+    onNext(data.password);
   };
 
   const password = watch("password");
@@ -109,13 +106,12 @@ const CreatePasswordComponent: React.FC<CreatePasswordComponentProps> = ({
 
       {/* Submit Button */}
       <div className="flex items-center justify-center mt-8">
-        <Link
-          to={"/"}
+        <button
           className="text-white helvetica bg-brand-blue px-5 py-3 w-full text-center rounded-[5px] font-bold hover:bg-blue-600 transition-all duration-300"
-          onClick={onNext}
+          type="submit"
         >
           Create Account
-        </Link>
+        </button>
       </div>
     </form>
   );

@@ -67,7 +67,7 @@ const Sidebar = ({
         className={`fixed z-40 left-0 top-0 h-[100vh] ${
           isCollapsed
             ? "w-20 border-r border-bg-gray dark:border-[#404040]"
-            : "w-[80%] sm:w-[40%] md:w-[30%] lg:w-[20%] md:transition-none transition-all duration-300"
+            : "w-[80%] sm:w-[40%] md:w-[30%] lg:w-[15%] md:transition-none transition-all duration-300"
         } border-r border-bg-gray dark:border-[#404040] bg-white px-4 flex flex-col  justify-between dark:bg-black transform ${
           isSidebarVisible ? "translate-x-0" : "-translate-x-full"
         } lg:translate-x-0`}
