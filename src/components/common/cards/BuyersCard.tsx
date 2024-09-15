@@ -1,13 +1,15 @@
+import { useState } from "react";
 import { MdVerified } from "react-icons/md";
+import BuyersModal from "./BuyersModal";
 
 interface BuyersCardProps {
   companyName: string;
   countryFlag: string;
   countryName: string;
-  profile: string;
+  // profile: string;
   companyImage: string;
   description: string;
-  name: string;
+  // name: string;
 }
 
 const BuyersCard = ({
@@ -15,50 +17,62 @@ const BuyersCard = ({
   companyImage,
   countryName,
   countryFlag,
-  name,
-  profile,
+  // name,
+  // profile,
   description,
 }: BuyersCardProps) => {
+  const [openModal, setOpenModal] = useState(false);
+  const toggleModal = () => {
+    setOpenModal(!openModal);
+  };
   return (
-    <div className="flex flex-col p-4 border">
-      <div className=" flex flex-col gap-4">
-        <div className="flex justify-between">
-          <div>
-            <div className="flex items-center gap-2">
-              <h1 className="text-lg">{companyName}</h1>
-              <MdVerified className="text-blue-600 text-2xl" />
+    <>
+      <div className="flex flex-col p-4 border rounded shadow-sm bg-white dark:bg-gray-800">
+        <div className="flex flex-col gap-4">
+          <div className="flex justify-between items-start">
+            <div>
+              <div className="flex items-center gap-2 mb-1">
+                <h1 className="text-sm logo text-gray-800 dark:text-gray-200">
+                  {companyName}
+                </h1>
+                <MdVerified className="text-blue-500 text-lg md:text-xl" />
+              </div>
+              <div className="flex items-center gap-2 text-xs sm:text-sm text-gray-600 dark:text-gray-400">
+                <span className="text-xl sm:text-2xl">{countryFlag}</span>
+                <span>{countryName}</span>
+              </div>
             </div>
-            <div className="flex items-center gap-2">
-              <span className="text-2xl">{countryFlag}</span>
-              <h1 className="text-sm">{countryName}</h1>
-            </div>
-          </div>
-          <div className="w-12 h-6 bg-blue-500 mt-2">
             <img
               src={companyImage}
-              alt="image"
-              className="w-full h-full object-cover"
+              alt="Company Logo"
+              className="w-16 h-10 md:w-12 md:h-6 object-cover border"
             />
           </div>
-        </div>
-        <div>
-          <p className="text-sm">{description}</p>
-        </div>
-        <div className="flex items-center gap-2">
-          <div className="w-4 h-4 bg-blue-400">
+          <p className="text-[8px] sm:text-sm text-black/70 dark:text-gray-300">
+            {description}
+          </p>
+          {/* <div className="flex items-center gap-2 mt-2">
             <img
               src={profile}
-              alt="image"
-              className="w-full h-full object-cover"
+              alt="Profile"
+              className="w-5 h-5 md:w-6 md:h-6 object-cover rounded-full"
             />
+            <p className="text-xs sm:text-sm font-medium text-gray-800 dark:text-gray-200">
+              {name}
+            </p>
+          </div> */}
+          <div>
+            <button
+              className="mt-4 px-4 py-2 bg-[#e6e7ea] text-black hover:bg-[#d6d7da] transition"
+              onClick={() => toggleModal()}
+            >
+              Contact Now
+            </button>
           </div>
-          <p className="text-sm">{name}</p>
-        </div>
-        <div>
-          <button className="px-6 py-1 bg-slate-200">Contact Now</button>
         </div>
       </div>
-    </div>
+      {openModal && <BuyersModal toggleModal={toggleModal} />}
+    </>
   );
 };
 
