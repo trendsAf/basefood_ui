@@ -1,49 +1,116 @@
-import React from "react";
+/* eslint-disable no-console */
+import axios from "axios";
+import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import Skeleton from "react-loading-skeleton";
+import "react-loading-skeleton/dist/skeleton.css";
 
 interface NewsItem {
   title: string;
   date: string;
   image: string;
+  url: string;
 }
 
-const newsData: NewsItem[] = [
-  {
-    image:
-      "https://media.istockphoto.com/id/813136942/photo/selective-focus-of-stacking-magazine-place-on-table-in-living-room.jpg?s=612x612&w=0&k=20&c=6nRlgDo9ecsb1vCPlN8G4cmq4vf8lW4YkSMhoU-jSqE=",
-    title: "US Equities Markets Close Higher...",
-    date: "Aug 23, 2024",
-  },
-  {
-    image:
-      "https://static.vecteezy.com/system/resources/previews/011/599/360/non_2x/newspaper-with-the-headline-news-and-glasses-and-coffee-cup-on-wooden-table-daily-newspaper-mock-up-concept-photo.jpg",
-    title: "Equities Rally After Fed Chair...",
-    date: "Aug 23, 2024",
-  },
-  {
-    image:
-      "https://st3.depositphotos.com/7865540/13838/i/450/depositphotos_138380864-stock-photo-viewof-newspaper-on-the-table.jpg",
-    title: "Exchange-Traded Funds, Equity...",
-    date: "Aug 23, 2024",
-  },
-];
-
 const MarketNews: React.FC = () => {
+  const [news, setNews] = useState<NewsItem[]>([]);
+  const [visibleNewsCount, setVisibleNewsCount] = useState(4);
+  const [isLoading, setIsLoading] = useState(true); // Loading state
+
+  const getNews = async () => {
+    try {
+      const response = await axios.get(
+        "https://newsapi.org/v2/everything?q=tesla&from=2024-08-16&sortBy=publishedAt&apiKey=bfd7d86bab164533af3ed5ac5d79d412",
+      );
+
+      const formattedNews = response.data.articles.map((article: any) => ({
+        title: article.title,
+        date: new Date(article.publishedAt).toLocaleDateString("en-US", {
+          month: "short",
+          day: "numeric",
+          year: "numeric",
+        }),
+        image: article.urlToImage,
+        url: article.url,
+      }));
+
+      setNews(formattedNews);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    getNews();
+  }, []);
+
+  const handleShowMore = () => {
+    setVisibleNewsCount((prevCount) => prevCount + 4);
+  };
+
+  const handleShowLess = () => {
+    setVisibleNewsCount(4);
+  };
+
   return (
     <div className="p-4 bg-white dark:bg-secondary-black dark:text-white rounded-lg">
-      <h2 className="text-xl font-bold mb-4">Market News</h2>
+      <h2 className="text-sm font-bold mb-4">Market News</h2>
       <div>
-        {newsData.map((news, index) => (
-          <div key={index} className="mb-2 flex gap-3">
-            <img src={news.image} alt="" className="h-10 w-10 object-cover" />
-            <div>
-              <a href="#" className="text-blue-500 hover:underline">
-                {news.title}
-              </a>
-              <p className="text-gray-500 text-sm">{news.date}</p>
-            </div>
-          </div>
-        ))}
+        {isLoading
+          ? Array(4)
+              .fill(0)
+              .map((_, index) => (
+                <div key={index} className="mb-2 flex items-center gap-2">
+                  <Skeleton className="h-14 w-14" />
+                  <div className="flex-1">
+                    <Skeleton width="70%" />
+                    <Skeleton width="50%" />
+                  </div>
+                </div>
+              ))
+          : news.slice(0, visibleNewsCount).map((newsItem, index) => (
+              <div key={index} className="mb-2 flex items-center gap-2">
+                <img
+                  src={newsItem.image}
+                  alt={newsItem.title}
+                  className="h-6 w-6 object-cover"
+                />
+                <div>
+                  <a
+                    href={newsItem.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="dark:text-white text-black hover:text-brand-blue text-xs"
+                  >
+                    {newsItem.title}
+                  </a>
+                  <p className="text-gray-500 text-xs">{newsItem.date}</p>
+                </div>
+              </div>
+            ))}
       </div>
+
+      {news.length > visibleNewsCount ? (
+        <Link to={"/news"}>
+          <button
+            onClick={handleShowMore}
+            className="mt-4 text-brand-blue text-sm hover:underline"
+          >
+            View More
+          </button>
+        </Link>
+      ) : (
+        visibleNewsCount > 4 && (
+          <button
+            onClick={handleShowLess}
+            className="mt-4 text-brand-blue text-sm hover:underline"
+          >
+            View Less
+          </button>
+        )
+      )}
     </div>
   );
 };

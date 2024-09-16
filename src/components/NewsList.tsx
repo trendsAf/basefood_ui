@@ -1,50 +1,55 @@
-import React from "react";
+/* eslint-disable no-console */
+import React, { useEffect, useState } from "react";
 import NewsItem from "./NewsItem";
+import axios from "axios";
 
-interface NewsItemData {
-  id: number;
+interface NewsItem {
   title: string;
-  source: string;
   date: string;
-  imageUrl: string;
+  image: string;
+  url: string;
 }
 
-const dummyNews: NewsItemData[] = [
-  {
-    id: 1,
-    title:
-      "US Equities Markets Close Higher Friday As Powell Hints Easing of Monetary Policy",
-    source: "ABC NEWS",
-    date: "Aug 23 '24",
-    imageUrl:
-      "https://st3.depositphotos.com/7865540/13838/i/450/depositphotos_138380864-stock-photo-viewof-newspaper-on-the-table.jpg",
-  },
-  {
-    id: 2,
-    title:
-      "Equities Rally After Fed Chair Indicates 'Time Has Come' for Rate Cuts",
-    source: "ABC NEWS",
-    date: "Aug 23 '24",
-    imageUrl:
-      "https://static.vecteezy.com/system/resources/previews/011/599/360/non_2x/newspaper-with-the-headline-news-and-glasses-and-coffee-cup-on-wooden-table-daily-newspaper-mock-up-concept-photo.jpg",
-  },
-  {
-    id: 3,
-    title:
-      "Exchange-Traded Funds, Equity Futures Higher Pre-Bell Friday as Investors Hope for Dovish Powell Remarks",
-    source: "ABC NEWS",
-    date: "Aug 23 '24",
-    imageUrl:
-      "https://st3.depositphotos.com/7865540/13838/i/450/depositphotos_138380864-stock-photo-viewof-newspaper-on-the-table.jpg",
-  },
-];
+const NewsList: React.FC<NewsItem> = () => {
+  const [news, setNews] = useState<NewsItem[]>([]);
 
-const NewsList: React.FC = () => {
+  const getNews = async () => {
+    try {
+      const response = await axios.get(
+        "https://newsapi.org/v2/everything?q=tesla&from=2024-08-16&sortBy=publishedAt&apiKey=bfd7d86bab164533af3ed5ac5d79d412",
+      );
+
+      const formattedNews = response.data.articles.map((article: any) => ({
+        title: article.title,
+        date: new Date(article.publishedAt).toLocaleDateString("en-US", {
+          month: "short",
+          day: "numeric",
+          year: "numeric",
+        }),
+        image: article.urlToImage,
+        url: article.url,
+      }));
+
+      setNews(formattedNews);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    getNews();
+  }, []);
   return (
     <div className="bg-white dark:bg-secondary-black rounded-lg overflow-hidden">
-      <div className="grid gap-4 p-4">
-        {dummyNews.map((item) => (
-          <NewsItem key={item.id} {...item} />
+      <div className="grid p-4">
+        {news.map((item, idx) => (
+          <NewsItem
+            key={idx}
+            title={item.title}
+            date={item.date}
+            image={item.image}
+            url={item.url}
+          />
         ))}
       </div>
     </div>

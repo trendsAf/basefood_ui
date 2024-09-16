@@ -1,3 +1,4 @@
+/* eslint-disable quotes */
 import React from "react";
 import ReactApexChart from "react-apexcharts";
 import { useSelector } from "react-redux";
@@ -31,7 +32,7 @@ const ApexChart: React.FC<ApexChartProps> = ({ data }) => {
       enabled: false,
     },
     stroke: {
-      width: 1.5, // Reduce line width
+      width: 1.5,
     },
     markers: {
       size: 0,

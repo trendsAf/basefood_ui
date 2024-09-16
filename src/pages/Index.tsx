@@ -1,3 +1,4 @@
+/* eslint-disable quotes */
 import React, { useState } from "react";
 import CropsMarket from "../components/market/CropsMarket";
 import Categories from "../components/market/Categories";
@@ -29,13 +30,17 @@ const countriesData = [
   { name: "Sudan", color: "#FFA133", checked: false },
 ];
 
-const Dashboard: React.FC = () => {
+interface DashboardProps {
+  isCollapsed?: boolean;
+}
+
+const Dashboard: React.FC<DashboardProps> = ({ isCollapsed }) => {
   const [selectedCountries, setSelectedCountries] = useState<string[]>(
     countriesData
       .filter((country) => country.checked)
       .map((country) => country.name),
   );
-  const [selectedCrops, setSelectedCrops] = useState<string[]>(["Maize"]); // Default selected crop
+  const [selectedCrops, setSelectedCrops] = useState<string[]>(["Maize"]);
 
   const handleCountrySelect = (country: string) => {
     setSelectedCountries((prev) =>
@@ -50,12 +55,12 @@ const Dashboard: React.FC = () => {
   };
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-3 xl:grid-cols-4 gap-4 min-h-screen w-full">
-      <div className="md:col-span-1 flex flex-col gap-2">
+    <div className=" flex p-2 items-start justify-between gap-3">
+      <div className={` p-2 w-[20%] flex flex-col gap-4`}>
         <CropsMarket onCropSelect={handleCropSelect} />
         <Categories />
       </div>
-      <div className="md:col-span-2 xl:col-span-2 flex flex-col gap-2">
+      <div className=" p-2 w-full flex flex-col gap-4 h-full">
         <Chart
           selectedCountries={selectedCountries}
           //@ts-ignore
@@ -63,7 +68,7 @@ const Dashboard: React.FC = () => {
         />
         <MarketNews />
       </div>
-      <div className="md:col-span-3 xl:col-span-1 mx-auto w-full md:w-2/3">
+      <div className={`${isCollapsed ? "w-[10%]" : "w-[15%]"}`}>
         <Countries
           countriesData={countriesData}
           onCountrySelect={handleCountrySelect}
