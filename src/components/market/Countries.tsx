@@ -21,7 +21,7 @@ const Countries: React.FC<{
 
   return (
     <div className="p-4 bg-white dark:bg-secondary-black dark:text-white rounded-lg">
-      <h2 className="text-xl font-bold mb-4">Countries</h2>
+      <h2 className="text-md font-bold mb-4">Countries</h2>
       <ul>
         {countries.map(({ name, color, checked }) => (
           <li key={name} className="flex items-center mb-2">

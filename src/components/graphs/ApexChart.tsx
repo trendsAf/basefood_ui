@@ -14,7 +14,7 @@ const ApexChart: React.FC<ApexChartProps> = ({ data }) => {
 
   const options = {
     chart: {
-      type: "line",
+      type: "area",
       stacked: false,
       height: 350,
       width: "100%",
@@ -83,7 +83,7 @@ const ApexChart: React.FC<ApexChartProps> = ({ data }) => {
       options={options}
       series={data}
       type="line"
-      height={350}
+      height={320}
     />
   );
 };

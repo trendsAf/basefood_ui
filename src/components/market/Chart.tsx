@@ -51,8 +51,8 @@ const Chart: React.FC<ChartProps> = ({
 
   return (
     <div className="p-4 bg-white dark:bg-secondary-black dark:text-white rounded-[4px]">
-      <h2 className="text-xl font-bold mb-4">Crop Price Movement</h2>
-      <div className="flex items-center gap-6 mb-4">
+      <h2 className="text-md font-bold mb-2">Crop Price Movement</h2>
+      <div className="flex items-center gap-6 mb-2">
         {Object.values(datasets).map((range) => (
           <button
             key={range}

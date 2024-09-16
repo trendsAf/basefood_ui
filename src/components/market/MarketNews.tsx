@@ -75,14 +75,14 @@ const MarketNews: React.FC = () => {
                 <img
                   src={newsItem.image}
                   alt={newsItem.title}
-                  className="h-6 w-6 object-cover"
+                  className="h-10 w-10 object-cover"
                 />
                 <div>
                   <a
                     href={newsItem.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="dark:text-white text-black hover:text-brand-blue text-xs"
+                    className="dark:text-white text-black hover:text-brand-blue text-md"
                   >
                     {newsItem.title}
                   </a>
