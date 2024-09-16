@@ -89,12 +89,12 @@ const Dashboard: React.FC<DashboardProps> = ({ isCollapsed }) => {
   };
 
   return (
-    <div className=" flex p-2 items-start justify-between gap-3">
-      <div className={` p-2 w-[20%] flex flex-col gap-4`}>
+    <div className=" flex pt-3 items-start justify-between gap-3">
+      <div className={`  w-[20%] flex flex-col gap-4`}>
         <CropsMarket onCropSelect={handleCropSelect} />
         <Categories />
       </div>
-      <div className=" p-2 w-full flex flex-col gap-4 h-full">
+      <div className=" px-2 w-full flex flex-col gap-4 h-full">
         <Chart
           selectedCountries={selectedCountries}
           countriesData={countriesWithColors}
@@ -103,7 +103,7 @@ const Dashboard: React.FC<DashboardProps> = ({ isCollapsed }) => {
         />
         <MarketNews />
       </div>
-      <div className={`${isCollapsed ? "w-[10%]" : "w-[15%]"}`}>
+      <div className={`${isCollapsed ? "w-[15%]" : "w-[15%]"}`}>
         <Countries
           countriesData={countriesWithColors}
           onCountrySelect={handleCountrySelect}
