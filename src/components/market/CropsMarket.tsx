@@ -8,11 +8,11 @@ interface CropItem {
   change: number;
 }
 
-const cropColors: Record<string, string> = {
-  Maize: "#FF5733",
-  Wheat: "#33FF57",
-  Coffee: "#5733FF",
-};
+// const cropColors: Record<string, string> = {
+//   Maize: "#FF5733",
+//   Wheat: "#33FF57",
+//   Coffee: "#5733FF",
+// };
 
 const cropsData: CropItem[] = [
   { name: "Maize", price: 20, change: -20 },
@@ -27,11 +27,11 @@ interface CropsMarketProps {
 }
 
 const CropsMarket: React.FC<CropsMarketProps> = ({ onCropSelect }) => {
-  const [selectedCrops, setSelectedCrops] = useState<string[]>(["Maize"]); // Default selected crop
+  const [selectedCrops, setSelectedCrops] = useState<string[]>(["Maize"]);
 
   useEffect(() => {
-    onCropSelect(selectedCrops); // Notify parent of initial selection
-  }, []); // Run only on mount
+    onCropSelect(selectedCrops);
+  }, []);
 
   const handleCropChange = (crop: string) => {
     setSelectedCrops((prev) =>
@@ -64,11 +64,13 @@ const CropsMarket: React.FC<CropsMarketProps> = ({ onCropSelect }) => {
                   checked={selectedCrops.includes(crop.name)}
                   onChange={() => handleCropChange(crop.name)}
                   sx={{
-                    color: cropColors[crop.name],
+                    // color: cropColors[crop.name],
+                    color: "#2142F1",
                     "&.Mui-checked": {
-                      color: cropColors[crop.name],
+                      // color: cropColors[crop.name],
+                      color: "#2142F1",
                     },
-                    "& .MuiSvgIcon-root": { fontSize: 18 },
+                    "& .MuiSvgIcon-root": { fontSize: 20 },
                     padding: "4px",
                   }}
                 />
