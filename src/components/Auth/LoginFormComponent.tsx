@@ -9,6 +9,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import api from "../../redux/api";
 import { useState } from "react";
 import { toast, ToastContainer } from "react-toastify";
+import Cookies from "js-cookie";
 
 interface LoginFormComponentFieldProps {
   email: string;
@@ -40,6 +41,8 @@ const LoginFormComponent = () => {
       const response = await api.post("/users/login", data);
       console.log(response.data);
       toast.success("you're logged in!");
+      Cookies.set("accessToken", response.data.token);
+      Cookies.set("userInfo", response.data.user);
       setTimeout(() => {
         navigate("/");
       }, 3000);
