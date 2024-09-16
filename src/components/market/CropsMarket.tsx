@@ -45,20 +45,20 @@ const CropsMarket: React.FC<CropsMarketProps> = ({ onCropSelect }) => {
   };
 
   return (
-    <div className="p-4 bg-white dark:text-white rounded-lg dark:bg-[#1E1E1E]">
-      <h2 className="text-xl font-bold mb-4">Crops Market</h2>
+    <div className="p-1 bg-white dark:text-white rounded-lg dark:bg-[#1E1E1E]">
+      <h2 className="text-xl font-bold mb-4 text-center">Crops Market</h2>
       <table className="w-full text-left px-2">
         <thead className="bg-bg-gray dark:bg-black dark:text-white">
-          <tr className="text-gray-500 px-2 dark:text-gray-400">
+          <tr className="text-gray-500  dark:text-gray-400 text-sm">
             <th className="py-2 pl-2">Item</th>
-            <th className="py-2">Price</th>
-            <th className="py-2">Change</th>
+            <th className="py-2 ">Price</th>
+            <th className="py-2 pl-2">Change</th>
           </tr>
         </thead>
         <tbody>
           {cropsData.map((crop) => (
             <tr key={crop.name} className="border-b dark:border-gray-700">
-              <td className="flex items-center py-2">
+              <td className="flex items-center py-2 text-sm">
                 <Checkbox
                   {...label}
                   checked={selectedCrops.includes(crop.name)}
