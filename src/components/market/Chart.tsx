@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import ApexChart from "../graphs/ApexChart";
 
 const datasets = {
@@ -9,232 +9,45 @@ const datasets = {
   "1 Y": "1 Y",
 };
 
-const countryData: any = {
-  Rwanda: {
-    "1 D": [
-      { x: new Date("2023-08-25T09:00:00"), y: 300 },
-      { x: new Date("2023-08-25T12:00:00"), y: 305 },
-      { x: new Date("2023-08-25T15:00:00"), y: 310 },
-      { x: new Date("2023-08-25T18:00:00"), y: 320 },
-    ],
-    "1 W": [
-      { x: new Date("2023-08-19"), y: 300 },
-      { x: new Date("2023-08-20"), y: 305 },
-      { x: new Date("2023-08-21"), y: 310 },
-      { x: new Date("2023-08-22"), y: 320 },
-      { x: new Date("2023-08-23"), y: 315 },
-      { x: new Date("2023-08-24"), y: 295 },
-      { x: new Date("2023-08-25"), y: 300 },
-    ],
-    "1 M": [
-      { x: new Date("2023-08-01"), y: 200 },
-      { x: new Date("2023-08-05"), y: 215 },
-      { x: new Date("2023-08-10"), y: 260 },
-      { x: new Date("2023-08-15"), y: 280 },
-      { x: new Date("2023-08-20"), y: 305 },
-      { x: new Date("2023-08-25"), y: 300 },
-    ],
-    "6 M": [
-      { x: new Date("2023-03-01"), y: 150 },
-      { x: new Date("2023-04-01"), y: 170 },
-      { x: new Date("2023-05-01"), y: 200 },
-      { x: new Date("2023-06-01"), y: 230 },
-      { x: new Date("2023-07-01"), y: 250 },
-      { x: new Date("2023-08-01"), y: 280 },
-      { x: new Date("2023-08-25"), y: 300 },
-    ],
-    "1 Y": [
-      { x: new Date("2022-08-01"), y: 120 },
-      { x: new Date("2022-11-01"), y: 140 },
-      { x: new Date("2023-02-01"), y: 160 },
-      { x: new Date("2023-05-01"), y: 200 },
-      { x: new Date("2023-08-01"), y: 280 },
-      { x: new Date("2023-08-25"), y: 300 },
-    ],
-  },
-  Uganda: {
-    "1 D": [
-      { x: new Date("2023-08-25T09:00:00"), y: 300 },
-      { x: new Date("2023-08-25T12:00:00"), y: 305 },
-      { x: new Date("2023-08-25T15:00:00"), y: 310 },
-      { x: new Date("2023-08-25T18:00:00"), y: 320 },
-    ],
-    "1 W": [
-      { x: new Date("2023-08-19"), y: 300 },
-      { x: new Date("2023-08-20"), y: 305 },
-      { x: new Date("2023-08-21"), y: 310 },
-      { x: new Date("2023-08-22"), y: 320 },
-      { x: new Date("2023-08-23"), y: 315 },
-      { x: new Date("2023-08-24"), y: 295 },
-      { x: new Date("2023-08-25"), y: 300 },
-    ],
-    "1 M": [
-      { x: new Date("2023-08-01"), y: 200 },
-      { x: new Date("2023-08-05"), y: 215 },
-      { x: new Date("2023-08-10"), y: 260 },
-      { x: new Date("2023-08-15"), y: 280 },
-      { x: new Date("2023-08-20"), y: 305 },
-      { x: new Date("2023-08-25"), y: 300 },
-    ],
-    "6 M": [
-      { x: new Date("2023-03-01"), y: 150 },
-      { x: new Date("2023-04-01"), y: 170 },
-      { x: new Date("2023-05-01"), y: 200 },
-      { x: new Date("2023-06-01"), y: 230 },
-      { x: new Date("2023-07-01"), y: 250 },
-      { x: new Date("2023-08-01"), y: 280 },
-      { x: new Date("2023-08-25"), y: 300 },
-    ],
-    "1 Y": [
-      { x: new Date("2022-08-01"), y: 110 },
-      { x: new Date("2022-11-01"), y: 140 },
-      { x: new Date("2023-02-01"), y: 260 },
-      { x: new Date("2023-05-01"), y: 300 },
-      { x: new Date("2023-08-01"), y: 280 },
-      { x: new Date("2023-08-25"), y: 190 },
-    ],
-  },
-  "D.R. Congo": {
-    "1 D": [
-      { x: new Date("2023-08-25T09:00:00"), y: 300 },
-      { x: new Date("2023-08-25T12:00:00"), y: 305 },
-      { x: new Date("2023-08-25T15:00:00"), y: 310 },
-      { x: new Date("2023-08-25T18:00:00"), y: 320 },
-    ],
-    "1 W": [
-      { x: new Date("2023-08-19"), y: 300 },
-      { x: new Date("2023-08-20"), y: 305 },
-      { x: new Date("2023-08-21"), y: 310 },
-      { x: new Date("2023-08-22"), y: 320 },
-      { x: new Date("2023-08-23"), y: 315 },
-      { x: new Date("2023-08-24"), y: 295 },
-      { x: new Date("2023-08-25"), y: 300 },
-    ],
-    "1 M": [
-      { x: new Date("2023-08-01"), y: 200 },
-      { x: new Date("2023-08-05"), y: 215 },
-      { x: new Date("2023-08-10"), y: 260 },
-      { x: new Date("2023-08-15"), y: 280 },
-      { x: new Date("2023-08-20"), y: 305 },
-      { x: new Date("2023-08-25"), y: 300 },
-    ],
-    "6 M": [
-      { x: new Date("2023-03-01"), y: 150 },
-      { x: new Date("2023-04-01"), y: 170 },
-      { x: new Date("2023-05-01"), y: 200 },
-      { x: new Date("2023-06-01"), y: 230 },
-      { x: new Date("2023-07-01"), y: 250 },
-      { x: new Date("2023-08-01"), y: 280 },
-      { x: new Date("2023-08-25"), y: 300 },
-    ],
-    "1 Y": [
-      { x: new Date("2022-08-01"), y: 110 },
-      { x: new Date("2022-11-01"), y: 140 },
-      { x: new Date("2023-02-01"), y: 260 },
-      { x: new Date("2023-05-01"), y: 300 },
-      { x: new Date("2023-08-01"), y: 280 },
-      { x: new Date("2023-08-25"), y: 190 },
-    ],
-  },
-  Burundi: {
-    "1 D": [
-      { x: new Date("2023-08-25T09:00:00"), y: 300 },
-      { x: new Date("2023-08-25T12:00:00"), y: 305 },
-      { x: new Date("2023-08-25T15:00:00"), y: 310 },
-      { x: new Date("2023-08-25T18:00:00"), y: 320 },
-    ],
-    "1 W": [
-      { x: new Date("2023-08-19"), y: 300 },
-      { x: new Date("2023-08-20"), y: 305 },
-      { x: new Date("2023-08-21"), y: 310 },
-      { x: new Date("2023-08-22"), y: 320 },
-      { x: new Date("2023-08-23"), y: 315 },
-      { x: new Date("2023-08-24"), y: 295 },
-      { x: new Date("2023-08-25"), y: 300 },
-    ],
-    "1 M": [
-      { x: new Date("2023-08-01"), y: 200 },
-      { x: new Date("2023-08-05"), y: 215 },
-      { x: new Date("2023-08-10"), y: 260 },
-      { x: new Date("2023-08-15"), y: 280 },
-      { x: new Date("2023-08-20"), y: 305 },
-      { x: new Date("2023-08-25"), y: 300 },
-    ],
-    "6 M": [
-      { x: new Date("2023-03-01"), y: 150 },
-      { x: new Date("2023-04-01"), y: 170 },
-      { x: new Date("2023-05-01"), y: 200 },
-      { x: new Date("2023-06-01"), y: 230 },
-      { x: new Date("2023-07-01"), y: 250 },
-      { x: new Date("2023-08-01"), y: 280 },
-      { x: new Date("2023-08-25"), y: 300 },
-    ],
-    "1 Y": [
-      { x: new Date("2022-08-01"), y: 110 },
-      { x: new Date("2022-11-01"), y: 140 },
-      { x: new Date("2023-02-01"), y: 260 },
-      { x: new Date("2023-05-01"), y: 300 },
-      { x: new Date("2023-08-01"), y: 280 },
-      { x: new Date("2023-08-25"), y: 190 },
-    ],
-  },
-  Kenya: {
-    "1 D": [
-      { x: new Date("2023-08-25T09:00:00"), y: 300 },
-      { x: new Date("2023-08-25T12:00:00"), y: 305 },
-      { x: new Date("2023-08-25T15:00:00"), y: 310 },
-      { x: new Date("2023-08-25T18:00:00"), y: 320 },
-    ],
-    "1 W": [
-      { x: new Date("2023-08-19"), y: 300 },
-      { x: new Date("2023-08-20"), y: 305 },
-      { x: new Date("2023-08-21"), y: 310 },
-      { x: new Date("2023-08-22"), y: 320 },
-      { x: new Date("2023-08-23"), y: 315 },
-      { x: new Date("2023-08-24"), y: 295 },
-      { x: new Date("2023-08-25"), y: 300 },
-    ],
-    "1 M": [
-      { x: new Date("2023-08-01"), y: 200 },
-      { x: new Date("2023-08-05"), y: 215 },
-      { x: new Date("2023-08-10"), y: 260 },
-      { x: new Date("2023-08-15"), y: 280 },
-      { x: new Date("2023-08-20"), y: 305 },
-      { x: new Date("2023-08-25"), y: 300 },
-    ],
-    "6 M": [
-      { x: new Date("2023-03-01"), y: 150 },
-      { x: new Date("2023-04-01"), y: 170 },
-      { x: new Date("2023-05-01"), y: 350 },
-      { x: new Date("2023-06-01"), y: 230 },
-      { x: new Date("2023-07-01"), y: 200 },
-      { x: new Date("2023-08-01"), y: 210 },
-      { x: new Date("2023-08-25"), y: 100 },
-    ],
-    "1 Y": [
-      { x: new Date("2022-08-01"), y: 110 },
-      { x: new Date("2022-11-01"), y: 140 },
-      { x: new Date("2023-02-01"), y: 200 },
-      { x: new Date("2023-05-01"), y: 220 },
-      { x: new Date("2023-08-01"), y: 180 },
-      { x: new Date("2023-08-25"), y: 130 },
-    ],
-  },
-  // Add more countries...
-};
+interface ChartProps {
+  selectedCountries: string[];
+  countriesData: { name: string; color: string; checked: boolean }[];
+  selectedCrops: string[];
+  marketData: any;
+}
 
-const Chart: React.FC<{ selectedCountries: string[] }> = ({
+const Chart: React.FC<ChartProps> = ({
   selectedCountries,
+  countriesData,
+  selectedCrops,
+  marketData,
 }) => {
   const [selectedRange, setSelectedRange] =
     useState<keyof typeof datasets>("1 Y");
+  const [seriesData, setSeriesData] = useState<any[]>([]);
 
-  const seriesData = selectedCountries.map((country) => {
-    return {
-      name: country,
-      data: countryData[country][selectedRange] || [],
-    };
-  });
+  useEffect(() => {
+    const newSeriesData = selectedCountries.flatMap((country) =>
+      selectedCrops.map((crop) => {
+        const countryInfo = countriesData.find((c) => c.name === country);
+        const cropData = marketData.countries.find(
+          (c: any) => c.name === country,
+        )?.crops[crop];
+        return {
+          name: `${country} - ${crop}`,
+          data: cropData ? cropData[selectedRange] : [],
+          color: countryInfo?.color,
+        };
+      }),
+    );
+    setSeriesData(newSeriesData);
+  }, [
+    selectedCountries,
+    selectedCrops,
+    selectedRange,
+    countriesData,
+    marketData,
+  ]);
 
   return (
     <div className="p-4 bg-white dark:bg-secondary-black dark:text-white rounded-[4px]">

@@ -83,7 +83,7 @@ const ApexChart: React.FC<ApexChartProps> = ({ data }) => {
       options={options}
       series={data}
       type="line"
-      height={300}
+      height={350}
     />
   );
 };
