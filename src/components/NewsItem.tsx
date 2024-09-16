@@ -1,34 +1,53 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import Skeleton from "react-loading-skeleton";
+import "react-loading-skeleton/dist/skeleton.css";
 
 interface NewsItemProps {
   title: string;
-  source: string;
   date: string;
-  imageUrl: string;
+  image?: string;
+  url: string;
 }
 
-const NewsItem: React.FC<NewsItemProps> = ({
-  title,
-  source,
-  date,
-  imageUrl,
-}) => {
+const NewsItem: React.FC<NewsItemProps> = ({ title, date, image, url }) => {
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const timer = setTimeout(() => setIsLoading(false), 1500);
+    return () => clearTimeout(timer);
+  }, []);
+
   return (
-    <div className="flex items-center space-x-4 p-4 bg-gray-50 dark:bg-secondary-black dark:text-white rounded-lg hover:bg-gray-100 transition duration-150 ease-in-out">
-      <img
-        src={imageUrl}
-        alt={title}
-        className="w-20 h-20 object-cover rounded-md"
-      />
-      <div className="flex-1">
-        <h3 className="text-lg font-semibold mb-2 line-clamp-2">{title}</h3>
-        <p className="text-sm text-gray-600 dark:text-gray-400 flex items-center">
-          <span className="font-medium text-gray-800 dark:text-gray-200 mr-2">
-            {source}
-          </span>
-          <span className="w-1 h-1 bg-gray-400 dark:bg-gray-600 rounded-full mx-2"></span>
-          <span>{date}</span>
-        </p>
+    <div className="p-4 bg-white dark:bg-secondary-black dark:text-white rounded-lg">
+      <div className="mb-2 flex items-center gap-2">
+        {isLoading ? (
+          <Skeleton className="h-14 w-14" />
+        ) : (
+          image && (
+            <img src={image} alt={title} className="h-14 w-14 object-cover" />
+          )
+        )}
+
+        <div>
+          {isLoading ? (
+            <Skeleton className="w-[30rem] h-4" />
+          ) : (
+            <a
+              href={url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="dark:text-white text-black hover:text-brand-blue text-xl"
+            >
+              {title}
+            </a>
+          )}
+
+          {isLoading ? (
+            <Skeleton className="w-[10rem] h-4" />
+          ) : (
+            <p className="text-gray-500 text-sm">{date}</p>
+          )}
+        </div>
       </div>
     </div>
   );

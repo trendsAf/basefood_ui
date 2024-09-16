@@ -252,7 +252,7 @@ const Chart: React.FC<{ selectedCountries: string[] }> = ({
           </button>
         ))}
       </div>
-      <div className="dark:bg-black py-2 rounded-lg flex items-center w-full">
+      <div className="dark:bg-black py-2 rounded-lg flex items-center w-full pb-6">
         <ApexChart data={seriesData} />
       </div>
     </div>
