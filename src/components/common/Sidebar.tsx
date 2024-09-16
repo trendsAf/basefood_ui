@@ -2,7 +2,6 @@ import { createTheme, ThemeProvider, Tooltip } from "@mui/material";
 import { useEffect, useState } from "react";
 import { AiOutlineBell, AiOutlineShop } from "react-icons/ai";
 import { FaBars, FaChevronDown, FaChevronUp, FaPlus } from "react-icons/fa";
-import { FiDatabase } from "react-icons/fi";
 import { GoHome } from "react-icons/go";
 import { LiaMoneyCheckAltSolid } from "react-icons/lia";
 import { LuNewspaper } from "react-icons/lu";
@@ -12,6 +11,7 @@ import { useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
 import { RootState } from "../../redux/store";
 import ModeToggle from "./ModeToggle";
+import Logo from "../../assets/basefood_logo.png";
 
 const tooltipTheme = createTheme({
   components: {
@@ -77,10 +77,11 @@ const Sidebar = ({
           >
             {!isCollapsed && (
               <div className="flex items-center">
-                <FiDatabase className="text-2xl text-blue-600 mr-2" />
+                {/* <FiDatabase className="text-2xl text-blue-600 mr-2" />
                 <span className="text-xl logo font-bold text-blue-600">
                   baseFood
-                </span>
+                </span> */}
+                <img src={Logo} alt="basefood" className="w-[8rem]" />
               </div>
             )}
             <button

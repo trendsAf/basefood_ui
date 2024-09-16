@@ -14,7 +14,7 @@ const categories = ["Cereal Grains", "Oil Seeds", "Pulses", "Coffee", "Tea"];
 const Categories: React.FC = () => {
   return (
     <div className="py-4 bg-white dark:text-white dark:bg-secondary-black rounded-lg">
-      <h2 className="text-xl px-4 font-bold mb-4">Categories</h2>
+      <h2 className="text-md px-4 font-bold mb-2">Categories</h2>
       <ul className="px-2">
         {categories.map((category, index) => (
           <li key={index} className="flex items-center ml-1">
