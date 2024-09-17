@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable no-console */
 import axios from "axios";
 import { useEffect, useState } from "react";
@@ -20,21 +21,23 @@ const MarketNews: React.FC = () => {
   const getNews = async () => {
     try {
       const response = await axios.get(
-        "https://newsapi.org/v2/everything?q=tesla&from=2024-08-16&sortBy=publishedAt&apiKey=bfd7d86bab164533af3ed5ac5d79d412",
+        // "https://newsapi.org/v2/everything?q=tesla&from=2024-08-16&sortBy=publishedAt&apiKey=bfd7d86bab164533af3ed5ac5d79d412",
+        "https://finnhub.io/api/v1/global-filings/search?token=crkl0bhr01qq23fi0qo0crkl0bhr01qq23fi0qog",
       );
 
-      const formattedNews = response.data.articles.map((article: any) => ({
-        title: article.title,
-        date: new Date(article.publishedAt).toLocaleDateString("en-US", {
-          month: "short",
-          day: "numeric",
-          year: "numeric",
-        }),
-        image: article.urlToImage,
-        url: article.url,
-      }));
+      // const formattedNews = response.data.articles.map((article: any) => ({
+      //   title: article.title,
+      //   date: new Date(article.publishedAt).toLocaleDateString("en-US", {
+      //     month: "short",
+      //     day: "numeric",
+      //     year: "numeric",
+      //   }),
+      //   image: article.urlToImage,
+      //   url: article.url,
+      // }));
 
-      setNews(formattedNews);
+      // setNews(formattedNews);
+      console.log(response, "Reeeeesssssspooonse");
     } catch (error) {
       console.log(error);
     } finally {
