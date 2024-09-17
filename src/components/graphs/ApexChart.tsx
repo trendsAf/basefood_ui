@@ -20,8 +20,8 @@ const ApexChart: React.FC<ApexChartProps> = ({ data }) => {
       width: "100%",
       zoom: {
         type: "x",
-        enabled: true,
-        autoScaleYaxis: true,
+        enabled: false,
+        autoScaleYaxis: false,
       },
       toolbar: {
         autoSelected: "zoom",
