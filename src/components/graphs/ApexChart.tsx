@@ -34,6 +34,10 @@ const ApexChart: React.FC<ApexChartProps> = ({ data }) => {
     stroke: {
       width: 1.5,
     },
+    fill: {
+      type: "solid",
+      opacity: 0, // Set opacity to 0 to remove the background color
+    },
     markers: {
       size: 0,
     },
@@ -82,7 +86,7 @@ const ApexChart: React.FC<ApexChartProps> = ({ data }) => {
       //@ts-ignore
       options={options}
       series={data}
-      type="line"
+      type="area"
       height={320}
     />
   );
