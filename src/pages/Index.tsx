@@ -6,6 +6,7 @@ import MarketNews from "../components/market/MarketNews";
 import Countries from "../components/market/Countries";
 import Chart from "../components/market/Chart";
 import marketData from "../utils/marketData.json";
+import MarketInsights from "../components/market/MarketInsights";
 
 const distinctColors = [
   "#FF4136", // Bright Red
@@ -89,12 +90,13 @@ const Dashboard: React.FC<DashboardProps> = () => {
   };
 
   return (
-    <div className=" flex pt-3 items-start justify-between gap-3">
-      <div className={`flex w-[20%] flex-col gap-4`}>
+    <div className=" flex flex-col md:flex-row w-full pt-3 items-start justify-between gap-3">
+      <div className={`flex w-full md:w-[20%] flex-col gap-4`}>
         <CropsMarket onCropSelect={handleCropSelect} />
         <Categories />
+        <MarketInsights />
       </div>
-      <div className=" px-2 w-[65%] flex flex-col gap-4 h-full">
+      <div className="w-full md:w-[65%] flex flex-col gap-4 h-full">
         <Chart
           selectedCountries={selectedCountries}
           countriesData={countriesWithColors}
@@ -103,7 +105,7 @@ const Dashboard: React.FC<DashboardProps> = () => {
         />
         <MarketNews />
       </div>
-      <div className={`w-[15%]`}>
+      <div className={`w-full md:w-[15%]`}>
         <Countries
           countriesData={countriesWithColors}
           onCountrySelect={handleCountrySelect}

@@ -64,7 +64,7 @@ const Sidebar = ({
         className={`fixed z-40 left-0 top-0 h-[100vh] ${
           isCollapsed
             ? "w-20 border-r border-bg-gray dark:border-[#404040]"
-            : "w-[80%] sm:w-[40%] md:w-[30%] lg:w-[15%] md:transition-none transition-all duration-300"
+            : "w-[80%] sm:w-[40%] md:w-[30%] lg:w-[16%] md:transition-none transition-all duration-300"
         } border-r border-bg-gray dark:border-[#404040] bg-white px-4 flex flex-col  justify-between dark:bg-black transform ${
           isSidebarVisible ? "translate-x-0" : "-translate-x-full"
         } lg:translate-x-0`}
@@ -104,8 +104,8 @@ const Sidebar = ({
                     title={`${isCollapsed ? "Today's Market" : ""}`}
                     placement="right"
                   >
-                    <li className="flex items-center px-4 py-2 rounded hover:bg-gray-100 dark:hover:bg-gray-800 cursor-pointer">
-                      <GoHome className="text-xl text-gray-900 dark:text-white" />
+                    <li className="flex items-center px-2 py-2 rounded hover:bg-gray-100 dark:hover:bg-gray-800 cursor-pointer">
+                      <GoHome className="text-lg whitespace-nowrap text-gray-900 dark:text-white" />
                       {!isCollapsed && (
                         <span className="ml-4 text-gray-900 dark:text-white">
                           Today's Market
@@ -121,8 +121,8 @@ const Sidebar = ({
                     title={`${isCollapsed ? "Market News" : ""}`}
                     placement="right"
                   >
-                    <li className="flex items-center px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-800 cursor-pointer rounded">
-                      <LuNewspaper className="text-xl text-gray-900 dark:text-white" />
+                    <li className="flex items-center px-2 py-2 hover:bg-gray-100 dark:hover:bg-gray-800 cursor-pointer rounded">
+                      <LuNewspaper className="text-lg text-gray-900 dark:text-white" />
                       {!isCollapsed && (
                         <span className="ml-4 text-gray-900 dark:text-white">
                           Market News
@@ -139,11 +139,11 @@ const Sidebar = ({
                     placement="right"
                   >
                     <div
-                      className="flex items-center justify-between px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-800 cursor-pointer rounded"
+                      className="flex items-center justify-between px-2 py-2 hover:bg-gray-100 dark:hover:bg-gray-800 cursor-pointer rounded"
                       onClick={toggleDashboards}
                     >
                       <div className="flex items-center">
-                        <RxDashboard className="text-xl text-gray-900 dark:text-white" />
+                        <RxDashboard className="text-md text-gray-900 dark:text-white" />
                         {!isCollapsed && (
                           <span className="ml-4 text-gray-900 dark:text-white">
                             My Dashboards
@@ -153,9 +153,9 @@ const Sidebar = ({
                       {!isCollapsed && (
                         <span className="text-gray-900 dark:text-white">
                           {isDashboardsOpen ? (
-                            <FaChevronUp />
+                            <FaChevronUp className="text-sm" />
                           ) : (
-                            <FaChevronDown />
+                            <FaChevronDown className="text-sm" />
                           )}
                         </span>
                       )}
@@ -164,18 +164,18 @@ const Sidebar = ({
                 </ThemeProvider>
                 {!isCollapsed && isDashboardsOpen && (
                   <ul className="pl-10 flex flex-col space-y-2">
-                    <li className="flex items-center px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-800 cursor-pointer rounded">
+                    <li className="flex items-center px-2 py-2 hover:bg-gray-100 dark:hover:bg-gray-800 cursor-pointer rounded">
                       <span className="text-gray-900 dark:text-white">
                         Dashboard 1
                       </span>
                     </li>
-                    <li className="flex items-center px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-800 cursor-pointer rounded">
+                    <li className="flex items-center px-2 py-2 hover:bg-gray-100 dark:hover:bg-gray-800 cursor-pointer rounded">
                       <span className="text-gray-900 dark:text-white">
                         Dashboard 2
                       </span>
                     </li>
                     <NavLink to="/dashboards/new" className="flex items-center">
-                      <li className="flex items-center px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-800 cursor-pointer rounded">
+                      <li className="flex items-center px-2 py-2 hover:bg-gray-100 dark:hover:bg-gray-800 cursor-pointer rounded">
                         <FaPlus className="text-gray-900 dark:text-white text-sm" />
                         <span className="ml-2 text-gray-900 dark:text-white">
                           New Dashboard
@@ -190,8 +190,8 @@ const Sidebar = ({
                   title={`${isCollapsed ? "Notifications" : ""}`}
                   placement="right"
                 >
-                  <li className="flex items-center px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-800 cursor-pointer rounded">
-                    <AiOutlineBell className="text-xl text-gray-900 dark:text-white" />
+                  <li className="flex items-center px-2 py-2 hover:bg-gray-100 dark:hover:bg-gray-800 cursor-pointer rounded">
+                    <AiOutlineBell className="text-md text-gray-900 dark:text-white" />
                     {!isCollapsed && (
                       <span className="ml-4 text-gray-900 dark:text-white">
                         Notifications
@@ -206,8 +206,8 @@ const Sidebar = ({
                     title={`${isCollapsed ? "Analytics" : ""}`}
                     placement="right"
                   >
-                    <li className="flex items-center px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-800 cursor-pointer rounded">
-                      <LiaMoneyCheckAltSolid className="text-xl text-gray-900 dark:text-white" />
+                    <li className="flex items-center px-2 py-2 hover:bg-gray-100 dark:hover:bg-gray-800 cursor-pointer rounded">
+                      <LiaMoneyCheckAltSolid className="text-md text-gray-900 dark:text-white" />
                       {!isCollapsed && (
                         <span className="ml-4 text-gray-900 dark:text-white">
                           Find buyers
@@ -239,8 +239,8 @@ const Sidebar = ({
                   title={`${isCollapsed ? "Subscriptions" : ""}`}
                   placement="right"
                 >
-                  <li className="flex items-center px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-800 cursor-pointer rounded">
-                    <AiOutlineShop className="text-xl text-gray-900 dark:text-white" />
+                  <li className="flex items-center px-2 py-2 hover:bg-gray-100 dark:hover:bg-gray-800 cursor-pointer rounded">
+                    <AiOutlineShop className="text-md text-gray-900 dark:text-white" />
                     {!isCollapsed && (
                       <span className="ml-4 text-gray-900 dark:text-white">
                         Subscriptions
@@ -253,11 +253,11 @@ const Sidebar = ({
           </nav>
         </div>
 
-        <div className="flex flex-col space-y-4 py-4">
+        <div className="flex flex-col space-y-2 py-4">
           <ThemeProvider theme={tooltipTheme}>
             <Tooltip title={`${isCollapsed ? "Logout" : ""}`} placement="right">
               <button className="flex items-center py-2 px-4  text-gray-900 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-800 rounded">
-                <MdOutlineLogout className="text-xl" />
+                <MdOutlineLogout className="text-md" />
                 {!isCollapsed && <span className="ml-4">Logout</span>}
               </button>
             </Tooltip>
