@@ -13,15 +13,15 @@ const ModeToggle = ({ isCollapsed, isDarkMode }: ModeToggleProps) => {
 
   return (
     <div
-      className={`flex items-center ${isCollapsed ? "justify-center" : "justify-between px-4"} w-full py-4`}
+      className={`flex items-center ${isCollapsed ? "justify-center" : "justify-between px-2"} w-full py-4`}
     >
       {!isCollapsed && (
         <>
           <BsSun
-            className={`text-2xl ${isDarkMode ? "text-gray-400" : "text-yellow-500"}`}
+            className={`text-xl ${isDarkMode ? "text-gray-400" : "text-yellow-500"}`}
           />
           <span
-            className={`ml-2 font-medium ${isDarkMode ? "text-gray-200" : "text-gray-900"}`}
+            className={`ml-2 text-sm whitespace-nowrap font-medium ${isDarkMode ? "text-gray-200" : "text-gray-900"}`}
           >
             {isDarkMode ? "Dark mode" : "Light mode"}
           </span>
