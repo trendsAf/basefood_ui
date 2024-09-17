@@ -1,22 +1,22 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable no-console */
 import axios from "axios";
-import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
-import Skeleton from "react-loading-skeleton";
+import { useEffect } from "react";
+// import { Link } from "react-router-dom";
+// import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 
-interface NewsItem {
-  title: string;
-  date: string;
-  image: string;
-  url: string;
-}
+// interface NewsItem {
+//   title: string;
+//   date: string;
+//   image: string;
+//   url: string;
+// }
 
 const MarketNews: React.FC = () => {
-  const [news, setNews] = useState<NewsItem[]>([]);
-  const [visibleNewsCount, setVisibleNewsCount] = useState(4);
-  const [isLoading, setIsLoading] = useState(true); // Loading state
+  // const [news, setNews] = useState<NewsItem[]>([]);
+  // const [visibleNewsCount, setVisibleNewsCount] = useState(4);
+  // const [isLoading, setIsLoading] = useState(true);
 
   const getNews = async () => {
     try {
@@ -40,27 +40,28 @@ const MarketNews: React.FC = () => {
       console.log(response, "Reeeeesssssspooonse");
     } catch (error) {
       console.log(error);
-    } finally {
-      setIsLoading(false);
+      return error;
+      // } finally {
+      //   setIsLoading(false);
+      // }
     }
-  };
 
-  useEffect(() => {
-    getNews();
-  }, []);
+    useEffect(() => {
+      getNews();
+    }, []);
 
-  const handleShowMore = () => {
-    setVisibleNewsCount((prevCount) => prevCount + 4);
-  };
+    // const handleShowMore = () => {
+    //   setVisibleNewsCount((prevCount) => prevCount + 4);
+    // };
 
-  const handleShowLess = () => {
-    setVisibleNewsCount(4);
+    // const handleShowLess = () => {
+    //   setVisibleNewsCount(4);
   };
 
   return (
     <div className="p-4 bg-white dark:bg-secondary-black dark:text-white rounded-lg">
       <h2 className="text-sm font-bold mb-4">Market News</h2>
-      <div>
+      {/* <div>
         {isLoading
           ? Array(4)
               .fill(0)
@@ -113,7 +114,7 @@ const MarketNews: React.FC = () => {
             View Less
           </button>
         )
-      )}
+      )} */}
     </div>
   );
 };
