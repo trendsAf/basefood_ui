@@ -15,6 +15,8 @@ import company_image6 from "/company_image6.png";
 import company_image7 from "/company_image7.png";
 import company_image8 from "/company_image8.png";
 import eastern_product_image from "/eastern_product_image.jpg";
+import base_food_black_logo from "/logos/7.png";
+import base_food_white_logo from "../basefood_lowercase.png";
 
 export {
   vite_image,
@@ -33,4 +35,6 @@ export {
   company_image7,
   company_image8,
   eastern_product_image,
+  base_food_black_logo,
+  base_food_white_logo,
 };

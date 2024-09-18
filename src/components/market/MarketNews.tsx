@@ -1,10 +1,8 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-/* eslint-disable no-console */
-import axios from "axios";
-import { useEffect } from "react";
+// import axios from "axios";
+// import { useEffect, useState } from "react";
 // import { Link } from "react-router-dom";
 // import Skeleton from "react-loading-skeleton";
-import "react-loading-skeleton/dist/skeleton.css";
+// import "react-loading-skeleton/dist/skeleton.css";
 
 // interface NewsItem {
 //   title: string;
@@ -18,45 +16,61 @@ const MarketNews: React.FC = () => {
   // const [visibleNewsCount, setVisibleNewsCount] = useState(4);
   // const [isLoading, setIsLoading] = useState(true);
 
-  const getNews = async () => {
-    try {
-      const response = await axios.get(
-        // "https://newsapi.org/v2/everything?q=tesla&from=2024-08-16&sortBy=publishedAt&apiKey=bfd7d86bab164533af3ed5ac5d79d412",
-        "https://finnhub.io/api/v1/global-filings/search?token=crkl0bhr01qq23fi0qo0crkl0bhr01qq23fi0qog",
-      );
+  // const getNews = async () => {
+  //   try {
+  // const response = await axios.get(
+  // "https://newsapi.org/v2/everything?q=tesla&from=2024-08-16&sortBy=publishedAt&apiKey=bfd7d86bab164533af3ed5ac5d79d412",
+  //   "https://financialmodelingprep.com/api/v4/search/isin?isin=US0378331005&apikey=gd9GqWttP1jSfN0DfQC9deQLuqi5o0gC",
+  // );
 
-      // const formattedNews = response.data.articles.map((article: any) => ({
-      //   title: article.title,
-      //   date: new Date(article.publishedAt).toLocaleDateString("en-US", {
-      //     month: "short",
-      //     day: "numeric",
-      //     year: "numeric",
-      //   }),
-      //   image: article.urlToImage,
-      //   url: article.url,
-      // }));
+  // const formattedNews = response.data.articles.map((article: any) => ({
+  //   title: article.title,
+  //   date: new Date(article.publishedAt).toLocaleDateString("en-US", {
+  //     month: "short",
+  //     day: "numeric",
+  //     year: "numeric",
+  //   }),
+  //   image: article.urlToImage,
+  //   url: article.url,
+  // }));
 
-      // setNews(formattedNews);
-      console.log(response, "Reeeeesssssspooonse");
-    } catch (error) {
-      console.log(error);
-      return error;
-      // } finally {
-      //   setIsLoading(false);
-      // }
-    }
+  // setNews(formattedNews);
+  //   console.log(response, "Reeeeesssssspooonse");
+  // } catch (error) {
+  //   console.log(error);
+  // } finally {
+  //   setIsLoading(false);
+  //   }
 
-    useEffect(() => {
-      getNews();
-    }, []);
+  // "Special Endpoint : This endpoint is not available under your current subscription please visit our subscription page to upgrade your plan at https://site.financialmodelingprep.com/developer/docs/pricing"
+  // };
 
-    // const handleShowMore = () => {
-    //   setVisibleNewsCount((prevCount) => prevCount + 4);
-    // };
+  // useEffect(() => {
+  //   axios
+  //     .get(
+  //       "https://financialmodelingprep.com/api/v4/general_news?page=0&apikey=gd9GqWttP1jSfN0DfQC9deQLuqi5o0gC",
+  //     )
+  //     .then((response) => {
+  //       setNews(response.data);
+  //       console.log(response, "Reeeeesssssspooonse");
+  //     })
+  //     .catch((error) => {
+  //       setError(error);
+  //       console.log(error);
+  //     });
+  // }, []);
 
-    // const handleShowLess = () => {
-    //   setVisibleNewsCount(4);
-  };
+  // useEffect(() => {
+  //   getNews();
+  // }, []);
+
+  // const handleShowMore = () => {
+  //   setVisibleNewsCount((prevCount) => prevCount + 4);
+  // };
+
+  // const handleShowLess = () => {
+  //   setVisibleNewsCount(4);
+  // };
 
   return (
     <div className="p-4 bg-white dark:bg-secondary-black dark:text-white rounded-lg">
@@ -94,9 +108,9 @@ const MarketNews: React.FC = () => {
                 </div>
               </div>
             ))}
-      </div>
+      </div> */}
 
-      {news.length > visibleNewsCount ? (
+      {/* {news.length > visibleNewsCount ? (
         <Link to={"/news"}>
           <button
             onClick={handleShowMore}

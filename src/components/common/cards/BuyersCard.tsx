@@ -27,7 +27,7 @@ const BuyersCard = ({
   };
   return (
     <>
-      <div className="flex flex-col p-4 border rounded shadow-sm bg-white dark:bg-gray-800">
+      <div className="flex flex-col p-4 border dark:border-[#252525] rounded shadow-sm bg-white dark:bg-[#252525]">
         <div className="flex flex-col gap-4">
           <div className="flex justify-between items-start">
             <div>
@@ -63,7 +63,7 @@ const BuyersCard = ({
           </div> */}
           <div>
             <button
-              className="mt-4 px-4 py-2 bg-[#e6e7ea] text-black hover:bg-[#d6d7da] transition"
+              className="mt-4 px-4 py-2 bg-[#e6e7ea] text-black hover:bg-[#d6d7da] dark:bg-[#e6e7ea]/50 dark:text-white transition"
               onClick={() => toggleModal()}
             >
               Contact Now

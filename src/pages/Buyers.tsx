@@ -64,16 +64,16 @@ const Buyers: React.FC = () => {
   };
 
   return (
-    <div className="dark:text-white text-black flex flex-col lg:flex-row lg:gap-10 max-w-[90%] mx-auto ">
+    <div className="dark:text-white text-black flex flex-col lg:flex-row lg:gap-10 max-w-[90%] mx-auto mt-10 w-full">
       <div className="lg:w-[30%] py-2 lg:py-0 lg:fixed lg:right-0 lg:top-16 lg:h-[85vh] lg:overflow-y-auto">
-        <div className="flex items-center justify-between w-4/5 text-sm mt-5">
+        <div className="flex items-center justify-between w-4/5 text-sm mt-10">
           <h1>Ongoing RFQs</h1>
-          <div className="flex items-center gap-1 hover:border-b border-brand-blue hover:text-brand-blue cursor-pointer">
+          <div className="flex items-center gap-1 hover:border-b hover:text-brand-blue cursor-pointer ">
             <h1>View all RFQs </h1>
             <IoIosArrowForward />
           </div>
         </div>
-        <div className="mt-4 text-black/50">
+        <div className="mt-14 text-black/50">
           <h1>
             {" "}
             <b className="underline cursor-pointer">Create an RFQ</b> to let
@@ -85,7 +85,7 @@ const Buyers: React.FC = () => {
             responsive={responsive}
             swipeable={true}
             draggable={true}
-            showDots={false}
+            showDots={true}
             ssr={true}
             infinite={true}
             autoPlay={false}
@@ -128,8 +128,8 @@ const Buyers: React.FC = () => {
         </div>
       </div>
 
-      <div className="w-full lg:w-[70%] border-r pr-10">
-        <div className="mt-24">
+      <div className="w-full lg:w-[70%] lg:border-r lg:pr-10 dark:border-r-[#252525]">
+        <div className="lg:mt-24 mt-5 w-full">
           <h1 className="text-2xl">Buyers</h1>
           <div>
             <form className="relative">
@@ -138,7 +138,9 @@ const Buyers: React.FC = () => {
                 placeholder="Search buyers..."
                 value={searchTerm}
                 onChange={handleSearchChange}
-                className="border border-gray-300 px-4 py-2 w-2/5 mt-4 pl-10"
+                className="border border-gray-300 dark:bg-[#252525] px-4 py-2 lg:w-2/5 mt-4 pl-10"
+                // Add a fixed width if necessary
+                style={{ width: "100%", maxWidth: "400px" }}
               />
               <GrSearch className="absolute top-7 left-3 text-black/20" />
               {suggestions.length > 0 && (
@@ -157,19 +159,25 @@ const Buyers: React.FC = () => {
             </form>
           </div>
         </div>
+
+        {/* Display results with a fallback message */}
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mt-4">
-          {filteredBuyers.map((data, idx) => (
-            <BuyersCard
-              companyName={data.companyName}
-              countryFlag={data.countryFlag}
-              countryName={data.countryName}
-              // profile={data.profile}
-              companyImage={data.companyImage}
-              description={data.description}
-              // name={data.name}
-              key={idx}
-            />
-          ))}
+          {filteredBuyers.length > 0 ? (
+            filteredBuyers.map((data, idx) => (
+              <BuyersCard
+                companyName={data.companyName}
+                countryFlag={data.countryFlag}
+                countryName={data.countryName}
+                companyImage={data.companyImage}
+                description={data.description}
+                key={idx}
+              />
+            ))
+          ) : (
+            <p className="text-center col-span-full text-gray-500 dark:text-gray-400">
+              No buyer found.
+            </p>
+          )}
         </div>
       </div>
     </div>
