@@ -14,7 +14,7 @@ const ApexChart: React.FC<ApexChartProps> = ({ data }) => {
 
   const options = {
     chart: {
-      type: "area",
+      type: "bar",
       stacked: false,
       height: 350,
       width: "100%",
@@ -32,14 +32,14 @@ const ApexChart: React.FC<ApexChartProps> = ({ data }) => {
       enabled: false,
     },
     stroke: {
-      width: 1.5,
+      width: 3,
     },
     fill: {
       type: "solid",
-      opacity: 0, // Set opacity to 0 to remove the background color
+      opacity: 1,
     },
     markers: {
-      size: 0,
+      size: 1,
     },
     yaxis: {
       labels: {
@@ -86,7 +86,7 @@ const ApexChart: React.FC<ApexChartProps> = ({ data }) => {
       //@ts-ignore
       options={options}
       series={data}
-      type="area"
+      type="line"
       height={320}
     />
   );
