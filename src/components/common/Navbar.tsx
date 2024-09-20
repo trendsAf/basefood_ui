@@ -53,9 +53,9 @@ const Navbar: React.FC = () => {
               className="w-full h-full object-cover hidden dark:block"
             />
           </div>
-          <div className="flex items-center">
+          <div className="flex items-center gap-4">
             <ModeToggle isCollapsed={false} isDarkMode={theme == "dark"} />
-            <Link to="/login" className="hover:underline">
+            <Link to="/login" className="hover:underline mr-5 md:text-lg logo">
               Login
             </Link>
           </div>
