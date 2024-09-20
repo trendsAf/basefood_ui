@@ -139,10 +139,9 @@ const Buyers: React.FC = () => {
                 value={searchTerm}
                 onChange={handleSearchChange}
                 className="border border-gray-300 dark:bg-[#252525] px-4 py-2 lg:w-2/5 mt-4 pl-10"
-                // Add a fixed width if necessary
                 style={{ width: "100%", maxWidth: "400px" }}
               />
-              <GrSearch className="absolute top-7 left-3 text-black/20" />
+              <GrSearch className="absolute top-7 left-3 text-black/20 dark:text-white/60" />
               {suggestions.length > 0 && (
                 <ul className="border border-gray-300 rounded mt-2 max-h-60 overflow-y-auto">
                   {suggestions.map((suggestion, idx) => (
@@ -160,7 +159,6 @@ const Buyers: React.FC = () => {
           </div>
         </div>
 
-        {/* Display results with a fallback message */}
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mt-4">
           {filteredBuyers.length > 0 ? (
             filteredBuyers.map((data, idx) => (

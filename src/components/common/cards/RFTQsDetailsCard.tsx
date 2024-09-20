@@ -33,20 +33,23 @@ const RFTQsDetailsCard: React.FC<RFTQsDetailsCardProps> = ({
   return (
     <div className="dark:text-white">
       <div className="flex items-center gap-2 text-xl dark:text-white">
-        <span className="text-brand-blue/70 text-2xl">
+        <span className="text-brand-blue/70 lg:text-2xl md:text-lg text-base">
           {iconsData[titleIndex]}
         </span>
-        <h1 className="logo">{title}</h1>
+        <h1 className="logo lg:text-2xl md:text-lg text-base">{title}</h1>
       </div>
-      <div className="grid grid-cols-[1fr_3fr] gap-x-2 gap-y-5 ">
+      <div className="grid lg:grid-cols-[1fr_3fr] grid-cols-2 gap-x-2 gap-y-5 ">
         <div className="flex flex-col gap-2 ml-2 mt-2">
           {attribute.map((item, idx) => (
-            <span key={idx} className="text-lg text-black/80 dark:text-white">
+            <span
+              key={idx}
+              className="md:text-lg text-sm text-black/80 dark:text-white"
+            >
               {item.name}
             </span>
           ))}
         </div>
-        <div className="flex flex-col gap-2 text-lg mt-2 text-black/80 dark:text-white">
+        <div className="md:text-lg text-sm flex flex-col gap-2 mt-2 text-black/80 dark:text-white">
           {details.map((item, idx) => (
             <span key={idx}>{item.name}</span>
           ))}

@@ -1,14 +1,14 @@
-import React from "react";
 import {
+  Checkbox,
+  Paper,
   Table,
   TableBody,
   TableCell,
   TableContainer,
   TableHead,
   TableRow,
-  Paper,
-  Checkbox,
 } from "@mui/material";
+import React from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "../redux/store";
 
@@ -69,6 +69,7 @@ const WatchlistTable: React.FC = () => {
       component={Paper}
       className="shadow-lg dark:bg-secondary-black overflow-auto relative"
     >
+      {/* Table content */}
       <Table>
         <TableHead>
           <TableRow className="bg-gray-100 dark:bg-[#1E1E1E]">

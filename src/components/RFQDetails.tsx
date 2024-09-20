@@ -4,12 +4,17 @@ import { eastern_product_image } from "../assets/images";
 import RFTQsDetailsCard from "./common/cards/RFTQsDetailsCard";
 import { rftqDetailsData } from "../utils/rftqDetailsData";
 import BuyersInformationCard from "./common/cards/BuyersInformationCard";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "../redux/store";
+import SubmitQuoteModal from "./common/cards/SubmitQuoteModal";
 
 const RFQDetails = () => {
   const theme = useSelector((state: RootState) => state.theme.value);
+  const [openQuoteModal, setOpenQoteModal] = useState(false);
+  const toggleQouteModal = () => {
+    setOpenQoteModal(!openQuoteModal);
+  };
 
   useEffect(() => {
     if (theme === "dark") {
@@ -21,7 +26,7 @@ const RFQDetails = () => {
   return (
     <>
       <div className="bg-slate-100 dark:bg-[#252525] min-h-screen mt-16 dark:text-white ">
-        <div className="bg-white dark:bg-[#252525] py-16 flex flex-col gap-6 px-[15%]">
+        <div className="bg-white dark:bg-[#252525] py-16 flex flex-col gap-6 lg:px-[15%] px-[5%]">
           <div className="space-y-6">
             <Link to={"/buyers"} className="flex items-center gap-2 text-lg">
               <MdArrowBackIosNew className="text-lg" /> RFQs
@@ -40,30 +45,35 @@ const RFQDetails = () => {
                   <img
                     src={eastern_product_image}
                     alt="eastern_image"
-                    className="w-full h-full object-cover"
+                    className="w-full h-full object-cover rounded-lg"
                   />
                 </div>
-                <div>
-                  <h1 className="text-2xl logo">Wheat Flour</h1>
-                  <p className="text-xl">
+                <div className="mb-6">
+                  <h1 className="text-2xl logo text-center lg:text-start">
+                    Wheat Flour
+                  </h1>
+                  <p className="text-xl text-center lg:text-start">
                     a powder made from the grinding of common wheat
                   </p>
-                  <span className="text-sm">
+                  <h1 className="text-sm text-center lg:text-start">
                     Request Duration: Aug 18, 2024 ~ Sep 17, 2024 at 21:36
                     (GMT+02:00)
-                  </span>
+                  </h1>
                 </div>
               </div>
 
               <div>
-                <button className="px-8 py-2 bg-brand-blue text-white">
+                <button
+                  className="px-8 py-2 bg-brand-blue text-white"
+                  onClick={() => toggleQouteModal()}
+                >
                   Submit quote
                 </button>
               </div>
             </div>
           </div>
         </div>
-        <div className="bg-slate-100 dark:bg-black/90 dark:text-white px-[15%]">
+        <div className="bg-slate-100 dark:bg-black/90 dark:text-white lg:px-[15%] px-[5%]">
           {rftqDetailsData.map((item, idx) => (
             <div
               key={idx}
@@ -78,13 +88,16 @@ const RFQDetails = () => {
             </div>
           ))}
         </div>
-        <div className="bg-white dark:bg-[#252525] px-[15%] py-10">
+        <div className="bg-white dark:bg-[#252525] lg:px-[15%] px-[5%] py-10">
           <h1 className="text-2xl logo py-5">Buyers Information</h1>
-          <div className="border dark:border-white/40 p-10">
+          <div className="border dark:border-white/40 lg:p-10 p-5">
             <BuyersInformationCard />
           </div>
         </div>
       </div>
+      {openQuoteModal && (
+        <SubmitQuoteModal toggleQuoteModal={toggleQouteModal} />
+      )}
     </>
   );
 };

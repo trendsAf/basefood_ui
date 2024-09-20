@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { VscGraph } from "react-icons/vsc";
 import { LuTable } from "react-icons/lu";
 import { BsGraphUp } from "react-icons/bs";
@@ -26,7 +26,6 @@ const componentOptions: ComponentOption[] = [
     description: "Display a price historical graph.",
     icon: <BsGraphUp className="text-2xl" />,
   },
-
   {
     type: "graph",
     title: "Production Historical Graph",
@@ -35,15 +34,15 @@ const componentOptions: ComponentOption[] = [
   },
   {
     type: "news",
-    title: "Latest news.",
-    description: "Display a performance graph.",
+    title: "Latest News",
+    description: "Display the latest news.",
     icon: <TbNews className="text-2xl" />,
   },
   {
     type: "list",
-    title: "Track shipping and logistics ",
+    title: "Track Shipping and Logistics",
     description:
-      "Get quick estimates on trucking and freight forwarding rates from multiple providers.",
+      "Get quick estimates on trucking and freight forwarding rates.",
     icon: <FaTruck className="text-2xl" />,
   },
   {
@@ -65,6 +64,20 @@ const AddComponentModal: React.FC<AddComponentModalProps> = ({
   onClose,
   onAdd,
 }) => {
+  const [selectedComponent, setSelectedComponent] = useState<string | null>(
+    null,
+  );
+
+  const handleSelection = (componentType: string) => {
+    setSelectedComponent(componentType);
+  };
+
+  const handleAddComponent = () => {
+    if (selectedComponent) {
+      onAdd(selectedComponent);
+    }
+  };
+
   if (!isOpen) return null;
 
   return (
@@ -79,8 +92,12 @@ const AddComponentModal: React.FC<AddComponentModalProps> = ({
             {componentOptions.map((option) => (
               <button
                 key={option.type}
-                onClick={() => onAdd(option.type)}
-                className="flex items-center px-4 py-3 border rounded-lg hover:bg-gray-50 dark:hover:bg-gray-900 transition-colors text-left"
+                onClick={() => handleSelection(option.type)}
+                className={`flex items-center px-4 py-3 border rounded-lg transition-colors text-left ${
+                  selectedComponent === option.type
+                    ? "bg-blue-100 dark:bg-gray-900 border-blue-500"
+                    : "hover:bg-gray-50 dark:hover:bg-gray-900"
+                }`}
               >
                 <div className="mr-4">{option.icon}</div>
                 <div>
@@ -99,10 +116,13 @@ const AddComponentModal: React.FC<AddComponentModalProps> = ({
             Cancel
           </button>
           <button
-            onClick={() => onAdd("default")}
-            className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition-colors"
+            onClick={handleAddComponent}
+            disabled={!selectedComponent}
+            className={`px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition-colors ${
+              !selectedComponent ? "opacity-50 cursor-not-allowed" : ""
+            }`}
           >
-            Add component
+            Add Component
           </button>
         </div>
       </div>

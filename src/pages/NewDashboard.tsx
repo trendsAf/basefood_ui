@@ -1,21 +1,31 @@
 import React, { useState } from "react";
 import AddComponentModal from "../components/AddComponentModal";
-import WatchlistTable from "../components/WatchlistTable";
-import { IconButton } from "@mui/material";
-import { Download, ViewList, FilterList } from "@mui/icons-material";
-import CloseIcon from "@mui/icons-material/Close";
 import { useSelector } from "react-redux";
 import { RootState } from "../redux/store";
+import WatchlistTable from "../components/WatchlistTable";
+import { IconButton } from "@mui/material";
+import {
+  Download,
+  ViewList,
+  FilterList,
+  Close as CloseIcon,
+} from "@mui/icons-material";
+import PriceHistoricalGraph from "../components/PriceHistoricalGraph";
+import ProductionHistoricalGraph from "../components/ProductionHistoricalGraph";
+import MarketNewsDashboardComponent from "../components/MarketNewsDashboardComponent";
 
 const NewDashboard: React.FC = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedPlaceholder, setSelectedPlaceholder] = useState<number | null>(
     null,
   );
-  const [components, setComponents] = useState<any[]>([null, null, null, null]);
 
   const theme = useSelector((state: RootState) => state.theme.value);
   const isDarkMode = theme === "dark";
+
+  const [selectedComponents, setSelectedComponents] = useState<
+    (string | null)[]
+  >([null, null, null, null]);
 
   const openModal = (placeholderIndex: number) => {
     setSelectedPlaceholder(placeholderIndex);
@@ -28,29 +38,48 @@ const NewDashboard: React.FC = () => {
   };
 
   const addComponent = (componentType: string) => {
-    const newComponent = getComponentByType(componentType);
     if (selectedPlaceholder !== null) {
-      const updatedComponents = [...components];
-      updatedComponents[selectedPlaceholder] = newComponent;
-      setComponents(updatedComponents);
+      const updatedComponents = [...selectedComponents];
+      updatedComponents[selectedPlaceholder] = componentType;
+      setSelectedComponents(updatedComponents);
     }
     closeModal();
   };
 
-  const getComponentByType = (type: string) => {
-    switch (type) {
+  const renderComponent = (componentType: string | null) => {
+    switch (componentType) {
       case "table":
         return <WatchlistTable />;
-
+      case "historical":
+        return <PriceHistoricalGraph />;
+      case "graph":
+        return <ProductionHistoricalGraph />;
+      case "news":
+        return <MarketNewsDashboardComponent />;
       default:
         return null;
     }
   };
 
+  const getToolbarText = (componentType: string | null) => {
+    switch (componentType) {
+      case "table":
+        return "Watchlist";
+      case "historical":
+        return "Price Historical Graph";
+      case "graph":
+        return "Production Historical Graph";
+      case "news":
+        return "Latest news";
+      default:
+        return "Component";
+    }
+  };
+
   const removeComponent = (index: number) => {
-    const updatedComponents = [...components];
+    const updatedComponents = [...selectedComponents];
     updatedComponents[index] = null;
-    setComponents(updatedComponents);
+    setSelectedComponents(updatedComponents);
   };
 
   return (
@@ -59,13 +88,13 @@ const NewDashboard: React.FC = () => {
         {[0, 1, 2, 3].map((index) => (
           <div
             key={index}
-            className="relative border flex flex-col  justify-center rounded-lg overflow-hidden h-[100%]"
+            className="relative border flex flex-col justify-center rounded-lg overflow-hidden h-[100%]"
           >
-            {components[index] ? (
+            {selectedComponents[index] ? (
               <>
-                <div className="flex justify-between items-center bg-gray-100 dark:dark:bg-[#151515] px-2 py-1">
+                <div className="flex justify-between items-center bg-gray-100 dark:bg-[#252525] dark:text-white px-2 py-1">
                   <span className="font-semibold text-gray-900 ml-2 dark:text-gray-300">
-                    Watchlist
+                    {getToolbarText(selectedComponents[index])}
                   </span>
                   <div className="flex items-center gap-2">
                     <IconButton
@@ -98,7 +127,7 @@ const NewDashboard: React.FC = () => {
                 </div>
 
                 <div className="w-full h-full p-4 overflow-y-auto">
-                  {components[index]}
+                  {renderComponent(selectedComponents[index])}
                 </div>
               </>
             ) : (

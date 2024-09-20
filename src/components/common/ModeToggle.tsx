@@ -15,7 +15,7 @@ const ModeToggle = ({ isCollapsed, isDarkMode }: ModeToggleProps) => {
     <div
       className={`flex items-center ${isCollapsed ? "justify-center" : "justify-between px-2"} w-full py-4`}
     >
-      {!isCollapsed && (
+      {/* {!isCollapsed && (
         <>
           <BsSun
             className={`text-xl ${isDarkMode ? "text-gray-400" : "text-yellow-500"}`}
@@ -26,7 +26,7 @@ const ModeToggle = ({ isCollapsed, isDarkMode }: ModeToggleProps) => {
             {isDarkMode ? "Dark mode" : "Light mode"}
           </span>
         </>
-      )}
+      )} */}
       <div
         onClick={() => dispatch(toggleTheme())}
         className={`ml-2 relative inline-flex h-6 w-11 items-center rounded-full cursor-pointer transition-colors ${
