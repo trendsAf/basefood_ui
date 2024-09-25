@@ -1,4 +1,8 @@
+import { SkeletonTheme } from "react-loading-skeleton";
 import { Route, Routes } from "react-router-dom";
+import OtpSuccess from "../components/Auth/otp/OtpSuccess";
+import VerificationPage from "../components/Auth/otp/VerificationsPage";
+import BusinessDetailsParent from "../components/Auth/businessDetails/BusinessDetailsParent";
 import PagesLayout from "../components/layouts/PagesLayout";
 import RootLayout from "../components/layouts/RootLayout";
 import RFQDetails from "../components/RFQDetails";
@@ -8,7 +12,7 @@ import Buyers from "../pages/Buyers";
 import Dashboard from "../pages/Index";
 import NewDashboard from "../pages/NewDashboard";
 import NewsPage from "../pages/News";
-import { SkeletonTheme } from "react-loading-skeleton";
+import WelcomePage from "../pages/WelcomePage";
 
 const AppRoutes = () => {
   return (
@@ -16,6 +20,19 @@ const AppRoutes = () => {
       <Routes>
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
+        <Route
+          path="/verify"
+          element={
+            <VerificationPage
+              onNext={function (): void {
+                throw new Error("Function not implemented.");
+              }}
+            />
+          }
+        />
+        <Route path="/success" element={<OtpSuccess />} />
+        <Route path="/business" element={<BusinessDetailsParent />} />
+        <Route path="/welcome" element={<WelcomePage />} />
 
         <Route path="/buyers" element={<PagesLayout />}>
           <Route index element={<Buyers />} />
