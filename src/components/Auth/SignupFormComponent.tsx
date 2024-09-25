@@ -1,30 +1,46 @@
 /* eslint-disable no-console */
 import { SubmitHandler, useForm, Controller } from "react-hook-form";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { FcGoogle } from "react-icons/fc";
 import { FaLinkedinIn } from "react-icons/fa";
 import { TextField } from "@mui/material";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { useState } from "react";
+import { signupSchema } from "../../validations/formValidations";
 
 interface SignupFormComponentFieldProps {
   firstName: string;
   lastName: string;
   email: string;
-  phone: string;
-  rememberMe: boolean;
+  password: string;
+  confirmPassword: string;
 }
 
-interface SignupFormComponentProps {
-  onNext: () => void;
-}
+const SignupFormComponent: React.FC = () => {
+  const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
 
-const SignupFormComponent: React.FC<SignupFormComponentProps> = ({
-  onNext,
-}) => {
-  const { handleSubmit, control } = useForm<SignupFormComponentFieldProps>();
+  const {
+    handleSubmit,
+    control,
+    formState: { errors },
+  } = useForm<SignupFormComponentFieldProps>({
+    resolver: yupResolver(signupSchema),
+  });
 
   const onSubmit: SubmitHandler<SignupFormComponentFieldProps> = (data) => {
+    setLoading(true);
     console.log(data);
-    onNext();
+
+    setTimeout(() => {
+      toast.success("Account created, check email for verifications");
+      setLoading(false);
+      setTimeout(() => {
+        navigate("/verify");
+      }, 4000);
+    }, 1000);
   };
 
   const textFieldSx = {
@@ -41,6 +57,7 @@ const SignupFormComponent: React.FC<SignupFormComponentProps> = ({
 
   return (
     <div>
+      <ToastContainer />
       <div className="flex justify-center my-4">
         <button
           type="button"
@@ -56,7 +73,7 @@ const SignupFormComponent: React.FC<SignupFormComponentProps> = ({
           className="bg-[#e5e5e5] text-black px-5 py-3 w-full rounded-[5px] font-bold hover:bg-[#d1d0d0] transition-all helvetica duration-300 flex items-center justify-center gap-3"
         >
           <FaLinkedinIn className="text-2xl text-blue-700" />
-          Continue with Linkedin
+          Continue with LinkedIn
         </button>
       </div>
       <form
@@ -76,6 +93,8 @@ const SignupFormComponent: React.FC<SignupFormComponentProps> = ({
                 fullWidth
                 className="bg-white"
                 sx={textFieldSx}
+                error={!!errors.firstName}
+                helperText={errors.firstName?.message}
               />
             )}
           />
@@ -91,10 +110,11 @@ const SignupFormComponent: React.FC<SignupFormComponentProps> = ({
                 fullWidth
                 className="bg-white"
                 sx={textFieldSx}
+                error={!!errors.lastName}
+                helperText={errors.lastName?.message}
               />
             )}
           />
-
           <Controller
             name="email"
             control={control}
@@ -108,16 +128,54 @@ const SignupFormComponent: React.FC<SignupFormComponentProps> = ({
                 fullWidth
                 className="bg-white"
                 sx={textFieldSx}
+                error={!!errors.email}
+                helperText={errors.email?.message}
               />
             )}
           />
-
+          <Controller
+            name="password"
+            control={control}
+            defaultValue=""
+            render={({ field }) => (
+              <TextField
+                {...field}
+                label="Password"
+                type="password"
+                variant="outlined"
+                fullWidth
+                className="bg-white"
+                sx={textFieldSx}
+                error={!!errors.password}
+                helperText={errors.password?.message}
+              />
+            )}
+          />
+          <Controller
+            name="confirmPassword"
+            control={control}
+            defaultValue=""
+            render={({ field }) => (
+              <TextField
+                {...field}
+                label="Confirm Password"
+                type="password"
+                variant="outlined"
+                fullWidth
+                className="bg-white"
+                sx={textFieldSx}
+                error={!!errors.confirmPassword}
+                helperText={errors.confirmPassword?.message}
+              />
+            )}
+          />
           <div className="flex justify-center">
             <button
               type="submit"
-              className="text-white bg-brand-blue px-5 py-3 w-full rounded-[5px] font-bold hover:bg-blue-600 transition-all helvetica duration-300"
+              className={`text-white bg-brand-blue px-5 py-3 w-full rounded-[5px] font-bold transition-all duration-300 ${loading ? "opacity-50 cursor-not-allowed" : "hover:bg-blue-600"}`}
+              disabled={loading}
             >
-              Create Account
+              {loading ? "Creating..." : "Create Account"}
             </button>
           </div>
         </div>
