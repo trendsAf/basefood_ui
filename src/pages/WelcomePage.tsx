@@ -1,61 +1,96 @@
 import React from "react";
+import { welcome_image } from "../assets/images";
+import WelcomePolls from "../components/WelcomePolls";
+import { FaArrowCircleRight } from "react-icons/fa";
+import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
 
 const WelcomePage: React.FC = () => {
-  // Hardcoded user data
   const user = { firstName: "Aphrodis" };
 
+  const keyVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: { delay: 1.5, duration: 1 },
+    },
+  };
+
+  const lockVariants = {
+    initial: { x: -400 },
+    animate: { x: 0, transition: { duration: 2, ease: "easeInOut" } },
+    moveToRight: {
+      x: 0,
+      transition: { delay: 1, duration: 1.5, ease: "easeInOut" },
+    },
+  };
+
   return (
-    <div className="relative h-screen bg-gradient-to-b from-purple-800 to-blue-900 overflow-hidden">
-      <div className="absolute top-0 left-0 w-full h-full">
-        <div className="absolute top-20 left-10 bg-purple-700 h-1 w-10 rotate-45"></div>
-        <div className="absolute top-28 right-10 bg-purple-700 h-1 w-10 rotate-45"></div>
-        <div className="absolute bottom-0 left-0 w-full h-32 bg-gradient-to-t from-blue-900 to-transparent"></div>
-      </div>
-
-      <div className="relative flex flex-col items-center justify-center h-full text-center space-y-6">
-        <h1 className="text-4xl font-bold text-white">
-          Welcome, {user.firstName}!
+    <div className="relative h-screen px-[10%] mt-14">
+      <div>
+        <h1 className="text-2xl text-center">
+          Welcome to baseFood, <b className="logo">{user.firstName}</b>! We're
+          thrilled to have you on board. Thank you for joining our community.
+          We're here to help you every step of the way. Explore, create, and
+          connect – we can't wait to see what you'll achieve with us!
         </h1>
-        <h2 className="text-lg text-gray-300">We are here for you</h2>
+        <div className="flex items-center">
+          <motion.div
+            className="key py-8"
+            variants={keyVariants}
+            initial="hidden"
+            animate="visible"
+          >
+            <h1 className="text-2xl font-bold text-center text-grey_color-dark">
+              Key features of the platform
+            </h1>
+            <div className="rounded-lg p-4 flex lg:flex-row flex-col items-center">
+              <WelcomePolls />
+            </div>
+          </motion.div>
 
-        <p className="text-gray-300 max-w-2xl">
-          Thank you for signing up! We're excited to have you on board.
-        </p>
-
-        <div className="bg-white bg-opacity-20 p-6 rounded-md max-w-lg space-y-4 text-gray-200">
-          <h3 className="text-2xl font-semibold text-white">
-            Key Features of the Platform
-          </h3>
-          <ul className="space-y-2 text-left">
-            <li>
-              <strong>Access to Real-time Commodity Prices:</strong> Stay
-              updated with the latest commodity prices.
-            </li>
-            <li>
-              <strong>Insights on Logistics Services:</strong> Get insights to
-              efficiently manage your supply chain.
-            </li>
-            <li>
-              <strong>Tailored Trade Finance Options:</strong> Financial
-              solutions for agricultural businesses.
-            </li>
-          </ul>
+          <motion.div
+            className="w-full flex items-center justify-center lock"
+            variants={lockVariants}
+            initial="initial"
+            animate="moveToRight"
+          >
+            <div className="h-[42rem] w-[42rem] bg-white">
+              <img
+                src={welcome_image}
+                alt="welcome_image"
+                className="w-full h-full object-contain"
+              />
+            </div>
+          </motion.div>
         </div>
-
-        <div className="text-gray-300 max-w-2xl">
-          <p>Explore your dashboard and make the most of your account:</p>
-          <ul className="list-disc list-inside space-y-2">
-            <li>Set your preferences to receive personalized updates.</li>
-            <li>Connect with other users to grow your network.</li>
-          </ul>
+        <div className="flex items-center justify-center gap-5">
+          <motion.div
+            initial={{ opacity: 0, y: 40, scale: 0.5 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            transition={{ delay: 1.5, duration: 1 }}
+          >
+            <Link to={"/"}>
+              <button className="px-6 py-2 bg-brand-blue/60 text-white flex items-center gap-4">
+                Go to dashboard
+                <motion.div
+                  animate={{
+                    x: [-5, 5],
+                  }}
+                  transition={{
+                    duration: 0.5,
+                    repeat: Infinity,
+                    repeatType: "reverse",
+                    ease: "easeInOut",
+                  }}
+                >
+                  <FaArrowCircleRight className="text-2xl" />
+                </motion.div>
+              </button>
+            </Link>
+          </motion.div>
         </div>
-
-        <button className="px-8 py-3 bg-white text-blue-800 rounded-md shadow-lg hover:bg-gray-200">
-          Go to Dashboard
-        </button>
       </div>
-
-      <footer className="absolute bottom-0 left-0 w-full p-6"></footer>
     </div>
   );
 };

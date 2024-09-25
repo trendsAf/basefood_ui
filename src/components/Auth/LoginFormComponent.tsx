@@ -1,14 +1,13 @@
-/* eslint-disable no-console */
-import { SubmitHandler, useForm, Controller } from "react-hook-form";
+import { useForm, Controller } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 import { FaLinkedinIn } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
 import { TextField } from "@mui/material";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
-import api from "../../redux/api";
 import { useState } from "react";
 import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import Cookies from "js-cookie";
 
 interface LoginFormComponentFieldProps {
@@ -33,32 +32,27 @@ const LoginFormComponent = () => {
     resolver: yupResolver(schema),
     mode: "onBlur",
   });
-  const onSubmit: SubmitHandler<LoginFormComponentFieldProps> = async (
-    data,
-  ) => {
-    setIsLoading(true);
-    try {
-      const response = await api.post("/users/login", data);
-      console.log(response.data);
-      toast.success("you're logged in!");
-      Cookies.set("accessToken", response.data.token);
-      Cookies.set("userInfo", response.data.user);
-      setTimeout(() => {
-        navigate("/");
-      }, 3000);
-    } catch (error: any) {
-      toast.error(
-        error.response?.data.message ||
-          "Login failed. Please check your credentials.",
-      );
-      console.error("Login error:", error);
-    } finally {
-      setIsLoading(false);
-    }
-  };
 
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
+
+  const onSubmit = (data: LoginFormComponentFieldProps) => {
+    setIsLoading(true);
+
+    if (data.email === "aphrodis@gmail.com" && data.password === "My@pass12") {
+      toast.success("You're logged in!");
+      Cookies.set("accessToken", "dummyAccessToken");
+      Cookies.set("userInfo", JSON.stringify({ email: data.email }));
+
+      setTimeout(() => {
+        navigate("/welcome");
+      }, 3000);
+    } else {
+      toast.error("Wrong credentials. Please try again.");
+    }
+
+    setIsLoading(false);
+  };
 
   const textFieldSx = {
     "& .MuiOutlinedInput-input": {
@@ -80,7 +74,6 @@ const LoginFormComponent = () => {
           <Controller
             name="email"
             control={control}
-            defaultValue=""
             render={({ field }) => (
               <TextField
                 {...field}
@@ -97,7 +90,6 @@ const LoginFormComponent = () => {
           <Controller
             name="password"
             control={control}
-            defaultValue=""
             render={({ field }) => (
               <TextField
                 {...field}
@@ -131,7 +123,7 @@ const LoginFormComponent = () => {
       <div>
         <div className="flex justify-center my-4">
           <button
-            type="submit"
+            type="button"
             className=" bg-[#e5e5e5] text-black px-5 py-3 w-full rounded-[5px] font-bold hover:bg-[#d1d0d0] transition-all helvetica duration-300 flex items-center justify-center gap-3"
           >
             <FcGoogle className="text-2xl" />
@@ -140,7 +132,7 @@ const LoginFormComponent = () => {
         </div>
         <div className="flex justify-center my-4">
           <button
-            type="submit"
+            type="button"
             className=" bg-[#e5e5e5]  text-black px-5 py-3 w-full rounded-[5px] font-bold hover:bg-[#d1d0d0] transition-all helvetica duration-300 flex items-center justify-center gap-3"
           >
             <FaLinkedinIn className="text-2xl text-blue-700" />

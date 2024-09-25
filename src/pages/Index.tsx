@@ -1,12 +1,14 @@
 /* eslint-disable quotes */
 import React, { useState } from "react";
-import CropsMarket from "../components/market/CropsMarket";
 import Categories from "../components/market/Categories";
-import MarketNews from "../components/market/MarketNews";
-import Countries from "../components/market/Countries";
+import CropsMarket from "../components/market/CropsMarket";
+// import MarketNews from "../components/market/MarketNews";
+import DashboardBuyersCard from "../components/common/cards/DashboardBuyersCard";
 import Chart from "../components/market/Chart";
-import marketData from "../utils/marketData.json";
+import Countries from "../components/market/Countries";
 import MarketInsights from "../components/market/MarketInsights";
+import { dashboardBuyersData } from "../utils/buyersData";
+import marketData from "../utils/marketData.json";
 
 const distinctColors = [
   "#FF4136", // Bright Red
@@ -103,7 +105,26 @@ const Dashboard: React.FC<DashboardProps> = () => {
           selectedCrops={selectedCrops}
           marketData={marketData}
         />
-        <MarketNews />
+        {/* <MarketNews /> */}
+        <div className="grid grid-cols-2 gap-2 relative h-80 overflow-hidden">
+          {dashboardBuyersData.slice(0, 4).map((item, idx) => (
+            <DashboardBuyersCard
+              companyName={item.companyName}
+              countryFlag={item.countryFlag}
+              countryName={item.countryName}
+              companyImage={item.companyImage}
+              description={item.description}
+              key={idx}
+            />
+          ))}
+          <div className="absolute bottom-0 w-full h-[20%] bg-gradient-to-t from-white to-white/40 backdrop-blur-sm flex items-center justify-center ">
+            <a href="/buyers" target="_blank">
+              <button className="px-5 py-1 bg-brand-blue text-white text-sm">
+                View more
+              </button>
+            </a>
+          </div>
+        </div>
       </div>
       <div className={`w-full md:w-[15%]`}>
         <Countries
