@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import { SubmitHandler, useForm, Controller } from "react-hook-form";
 import { Link } from "react-router-dom";
 import { FcGoogle } from "react-icons/fc";
@@ -15,15 +14,27 @@ interface SignupFormComponentFieldProps {
 
 interface SignupFormComponentProps {
   onNext: () => void;
+  setValue: (name: string, value: any) => void;
 }
 
 const SignupFormComponent: React.FC<SignupFormComponentProps> = ({
   onNext,
+  setValue,
 }) => {
-  const { handleSubmit, control } = useForm<SignupFormComponentFieldProps>();
+  const {
+    handleSubmit,
+    control,
+    reset,
+    formState: { errors },
+  } = useForm<SignupFormComponentFieldProps>({
+    mode: "onBlur",
+  });
 
   const onSubmit: SubmitHandler<SignupFormComponentFieldProps> = (data) => {
-    console.log(data);
+    setValue("firstName", data.firstName);
+    setValue("lastName", data.lastName);
+    setValue("email", data.email);
+    reset(data);
     onNext();
   };
 
@@ -68,13 +79,15 @@ const SignupFormComponent: React.FC<SignupFormComponentProps> = ({
             name="firstName"
             control={control}
             defaultValue=""
+            rules={{ required: "First Name is required" }}
             render={({ field }) => (
               <TextField
                 {...field}
                 label="First Name"
                 variant="outlined"
                 fullWidth
-                className="bg-white"
+                error={!!errors.firstName}
+                helperText={errors.firstName ? errors.firstName.message : ""}
                 sx={textFieldSx}
               />
             )}
@@ -83,13 +96,15 @@ const SignupFormComponent: React.FC<SignupFormComponentProps> = ({
             name="lastName"
             control={control}
             defaultValue=""
+            rules={{ required: "Last Name is required" }}
             render={({ field }) => (
               <TextField
                 {...field}
                 label="Last Name"
                 variant="outlined"
                 fullWidth
-                className="bg-white"
+                error={!!errors.lastName}
+                helperText={errors.lastName ? errors.lastName.message : ""}
                 sx={textFieldSx}
               />
             )}
@@ -99,6 +114,13 @@ const SignupFormComponent: React.FC<SignupFormComponentProps> = ({
             name="email"
             control={control}
             defaultValue=""
+            rules={{
+              required: "Email is required",
+              pattern: {
+                value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+                message: "Enter a valid email",
+              },
+            }}
             render={({ field }) => (
               <TextField
                 {...field}
@@ -106,12 +128,12 @@ const SignupFormComponent: React.FC<SignupFormComponentProps> = ({
                 type="email"
                 variant="outlined"
                 fullWidth
-                className="bg-white"
+                error={!!errors.email}
+                helperText={errors.email ? errors.email.message : ""}
                 sx={textFieldSx}
               />
             )}
           />
-
           <div className="flex justify-center">
             <button
               type="submit"

@@ -15,6 +15,7 @@ interface CompanyDetailsComponentProps {
     companyAddress: string;
     companyCategory: string;
   }) => void;
+  setValue: (name: string, value: any) => void;
 }
 
 interface CompanyDetailsFormInputs {
@@ -25,10 +26,20 @@ interface CompanyDetailsFormInputs {
 
 const CompanyDetailsComponent: React.FC<CompanyDetailsComponentProps> = ({
   onNext,
+  setValue,
 }) => {
-  const { control, handleSubmit } = useForm<CompanyDetailsFormInputs>();
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<CompanyDetailsFormInputs>({
+    mode: "onBlur",
+  });
 
   const onSubmit: SubmitHandler<CompanyDetailsFormInputs> = (data) => {
+    setValue("companyName", data.companyName);
+    setValue("companyAddress", data.companyAddress);
+    setValue("companyCategory", data.companyCategory);
     onNext({
       companyName: data.companyName,
       companyAddress: data.companyAddress,
@@ -64,13 +75,15 @@ const CompanyDetailsComponent: React.FC<CompanyDetailsComponentProps> = ({
           name="companyName"
           control={control}
           defaultValue=""
+          rules={{ required: "Company Name is required" }}
           render={({ field }) => (
             <TextField
               {...field}
               label="Company Name"
               variant="outlined"
               fullWidth
-              className="bg-white"
+              error={!!errors.companyName}
+              helperText={errors.companyName ? errors.companyName.message : ""}
               sx={textFieldSx}
             />
           )}
@@ -79,13 +92,17 @@ const CompanyDetailsComponent: React.FC<CompanyDetailsComponentProps> = ({
           name="companyAddress"
           control={control}
           defaultValue=""
+          rules={{ required: "Company Address is required" }}
           render={({ field }) => (
             <TextField
               {...field}
               label="Company Address"
               variant="outlined"
               fullWidth
-              className="bg-white"
+              error={!!errors.companyAddress}
+              helperText={
+                errors.companyAddress ? errors.companyAddress.message : ""
+              }
               sx={textFieldSx}
             />
           )}
@@ -94,20 +111,18 @@ const CompanyDetailsComponent: React.FC<CompanyDetailsComponentProps> = ({
           name="companyCategory"
           control={control}
           defaultValue=""
+          rules={{ required: "Company Category is required" }}
           render={({ field }) => (
             <FormControl fullWidth variant="outlined">
-              <InputLabel id="company-category-label">
-                Select Company Category
-              </InputLabel>
+              <InputLabel>Select Company Category</InputLabel>
               <Select
                 {...field}
-                labelId="company-category-label"
                 label="Company Category"
-                sx={textFieldSx}
+                error={!!errors.companyCategory}
               >
                 {categoryOptions.map((category) => (
                   <MenuItem key={category} value={category}>
-                    <span className="helvetica">{category}</span>
+                    {category}
                   </MenuItem>
                 ))}
               </Select>

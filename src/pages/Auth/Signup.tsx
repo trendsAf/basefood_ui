@@ -1,19 +1,81 @@
 import { useState } from "react";
 import { TbPlant, TbChartBar, TbCloudComputing, TbUsers } from "react-icons/tb";
-import CompanyDetailsComponent from "../../components/Auth/CompanyDetailsComponent";
+// import CompanyDetailsComponent from "../../components/Auth/CompanyDetailsComponent";
 import CreatePasswordComponent from "../../components/Auth/CreatePasswordComponent";
-import SignupFormComponent from "../../components/Auth/SignupFormComponent";
+// import SignupFormComponent from "../../components/Auth/SignupFormComponent";
 import Logo from "../../assets/basefood_lowercase.png";
 import { IoIosArrowRoundBack, IoMdCheckmark } from "react-icons/io";
 import { data } from "../../utils/roleButtonUtils";
 import PrimaryButton from "../../components/common/PrimaryButton";
+import { Controller, useForm } from "react-hook-form";
+import {
+  FormControl,
+  InputLabel,
+  MenuItem,
+  Select,
+  TextField,
+} from "@mui/material";
+import { Link } from "react-router-dom";
+import { FaLinkedinIn } from "react-icons/fa";
+import { FcGoogle } from "react-icons/fc";
 
 const Signup = () => {
   const [step, setStep] = useState(1);
-  const [selectedRole, setSelectedRole] = useState<string | null>(null);
+
+  const {
+    setValue,
+    watch,
+    setError,
+    control,
+    clearErrors,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    mode: "onBlur",
+  });
+
+  const categoryOptions = ["Supplier", "Buyer", "Broker", "Researcher"];
+
+  const selectedPosition = watch("position");
+  // const password = watch("password");
+  // const confirmPassword = watch("confirmPassword");
+
+  // const handleNextStep = () => {
+  //   if (step === 3 && !selectedPosition) {
+  //     setError("position", {
+  //       type: "manual",
+  //       message: "Please select a position",
+  //     });
+  //   } else {
+  //     clearErrors("position");
+  //     setStep((prevStep) => prevStep + 1);
+  //   }
+  // };
 
   const handleNextStep = () => {
-    setStep((prevStep) => prevStep + 1);
+    if (step === 1) {
+      handleSubmit((formData) => {
+        setValue("firstName", formData.firstName);
+        setValue("lastName", formData.lastName);
+        setValue("email", formData.email);
+        setStep((prevStep) => prevStep + 1);
+      })();
+    } else if (step === 2) {
+      handleSubmit((formData) => {
+        setValue("companyName", formData.companyName);
+        setValue("companyAddress", formData.companyAddress);
+        setValue("companyCategory", formData.companyCategory);
+        setStep((prevStep) => prevStep + 1);
+      })();
+    } else if (step === 3 && !selectedPosition) {
+      setError("position", {
+        type: "manual",
+        message: "Please select a position",
+      });
+    } else {
+      clearErrors("position");
+      setStep((prevStep) => prevStep + 1);
+    }
   };
 
   const handlePrevStep = () => {
@@ -21,8 +83,9 @@ const Signup = () => {
       setStep((prevStep) => prevStep - 1);
     }
   };
-  const handleClick = (role: string) => {
-    setSelectedRole(role);
+
+  const onSubmit = (data: any) => {
+    console.log("Final form data:", data);
   };
 
   const features = [
@@ -31,6 +94,18 @@ const Signup = () => {
     "Leverage AI for predictive farming insights",
     "Connect with a network of farmers and agri-experts",
   ];
+
+  const textFieldSx = {
+    "& .MuiOutlinedInput-input": {
+      padding: "14px 14px",
+    },
+    "& .MuiInputLabel-root": {
+      transform: "translate(14px, 16px) scale(0.89)",
+    },
+    "& .MuiInputLabel-shrink": {
+      transform: "translate(14px, -8px) scale(0.75)",
+    },
+  };
 
   return (
     <div className="bg-white flex h-screen">
@@ -80,8 +155,232 @@ const Signup = () => {
                 </h1>
               </div>
             )}
-            {step === 1 && <SignupFormComponent onNext={handleNextStep} />}
-            {step === 2 && <CompanyDetailsComponent onNext={handleNextStep} />}
+            {step === 1 && (
+              // <SignupFormComponent
+              //   onNext={handleNextStep}
+              //   setValue={setValue}
+              // />
+              <div>
+                <div className="flex justify-center my-4">
+                  <button
+                    type="button"
+                    className="bg-[#e5e5e5] text-black px-5 py-3 w-full rounded-[5px] font-bold hover:bg-[#d1d0d0] transition-all duration-300 helvetica flex items-center justify-center gap-3"
+                  >
+                    <FcGoogle className="text-2xl" />
+                    Continue with Google
+                  </button>
+                </div>
+                <div className="flex justify-center my-4">
+                  <button
+                    type="button"
+                    className="bg-[#e5e5e5] text-black px-5 py-3 w-full rounded-[5px] font-bold hover:bg-[#d1d0d0] transition-all helvetica duration-300 flex items-center justify-center gap-3"
+                  >
+                    <FaLinkedinIn className="text-2xl text-blue-700" />
+                    Continue with Linkedin
+                  </button>
+                </div>
+                <form
+                  onSubmit={handleSubmit(onSubmit)}
+                  className="w-full max-w-md mx-auto border-t border-b border-black/20 py-4"
+                >
+                  <div className="flex flex-col gap-4">
+                    <Controller
+                      name="firstName"
+                      control={control}
+                      defaultValue=""
+                      rules={{ required: "First Name is required" }}
+                      render={({ field }) => (
+                        <TextField
+                          {...field}
+                          label="First Name"
+                          variant="outlined"
+                          fullWidth
+                          error={!!errors.firstName}
+                          helperText={
+                            errors.firstName
+                              ? String(errors.firstName.message)
+                              : ""
+                          }
+                          sx={textFieldSx}
+                        />
+                      )}
+                    />
+                    <Controller
+                      name="lastName"
+                      control={control}
+                      defaultValue=""
+                      rules={{ required: "Last Name is required" }}
+                      render={({ field }) => (
+                        <TextField
+                          {...field}
+                          label="Last Name"
+                          variant="outlined"
+                          fullWidth
+                          error={!!errors.lastName}
+                          helperText={
+                            errors.lastName
+                              ? String(errors.lastName.message)
+                              : ""
+                          }
+                          sx={textFieldSx}
+                        />
+                      )}
+                    />
+
+                    <Controller
+                      name="email"
+                      control={control}
+                      defaultValue=""
+                      rules={{
+                        required: "Email is required",
+                        pattern: {
+                          value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+                          message: "Enter a valid email",
+                        },
+                      }}
+                      render={({ field }) => (
+                        <TextField
+                          {...field}
+                          label="Email"
+                          type="email"
+                          variant="outlined"
+                          fullWidth
+                          error={!!errors.email}
+                          helperText={
+                            errors.email ? String(errors.email.message) : ""
+                          }
+                          sx={textFieldSx}
+                        />
+                      )}
+                    />
+                    <div className="flex justify-center">
+                      <button
+                        type="button"
+                        onClick={() => handleNextStep()}
+                        className="text-white bg-brand-blue px-5 py-3 w-full rounded-[5px] font-bold hover:bg-blue-600 transition-all helvetica duration-300"
+                      >
+                        Create Account
+                      </button>
+                    </div>
+                  </div>
+                </form>
+                <div className="flex justify-center mt-5">
+                  <div className="w-2/3">
+                    <p className="text-center helvetica text-sm font-sans font-normal">
+                      By continuing, you agree to baseFood's
+                      <span className="logo cursor-pointer">
+                        {" "}
+                        Terms of Service{" "}
+                      </span>
+                      and <span className="logo">Privacy Policy</span>
+                    </p>
+                    <div className="text-sm helvetica text-center mt-5">
+                      <h1>
+                        Already have an account?
+                        <Link to={"/login"}>
+                          <span className="text-brand-blue cursor-pointer ml-2 hover:underline">
+                            Login
+                          </span>
+                        </Link>
+                      </h1>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            )}
+            {step === 2 && (
+              // <CompanyDetailsComponent
+              //   onNext={handleNextStep}
+              //   setValue={setValue}
+              // />
+              <form
+                onSubmit={handleSubmit(onSubmit)}
+                className="w-full bg-white"
+              >
+                <h1 className="text-2xl space_grotesk2 text-center font-medium mb-4">
+                  Add your Company Details
+                </h1>
+                <p className="text-md text-center helvetica text-gray-600 mb-6">
+                  Link your account to your company, and you'll be able to add
+                  your team and manage applications.
+                </p>
+                <div className="flex flex-col gap-4">
+                  <Controller
+                    name="companyName"
+                    control={control}
+                    defaultValue=""
+                    rules={{ required: "Company Name is required" }}
+                    render={({ field }) => (
+                      <TextField
+                        {...field}
+                        label="Company Name"
+                        variant="outlined"
+                        fullWidth
+                        error={!!errors.companyName}
+                        helperText={
+                          errors.companyName
+                            ? String(errors.companyName.message)
+                            : ""
+                        }
+                        sx={textFieldSx}
+                      />
+                    )}
+                  />
+                  <Controller
+                    name="companyAddress"
+                    control={control}
+                    defaultValue=""
+                    rules={{ required: "Company Address is required" }}
+                    render={({ field }) => (
+                      <TextField
+                        {...field}
+                        label="Company Address"
+                        variant="outlined"
+                        fullWidth
+                        error={!!errors.companyAddress}
+                        helperText={
+                          errors.companyAddress
+                            ? String(errors.companyAddress.message)
+                            : ""
+                        }
+                        sx={textFieldSx}
+                      />
+                    )}
+                  />
+                  <Controller
+                    name="companyCategory"
+                    control={control}
+                    defaultValue=""
+                    rules={{ required: "Company Category is required" }}
+                    render={({ field }) => (
+                      <FormControl fullWidth variant="outlined">
+                        <InputLabel>Select Company Category</InputLabel>
+                        <Select
+                          {...field}
+                          label="Company Category"
+                          error={!!errors.companyCategory}
+                        >
+                          {categoryOptions.map((category) => (
+                            <MenuItem key={category} value={category}>
+                              {category}
+                            </MenuItem>
+                          ))}
+                        </Select>
+                      </FormControl>
+                    )}
+                  />
+                </div>
+
+                <div className="flex items-center justify-center mt-8 w-full">
+                  <PrimaryButton
+                    text="Next"
+                    onClick={handleNextStep}
+                    type="button"
+                    className="text-white helvetica w-full bg-brand-blue px-5 py-3 rounded-[5px] font-bold hover:bg-blue-600 transition-all duration-300"
+                  />
+                </div>
+              </form>
+            )}
             {step === 3 && (
               <div className="">
                 <h1 className="text-2xl space_grotesk2 text-center font-medium">
@@ -96,14 +395,14 @@ const Signup = () => {
                     <div key={index} className="relative mt-5">
                       <PrimaryButton
                         text={item.name}
-                        onClick={() => handleClick(item.name)}
+                        onClick={() => setValue("position", item.name)}
                         className={`rounded-[5px] helvetica !text-[#121212]  text-left bg-white border whitespace-nowrap border-secondary-black/30 w-full py-2 transition-colors duration-300 ${
-                          selectedRole === item.name
+                          selectedPosition === item.name
                             ? "!border-green-500 !text-brand-blue !border-brand-blue"
                             : "hover:border-brand-blue hover:!text-brand-blue"
                         }`}
                       />
-                      {selectedRole === item.name && (
+                      {selectedPosition === item.name && (
                         <IoMdCheckmark
                           className="absolute text-brand-blue top-1/2 right-4 text-green-500 text-lg"
                           style={{ transform: "translateY(-50%)" }}
@@ -112,6 +411,9 @@ const Signup = () => {
                     </div>
                   ))}
                 </div>
+                {errors.role && typeof errors.role.message === "string" && (
+                  <p className="text-red text-sm mt-2">{errors.role.message}</p>
+                )}
                 <div className="flex w-full items-center justify-center mt-8">
                   <PrimaryButton
                     text="Next"
@@ -122,8 +424,12 @@ const Signup = () => {
                 </div>
               </div>
             )}
-            {step === 4 && <CreatePasswordComponent onNext={handleNextStep} />}
-            {/* {step === 5 && <CompleteComponent />} */}
+            {step === 4 && (
+              <CreatePasswordComponent
+                onNext={handleSubmit(onSubmit)}
+                setValue={setValue}
+              />
+            )}
             {step > 1 && (
               <button
                 type="button"

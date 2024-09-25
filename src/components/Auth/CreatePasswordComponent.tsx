@@ -3,7 +3,8 @@ import { useForm, SubmitHandler, Controller } from "react-hook-form";
 import { TextField } from "@mui/material";
 
 interface CreatePasswordComponentProps {
-  onNext: (password: string) => void;
+  onNext: () => void;
+  setValue: (name: string, value: any) => void;
 }
 
 interface CreatePasswordFormInputs {
@@ -13,6 +14,7 @@ interface CreatePasswordFormInputs {
 
 const CreatePasswordComponent: React.FC<CreatePasswordComponentProps> = ({
   onNext,
+  setValue,
 }) => {
   const {
     control,
@@ -24,7 +26,8 @@ const CreatePasswordComponent: React.FC<CreatePasswordComponentProps> = ({
   });
 
   const onSubmit: SubmitHandler<CreatePasswordFormInputs> = (data) => {
-    onNext(data.password);
+    setValue("password", data.password);
+    onNext();
   };
 
   const password = watch("password");
