@@ -25,11 +25,13 @@
 .active {
   color: #3b82f6 !important;
   background-color: #f7f8fa;
+  border-radius: 5px;
 }
 
 .dark .active {
   color: #60a5fa !important;
   background-color: #1f2937;
+  border-radius: 5px;
 }
 
 .active span,
