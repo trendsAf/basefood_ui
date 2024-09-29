@@ -12,6 +12,7 @@ import { NavLink } from "react-router-dom";
 import { RootState } from "../../redux/store";
 import ModeToggle from "./ModeToggle";
 import Logo from "../../assets/basefood_logo.png";
+import LogoutModal from "../modals/Logout";
 
 const tooltipTheme = createTheme({
   components: {
@@ -46,6 +47,7 @@ const Sidebar = ({
 }: SidebarProps) => {
   const theme = useSelector((state: RootState) => state.theme.value);
   const [isDashboardsOpen, setIsDashboardsOpen] = useState(false);
+  const [openLogoutModal, setOpenLogoutModal] = useState(false);
 
   const toggleCollapse = () => setIsCollapsed(!isCollapsed);
   const toggleDashboards = () => setIsDashboardsOpen(!isDashboardsOpen);
@@ -57,6 +59,19 @@ const Sidebar = ({
       document.querySelector("body")?.classList.remove("dark");
     }
   }, [theme]);
+
+  const handleLogoutClick = () => {
+    setOpenLogoutModal(true);
+  };
+
+  const handleCloseModal = () => {
+    setOpenLogoutModal(false);
+  };
+
+  const handleConfirmLogout = () => {
+    console.log("User logged out");
+    setOpenLogoutModal(false);
+  };
 
   return (
     <>
@@ -256,15 +271,27 @@ const Sidebar = ({
         <div className="flex flex-col space-y-2 py-4">
           <ThemeProvider theme={tooltipTheme}>
             <Tooltip title={`${isCollapsed ? "Logout" : ""}`} placement="right">
-              <button className="flex items-center py-2 px-4  text-gray-900 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-800 rounded">
+              <button
+                onClick={handleLogoutClick}
+                className="flex items-center py-2 px-4  text-gray-900 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-800 rounded"
+              >
                 <MdOutlineLogout className="text-md" />
                 {!isCollapsed && <span className="ml-4">Logout</span>}
               </button>
             </Tooltip>
           </ThemeProvider>
-          <ModeToggle isCollapsed={isCollapsed} isDarkMode={theme === "dark"} />
+          <ModeToggle
+            sidebar={true}
+            isCollapsed={isCollapsed}
+            isDarkMode={theme === "dark"}
+          />
         </div>
       </div>
+      <LogoutModal
+        open={openLogoutModal}
+        onClose={handleCloseModal}
+        onConfirm={handleConfirmLogout}
+      />
     </>
   );
 };

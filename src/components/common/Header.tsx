@@ -1,7 +1,8 @@
 import { FaRegBell, FaSearch } from "react-icons/fa";
 import { FiMail } from "react-icons/fi";
 import { IoMdMenu } from "react-icons/io";
-import { FaChevronDown } from "react-icons/fa";
+// import { FaChevronDown } from "react-icons/fa";
+import ProfileDropdown from "../modals/Profile";
 
 interface HeaderProps {
   toggleSidebar: () => void;
@@ -40,7 +41,7 @@ const Header = ({ toggleSidebar, isCollapsed }: HeaderProps) => {
           <span className="absolute top-0 right-0 h-2 w-2 bg-red-500 rounded-full"></span>
         </button>
 
-        <div className="flex items-center space-x-3">
+        {/* <div className="flex items-center space-x-3">
           <img
             src="https://images.unsplash.com/photo-1480455624313-e29b44bbfde1?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8Z3V5fGVufDB8fDB8fHww"
             alt="User"
@@ -48,7 +49,8 @@ const Header = ({ toggleSidebar, isCollapsed }: HeaderProps) => {
           />
           <span>John</span>
           <FaChevronDown />
-        </div>
+        </div> */}
+        <ProfileDropdown />
       </div>
     </header>
   );
