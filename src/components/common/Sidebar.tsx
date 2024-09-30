@@ -215,7 +215,7 @@ const Sidebar = ({
                   </li>
                 </Tooltip>
               </ThemeProvider>
-              <a href="buyers" target="_blank">
+              <a href="/buyers" target="_blank">
                 <ThemeProvider theme={tooltipTheme}>
                   <Tooltip
                     title={`${isCollapsed ? "Analytics" : ""}`}

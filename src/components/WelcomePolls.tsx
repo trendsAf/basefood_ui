@@ -14,11 +14,11 @@ const WelcomePolls = () => {
   };
 
   return (
-    <div className="flex flex-col gap-4 mt-10">
+    <div className="flex flex-col gap-4 lg:mt-10">
       {faqData.map((item, idx) => (
         <motion.div
           key={idx}
-          className="bg-white p-4 rounded-lg shadow-md lg:mr-10"
+          className="bg-white md:p-4 p-2 rounded-lg shadow-md lg:mr-10"
           layout
         >
           <div

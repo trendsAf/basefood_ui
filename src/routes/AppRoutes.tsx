@@ -15,6 +15,7 @@ import NewsPage from "../pages/News";
 import WelcomePage from "../pages/WelcomePage";
 
 const AppRoutes = () => {
+  const handleNext = () => {};
   return (
     <SkeletonTheme baseColor="#313131" highlightColor="#525252">
       <Routes>
@@ -22,13 +23,7 @@ const AppRoutes = () => {
         <Route path="/signup" element={<Signup />} />
         <Route
           path="/verify"
-          element={
-            <VerificationPage
-              onNext={function (): void {
-                throw new Error("Function not implemented.");
-              }}
-            />
-          }
+          element={<VerificationPage onNext={handleNext} />}
         />
         <Route path="/success" element={<OtpSuccess />} />
         <Route path="/business" element={<BusinessDetailsParent />} />

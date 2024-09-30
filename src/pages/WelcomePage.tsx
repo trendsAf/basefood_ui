@@ -26,25 +26,25 @@ const WelcomePage: React.FC = () => {
   };
 
   return (
-    <div className="relative h-screen px-[10%] mt-14">
+    <div className="relative lg:h-scre px-[10%] lg:mt-14 mt-5 overflow-hidden">
       <div>
-        <h1 className="text-2xl text-center">
+        <h1 className="lg:text-2xl text-sm md:text-xl text-center">
           Welcome to baseFood, <b className="logo">{user.firstName}</b>! We're
           thrilled to have you on board. Thank you for joining our community.
           We're here to help you every step of the way. Explore, create, and
           connect – we can't wait to see what you'll achieve with us!
         </h1>
-        <div className="flex items-center">
+        <div className="flex items-center lg:flex-row flex-col-reverse">
           <motion.div
-            className="key py-8"
+            className="lg:py-2 py-4"
             variants={keyVariants}
             initial="hidden"
             animate="visible"
           >
-            <h1 className="text-2xl font-bold text-center text-grey_color-dark">
+            <h1 className="lg:text-2xl text-base md:text-lg logo font-bold text-center">
               Key features of the platform
             </h1>
-            <div className="rounded-lg p-4 flex lg:flex-row flex-col items-center">
+            <div className="rounded-lg lg:p-4 flex lg:flex-row flex-col items-center">
               <WelcomePolls />
             </div>
           </motion.div>
@@ -55,7 +55,7 @@ const WelcomePage: React.FC = () => {
             initial="initial"
             animate="moveToRight"
           >
-            <div className="h-[42rem] w-[42rem] bg-white">
+            <div className="lg:h-[30rem] lg:w-[30rem] bg-white">
               <img
                 src={welcome_image}
                 alt="welcome_image"

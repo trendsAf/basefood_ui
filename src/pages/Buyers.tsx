@@ -159,7 +159,7 @@ const Buyers: React.FC = () => {
           </div>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mt-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mt-4 pb-10">
           {filteredBuyers.length > 0 ? (
             filteredBuyers.map((data, idx) => (
               <BuyersCard

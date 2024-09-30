@@ -117,7 +117,7 @@ const Dashboard: React.FC<DashboardProps> = () => {
               key={idx}
             />
           ))}
-          <div className="absolute bottom-0 w-full h-[20%] bg-gradient-to-t from-white to-white/40 backdrop-blur-sm flex items-center justify-center ">
+          <div className="absolute bottom-0 w-full h-[20%] bg-gradient-to-t dark:from-black from-white to-white/40 backdrop-blur-sm flex items-center justify-center ">
             <a href="/buyers" target="_blank">
               <button className="px-5 py-1 bg-brand-blue text-white text-sm">
                 View more
