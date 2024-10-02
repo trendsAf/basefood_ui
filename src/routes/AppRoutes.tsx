@@ -13,6 +13,7 @@ import Dashboard from "../pages/Index";
 import NewDashboard from "../pages/NewDashboard";
 import NewsPage from "../pages/News";
 import WelcomePage from "../pages/WelcomePage";
+import ProfilePage from "../pages/ProfilePage";
 
 const AppRoutes = () => {
   const handleNext = () => {};
@@ -37,6 +38,7 @@ const AppRoutes = () => {
         <Route path="/" element={<RootLayout />}>
           <Route index element={<Dashboard />} />
           <Route path="news" element={<NewsPage />} />
+          <Route path="profile" element={<ProfilePage />} />
           <Route path="dashboards/new" element={<NewDashboard />} />
         </Route>
         <Route
