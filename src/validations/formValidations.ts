@@ -40,3 +40,10 @@ export const businessDetailsSchema = yup
     role: yup.string().required("Please select your role"),
   })
   .required();
+
+export const emailSchema = yup.object().shape({
+  email: yup
+    .string()
+    .email("Invalid email format")
+    .required("Email is required"),
+});

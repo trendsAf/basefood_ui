@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import { createTheme, ThemeProvider, Tooltip } from "@mui/material";
 import { useEffect, useState } from "react";
 import { AiOutlineBell, AiOutlineShop } from "react-icons/ai";
@@ -13,6 +14,7 @@ import { RootState } from "../../redux/store";
 import ModeToggle from "./ModeToggle";
 import Logo from "../../assets/basefood_logo.png";
 import LogoutModal from "../modals/Logout";
+import { base_food_white_logo } from "../../assets/images";
 
 const tooltipTheme = createTheme({
   components: {
@@ -96,7 +98,16 @@ const Sidebar = ({
                 <span className="text-xl logo font-bold text-blue-600">
                   baseFood
                 </span> */}
-                <img src={Logo} alt="basefood" className="w-[8rem]" />
+                <img
+                  src={Logo}
+                  alt="basefood"
+                  className="w-[8rem] dark:hidden"
+                />
+                <img
+                  src={base_food_white_logo}
+                  alt="basefood"
+                  className="w-[8rem] hidden dark:flex"
+                />
               </div>
             )}
             <button

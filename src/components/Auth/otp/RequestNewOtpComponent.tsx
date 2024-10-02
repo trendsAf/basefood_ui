@@ -1,29 +1,19 @@
 /* eslint-disable no-console */
+import { yupResolver } from "@hookform/resolvers/yup";
 import { TextField } from "@mui/material";
+import { useState } from "react";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
+import { IoMdMail } from "react-icons/io";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import * as yup from "yup";
-import { yupResolver } from "@hookform/resolvers/yup";
-import { useState } from "react";
-import { IoMdMail } from "react-icons/io";
+import { RequestNewOtpComponentFieldProps } from "../../../@types/fileTypes";
+import { emailSchema } from "../../../validations/formValidations";
 import OtpComponent from "./OtpComponent";
 
 interface RequestNewOtpComponentProps {
   onNext: () => void;
   onRequestNew?: () => void;
 }
-
-type RequestNewOtpComponentFieldProps = {
-  email: string;
-};
-
-const emailSchema = yup.object().shape({
-  email: yup
-    .string()
-    .email("Invalid email format")
-    .required("Email is required"),
-});
 
 const RequestNewOtpComponent: React.FC<RequestNewOtpComponentProps> = ({
   onNext,

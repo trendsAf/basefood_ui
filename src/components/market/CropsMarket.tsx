@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from "react";
-import { TiArrowSortedDown, TiArrowSortedUp } from "react-icons/ti";
 import Checkbox from "@mui/material/Checkbox";
+import React, { useEffect, useState } from "react";
+import { TiArrowSortedDown, TiArrowSortedUp } from "react-icons/ti";
 
 interface CropItem {
   name: string;
@@ -62,16 +62,29 @@ const CropsMarket: React.FC<CropsMarketProps> = ({ onCropSelect }) => {
               className={`${index !== cropsData.length - 1 ? "border-b dark:border-gray-700" : ""}  `}
             >
               <td className="flex items-center py-2 text-sm">
-                <Checkbox
+                {/* <Checkbox
                   {...label}
                   checked={selectedCrops.includes(crop.name)}
                   onChange={() => handleCropChange(crop.name)}
                   sx={{
                     // color: cropColors[crop.name],
-                    color: "#2142F1",
+                    color: "#248185",
                     "&.Mui-checked": {
                       // color: cropColors[crop.name],
-                      color: "#2142F1",
+                      color: "#248185",
+                    },
+                    "& .MuiSvgIcon-root": { fontSize: 20 },
+                    padding: "4px",
+                  }}
+                /> */}
+                <Checkbox
+                  {...label}
+                  checked={selectedCrops.includes(crop.name)}
+                  onChange={() => handleCropChange(crop.name)}
+                  sx={{
+                    color: "#d6d7da",
+                    "&.Mui-checked": {
+                      color: "#d6d7da",
                     },
                     "& .MuiSvgIcon-root": { fontSize: 20 },
                     padding: "4px",

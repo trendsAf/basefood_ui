@@ -22,7 +22,7 @@
   font-family: "Space Grotesk", sans-serif;
 }
 
-.active {
+/* .active {
   color: #3b82f6 !important;
   background-color: #f7f8fa;
   border-radius: 5px;
@@ -38,6 +38,25 @@
 .active svg {
   color: #2563eb !important;
   font-weight: bold;
+} */
+
+@layer utilities {
+  .active {
+    @apply dark:bg-[#1f2937] bg-[#f7f8fa] rounded;
+  }
+
+  .active span,
+  .active svg {
+    @apply !text-[#3b82f6] dark:!text-white;
+  }
+  .dark {
+    @apply bg-[#161616];
+  }
+  ._shadow {
+    box-shadow:
+      0 4px 8px 0 rgba(0, 0, 0, 0.2),
+      0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  }
 }
 
 @keyframes popIn {
@@ -49,14 +68,4 @@
     transform: scale(1);
     opacity: 1;
   }
-}
-
-._shadow {
-  box-shadow:
-    0 4px 8px 0 rgba(0, 0, 0, 0.2),
-    0 6px 20px 0 rgba(0, 0, 0, 0.19);
-}
-
-.dark {
-  background-color: #161616;
 }
