@@ -13,7 +13,7 @@ const categories = ["Cereal Grains", "Oil Seeds", "Pulses", "Coffee", "Tea"];
 
 const Categories: React.FC = () => {
   return (
-    <div className="py-4 bg-white dark:text-white dark:bg-secondary-black rounded-lg">
+    <div className="py-4 bg-white dark:text-white dark:bg-secondary-black rounded-lg mt-7">
       <h2 className="text-md px-4 font-bold mb-2">Categories</h2>
       <ul className="px-2">
         {categories.map((category, index) => (
@@ -21,10 +21,10 @@ const Categories: React.FC = () => {
             <Checkbox
               sx={{
                 // color: categoryColors[category],
-                color: "#2142F1",
+                color: "#ababab",
                 "&.Mui-checked": {
                   // color: categoryColors[category],
-                  color: "#2142F1",
+                  color: "#ababab",
                 },
                 "& .MuiSvgIcon-root": { fontSize: 20 },
                 padding: "4px",

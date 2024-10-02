@@ -1,14 +1,10 @@
 import React from "react";
 import { useForm, SubmitHandler, Controller } from "react-hook-form";
 import { TextField } from "@mui/material";
+import { CreatePasswordFormInputs } from "../../@types/fileTypes";
 
 interface CreatePasswordComponentProps {
   onNext: (password: string) => void;
-}
-
-interface CreatePasswordFormInputs {
-  password: string;
-  confirmPassword: string;
 }
 
 const CreatePasswordComponent: React.FC<CreatePasswordComponentProps> = ({

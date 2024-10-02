@@ -1,3 +1,6 @@
+import { otpSchema } from "../validations/formValidations";
+import * as yup from "yup";
+
 export type BusinessDetailsFormValues = {
   companyName: string;
   country: string;
@@ -6,6 +9,17 @@ export type BusinessDetailsFormValues = {
   revenue: string;
   yearFounded: string;
   role: string;
+};
+
+export type OtpComponentFieldProps = yup.InferType<typeof otpSchema>;
+
+export type RequestNewOtpComponentFieldProps = {
+  email: string;
+};
+
+export type CreatePasswordFormInputs = {
+  password: string;
+  confirmPassword: string;
 };
 
 export const currentYear = new Date().getFullYear();

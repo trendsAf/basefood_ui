@@ -2,15 +2,13 @@ import { TextField } from "@mui/material";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useRef, useState } from "react";
 import { otpSchema } from "../../../validations/formValidations";
 import { useNavigate } from "react-router-dom";
 import { IoIosMail } from "react-icons/io";
 import RequestNewOtpComponent from "./RequestNewOtpComponent";
-
-type OtpComponentFieldProps = yup.InferType<typeof otpSchema>;
+import { OtpComponentFieldProps } from "../../../@types/fileTypes";
 
 interface OtpComponentProps {
   onNext: () => void;
