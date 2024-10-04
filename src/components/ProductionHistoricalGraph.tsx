@@ -89,32 +89,130 @@
 
 // export default ProductionHistoricalGraph;
 
-import { Line } from "@ant-design/plots";
+import React, { useState } from "react";
+import {
+  CartesianGrid,
+  Line,
+  LineChart,
+  ResponsiveContainer,
+  Tooltip,
+  XAxis,
+  YAxis,
+  Legend,
+} from "recharts";
+
+const data = [
+  { name: "Jan", coffee: 231, maize: 299, wheat: 150 },
+  { name: "Feb", coffee: 289, maize: 322, wheat: 200 },
+  { name: "Mar", coffee: 150, maize: 200, wheat: 229 },
+  { name: "Apr", coffee: 292, maize: 290, wheat: 340 },
+  { name: "May", coffee: 400, maize: 378, wheat: 300 },
+  { name: "Jun", coffee: 370, maize: 391, wheat: 370 },
+  { name: "Jul", coffee: 342, maize: 200, wheat: 400 },
+  { name: "Aug", coffee: 300, maize: 268, wheat: 367 },
+  { name: "Sep", coffee: 389, maize: 370, wheat: 310 },
+  { name: "Oct", coffee: 430, maize: 400, wheat: 290 },
+  { name: "Nov", coffee: 482, maize: 441, wheat: 250 },
+  { name: "Dec", coffee: 428, maize: 392, wheat: 277 },
+  { name: "Jan", coffee: 231, maize: 299, wheat: 150 },
+  { name: "Feb", coffee: 289, maize: 322, wheat: 200 },
+  { name: "Mar", coffee: 150, maize: 200, wheat: 229 },
+  { name: "Apr", coffee: 292, maize: 290, wheat: 340 },
+  { name: "May", coffee: 400, maize: 378, wheat: 300 },
+  { name: "Jun", coffee: 370, maize: 391, wheat: 370 },
+  { name: "Jul", coffee: 342, maize: 200, wheat: 400 },
+  { name: "Aug", coffee: 300, maize: 268, wheat: 367 },
+  { name: "Sep", coffee: 389, maize: 370, wheat: 310 },
+  { name: "Oct", coffee: 430, maize: 400, wheat: 290 },
+  { name: "Nov", coffee: 482, maize: 441, wheat: 250 },
+  { name: "Dec", coffee: 428, maize: 392, wheat: 277 },
+];
 
 const ProductionHistoricalGraph = () => {
-  const config = {
-    data: {
-      type: "fetch",
-      value:
-        "https://render.alipay.com/p/yuyan/180020010001215413/antd-charts/line-connect-nulls.json",
-      transform: [
-        {
-          type: "map",
-          callback: (d: any) => ({
-            ...d,
-            close: new Date(d.date).getUTCMonth() < 3 ? NaN : d.close,
-          }),
-        },
-      ],
-    },
-    xField: (d: any) => new Date(d.date),
-    yField: "close",
-    connectNulls: {
-      connect: true,
-      connectStroke: "#aaa",
-    },
+  const [visible, setVisible] = useState({
+    coffee: true,
+    maize: true,
+    wheat: true,
+  });
+
+  const handleCheckboxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, checked } = e.target;
+    setVisible((prev) => ({
+      ...prev,
+      [name]: checked,
+    }));
   };
-  return <Line {...config} className="dark:bg-black dark:text-white" />;
+
+  return (
+    <div>
+      <div className="flex items-center justify-center mb-2 gap-2 dark:text-white">
+        <label className="flex items-center gap-2">
+          <input
+            type="checkbox"
+            name="coffee"
+            checked={visible.coffee}
+            onChange={handleCheckboxChange}
+          />
+          Coffee
+        </label>
+        <label className="flex items-center gap-2">
+          <input
+            type="checkbox"
+            name="maize"
+            checked={visible.maize}
+            onChange={handleCheckboxChange}
+          />
+          Maize
+        </label>
+        <label className="flex items-center gap-2">
+          <input
+            type="checkbox"
+            name="wheat"
+            checked={visible.wheat}
+            onChange={handleCheckboxChange}
+          />
+          Wheat
+        </label>
+      </div>
+
+      <ResponsiveContainer width="100%" height={300}>
+        <LineChart
+          data={data}
+          margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
+        >
+          <CartesianGrid strokeDasharray="3 3" />
+          <XAxis dataKey="name" />
+          <YAxis />
+          <Tooltip />
+          <Legend />
+          {visible.coffee && (
+            <Line
+              type="monotone"
+              dataKey="coffee"
+              stroke="#8884d8"
+              strokeWidth={1}
+            />
+          )}
+          {visible.maize && (
+            <Line
+              type="monotone"
+              dataKey="maize"
+              stroke="#82ca9d"
+              strokeWidth={1}
+            />
+          )}
+          {visible.wheat && (
+            <Line
+              type="monotone"
+              dataKey="wheat"
+              stroke="#ff7300"
+              strokeWidth={1}
+            />
+          )}
+        </LineChart>
+      </ResponsiveContainer>
+    </div>
+  );
 };
 
 export default ProductionHistoricalGraph;
