@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { FaChevronDown } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import ProfileModal from "./ProfileModal";
+import { AnimatePresence, motion } from "framer-motion";
 
 const ProfileDropdown = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -13,7 +14,7 @@ const ProfileDropdown = () => {
     <div className="relative">
       <button
         onClick={toggleDropdown}
-        className="flex items-center space-x-2 text-gray-900 dark:text-white relative"
+        className="flex items-center space-x-2 text-gray-900 dark:text-white relative z-50"
       >
         <img
           src="https://images.unsplash.com/photo-1480455624313-e29b44bbfde1?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8Z3V5fGVufDB8fDB8fHww"
@@ -21,41 +22,21 @@ const ProfileDropdown = () => {
           className="w-10 h-10 rounded-full object-cover"
         />
         <span>John</span>
-        <FaChevronDown />
+        <motion.div
+          animate={{ rotate: isOpen ? 180 : 0 }}
+          transition={{
+            type: "spring",
+            stiffness: 300,
+            damping: 20,
+          }}
+        >
+          <FaChevronDown />
+        </motion.div>
       </button>
 
-      {isOpen && (
-        <div className="absolute right-0 mt-2 w-48 bg-white dark:bg-[#151515] rounded-lg shadow-lg z-10">
-          <Link
-            to="/profile"
-            className="block px-4 py-2 text-gray-900 dark:text-white hover:bg-gray-100 dark:hover:bg-[#252525]"
-            onClick={toggleDropdown}
-          >
-            Profile
-          </Link>
-          <Link
-            to="/settings"
-            className="block px-4 py-2 text-gray-900 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
-            onClick={toggleDropdown}
-          >
-            Settings
-          </Link>
-          <Link
-            to="/subscriptions"
-            className="block px-4 py-2 text-gray-900 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
-            onClick={toggleDropdown}
-          >
-            Subscriptions
-          </Link>
-          <Link
-            to="/login"
-            className="block px-4 py-2 text-gray-900 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
-            onClick={toggleDropdown}
-          >
-            Logout
-          </Link>
-        </div>
-      )}
+      <AnimatePresence>
+        {isOpen && <ProfileModal toggleDropdown={toggleDropdown} />}
+      </AnimatePresence>
     </div>
   );
 };
