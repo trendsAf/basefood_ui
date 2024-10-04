@@ -90,44 +90,130 @@
 
 // export default PriceHistoricalGraph;
 
-import { Line } from "@ant-design/plots";
+import React, { useState } from "react";
+import {
+  CartesianGrid,
+  Legend,
+  Line,
+  LineChart,
+  ResponsiveContainer,
+  Tooltip,
+  XAxis,
+  YAxis,
+} from "recharts";
 
-const PriceHistoricalGraph = () => {
-  const config = {
-    data: {
-      type: "fetch",
-      value:
-        "https://gw.alipayobjects.com/os/antvdemo/assets/data/blockchain.json",
-      transform: [
-        {
-          type: "fold",
-          fields: ["blockchain", "nlp"],
-          key: "type",
-          value: "value",
-        },
-      ],
-    },
-    xField: (d: any) => new Date(d.date),
-    yField: "value",
-    colorField: "type",
-    axis: { x: { labelAutoHide: "greedy" } },
-    annotations: [
-      {
-        type: "text",
-        data: [new Date("2017-12-17"), 100],
-        shape: "badge",
-        style: {
-          text: "100",
-          dy: -1,
-          markerSize: 24,
-          markerFill: "#6395FA",
-          markerFillOpacity: 0.55,
-        },
-        tooltip: false,
-      },
-    ],
+const data = [
+  { name: "Jan", coffee: 100, maize: 200, wheat: 300 },
+  { name: "Feb", coffee: 300, maize: 100, wheat: 250 },
+  { name: "Mar", coffee: 200, maize: 250, wheat: 350 },
+  { name: "Apr", coffee: 278, maize: 320, wheat: 180 },
+  { name: "May", coffee: 189, maize: 240, wheat: 300 },
+  { name: "Jun", coffee: 189, maize: 150, wheat: 210 },
+  { name: "Jul", coffee: 150, maize: 200, wheat: 330 },
+  { name: "Aug", coffee: 129, maize: 230, wheat: 310 },
+  { name: "Sep", coffee: 175, maize: 290, wheat: 270 },
+  { name: "Oct", coffee: 260, maize: 310, wheat: 350 },
+  { name: "Nov", coffee: 300, maize: 330, wheat: 370 },
+  { name: "Dec", coffee: 382, maize: 400, wheat: 420 },
+  { name: "Jan", coffee: 100, maize: 200, wheat: 300 },
+  { name: "Feb", coffee: 300, maize: 100, wheat: 250 },
+  { name: "Mar", coffee: 200, maize: 250, wheat: 350 },
+  { name: "Apr", coffee: 278, maize: 320, wheat: 180 },
+  { name: "May", coffee: 189, maize: 240, wheat: 300 },
+  { name: "Jun", coffee: 189, maize: 150, wheat: 210 },
+  { name: "Jul", coffee: 150, maize: 200, wheat: 330 },
+  { name: "Aug", coffee: 129, maize: 230, wheat: 310 },
+  { name: "Sep", coffee: 175, maize: 290, wheat: 270 },
+  { name: "Oct", coffee: 260, maize: 310, wheat: 350 },
+  { name: "Nov", coffee: 300, maize: 330, wheat: 370 },
+  { name: "Dec", coffee: 382, maize: 400, wheat: 420 },
+];
+
+const PriceHistoricalGraph: React.FC = () => {
+  const [visible, setVisible] = useState({
+    coffee: true,
+    maize: true,
+    wheat: true,
+  });
+
+  const handleCheckboxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, checked } = e.target;
+    setVisible((prev) => ({
+      ...prev,
+      [name]: checked,
+    }));
   };
-  return <Line {...config} />;
+
+  return (
+    <div>
+      <div className="flex items-center justify-center gap-2 mb-2 dark:text-white">
+        <label className="flex items-center gap-2">
+          <input
+            type="checkbox"
+            name="coffee"
+            checked={visible.coffee}
+            onChange={handleCheckboxChange}
+          />
+          Coffee
+        </label>
+        <label className="flex items-center gap-2">
+          <input
+            type="checkbox"
+            name="maize"
+            checked={visible.maize}
+            onChange={handleCheckboxChange}
+          />
+          Maize
+        </label>
+        <label className="flex items-center gap-2">
+          <input
+            type="checkbox"
+            name="wheat"
+            checked={visible.wheat}
+            onChange={handleCheckboxChange}
+          />
+          Wheat
+        </label>
+      </div>
+
+      <ResponsiveContainer width="100%" height={300}>
+        <LineChart
+          data={data}
+          margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
+        >
+          <CartesianGrid strokeDasharray="3 3" />
+          <XAxis dataKey="name" />
+          <YAxis />
+          <Tooltip />
+          <Legend />
+          {visible.coffee && (
+            <Line
+              type="monotone"
+              dataKey="coffee"
+              stroke="#8884d8"
+              strokeWidth={1}
+            />
+          )}
+          {visible.maize && (
+            <Line
+              type="monotone"
+              dataKey="maize"
+              stroke="#82ca9d"
+              strokeWidth={1}
+            />
+          )}
+          {visible.wheat && (
+            <Line
+              type="monotone"
+              dataKey="wheat"
+              stroke="#ff7300"
+              strokeWidth={1}
+            />
+          )}
+        </LineChart>
+      </ResponsiveContainer>
+    </div>
+  );
 };
 
 export default PriceHistoricalGraph;
