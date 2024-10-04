@@ -4,29 +4,13 @@ import WelcomePolls from "../components/WelcomePolls";
 import { FaArrowCircleRight } from "react-icons/fa";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
+import { keyVariants, lockVariants } from "../utils/variants";
 
 const WelcomePage: React.FC = () => {
   const user = { firstName: "Aphrodis" };
 
-  const keyVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: { delay: 1.5, duration: 1 },
-    },
-  };
-
-  const lockVariants = {
-    initial: { x: -400 },
-    animate: { x: 0, transition: { duration: 2, ease: "easeInOut" } },
-    moveToRight: {
-      x: 0,
-      transition: { delay: 1, duration: 1.5, ease: "easeInOut" },
-    },
-  };
-
   return (
-    <div className="relative lg:h-scre px-[10%] lg:mt-14 mt-5 overflow-hidden">
+    <div className="relative px-[10%] lg:mt-[10%] mt-5 overflow-hidden">
       <div>
         <h1 className="lg:text-2xl text-sm md:text-xl text-center">
           Welcome to baseFood, <b className="logo">{user.firstName}</b>! We're
