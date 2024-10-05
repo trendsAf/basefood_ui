@@ -65,7 +65,7 @@ const Chart: React.FC<ChartProps> = ({
           </button>
         ))}
       </div>
-      <div className="dark:bg-black py-2 rounded-lg flex items-center w-full pb-6">
+      <div className="dark:bg-black rounded-lg flex items-center w-full pb-2">
         <ApexChart data={seriesData} />
       </div>
     </div>

@@ -35,7 +35,7 @@ const truncateText = (text: string, length: number) => {
 
 const MarketNewsDashboardComponent: React.FC = () => {
   return (
-    <div className="container bg-white mx-auto p-2">
+    <div className="container dark:bg-[#151515] mx-auto p-2">
       {/* <h2 className="text-lg font-bold dark:text-white">Market News</h2> */}
       <div className="flex flex-col gap-2">
         {marketNews.map((news) => (
