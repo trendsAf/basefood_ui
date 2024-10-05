@@ -22,13 +22,13 @@ const componentOptions: ComponentOption[] = [
   },
   {
     type: "historical",
-    title: "Price Historical Graph",
+    title: "Historical Price Graph",
     description: "Display a price historical graph.",
     icon: <BsGraphUp className="text-2xl" />,
   },
   {
     type: "graph",
-    title: "Production Historical Graph",
+    title: "Historical Production Graph",
     description: "Display a production historical graph.",
     icon: <VscGraph className="text-2xl" />,
   },
@@ -111,7 +111,7 @@ const AddComponentModal: React.FC<AddComponentModalProps> = ({
         <div className="px-6 py-4 flex justify-end rounded-b-lg">
           <button
             onClick={onClose}
-            className="px-4 py-2 text-gray-600 hover:text-gray-800 transition-colors mr-2"
+            className="px-6 py-2  bg-gray-600 rounded hover:bg-gray-700 text-white transition-colors mr-2"
           >
             Cancel
           </button>

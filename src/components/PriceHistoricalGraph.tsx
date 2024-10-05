@@ -136,47 +136,9 @@ const PriceHistoricalGraph: React.FC = () => {
     wheat: true,
   });
 
-  const handleCheckboxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, checked } = e.target;
-    setVisible((prev) => ({
-      ...prev,
-      [name]: checked,
-    }));
-  };
-
   return (
     <div>
-      <div className="flex items-center justify-center gap-2 mb-2 dark:text-white">
-        <label className="flex items-center gap-2">
-          <input
-            type="checkbox"
-            name="coffee"
-            checked={visible.coffee}
-            onChange={handleCheckboxChange}
-          />
-          Coffee
-        </label>
-        <label className="flex items-center gap-2">
-          <input
-            type="checkbox"
-            name="maize"
-            checked={visible.maize}
-            onChange={handleCheckboxChange}
-          />
-          Maize
-        </label>
-        <label className="flex items-center gap-2">
-          <input
-            type="checkbox"
-            name="wheat"
-            checked={visible.wheat}
-            onChange={handleCheckboxChange}
-          />
-          Wheat
-        </label>
-      </div>
-
-      <ResponsiveContainer width="100%" height={300}>
+      <ResponsiveContainer width="100%" height={280}>
         <LineChart
           data={data}
           margin={{ top: 5, right: 30, left: 20, bottom: 5 }}

@@ -21,6 +21,7 @@ export default [
 			"react/prop-types": "off",
 			"@typescript-eslint/no-explicit-any": "off",
 			"react/no-unescaped-entities": "off",
+			"@typescript-eslint/no-unused-vars": "off",
 			semi: ["error", "always"],
 			quotes: ["error", "double"],
 			"react/react-in-jsx-scope": "off",
