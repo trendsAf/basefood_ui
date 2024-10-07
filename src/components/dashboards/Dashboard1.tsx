@@ -1,20 +1,20 @@
-import React, { useState } from "react";
-import AddComponentModal from "../components/AddComponentModal";
-import { useSelector } from "react-redux";
-import { RootState } from "../redux/store";
-import WatchlistTable from "../components/WatchlistTable";
-import { IconButton } from "@mui/material";
 import {
-  Download,
-  ViewList,
-  FilterList,
   Close as CloseIcon,
+  Download,
+  FilterList,
+  ViewList,
 } from "@mui/icons-material";
-import PriceHistoricalGraph from "../components/PriceHistoricalGraph";
-import ProductionHistoricalGraph from "../components/ProductionHistoricalGraph";
-import MarketNewsDashboardComponent from "../components/MarketNewsDashboardComponent";
+import { IconButton } from "@mui/material";
+import { useState } from "react";
+import { useSelector } from "react-redux";
+import { RootState } from "../../redux/store";
+import AddComponentModal from "../AddComponentModal";
+import MarketNewsDashboardComponent from "../MarketNewsDashboardComponent";
+import PriceHistoricalGraph from "../PriceHistoricalGraph";
+import ProductionHistoricalGraph from "../ProductionHistoricalGraph";
+import WatchlistTable from "../WatchlistTable";
 
-const NewDashboard: React.FC = () => {
+const Dashboard1 = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedPlaceholder, setSelectedPlaceholder] = useState<number | null>(
     null,
@@ -26,7 +26,7 @@ const NewDashboard: React.FC = () => {
 
   const [selectedComponents, setSelectedComponents] = useState<
     (string | null)[]
-  >([null, null, null, null]);
+  >(["table", "historical", "graph", "news"]);
 
   const openModal = (placeholderIndex: number) => {
     setSelectedPlaceholder(placeholderIndex);
@@ -118,6 +118,14 @@ const NewDashboard: React.FC = () => {
                     </IconButton>
                     <IconButton
                       size="small"
+                      onClick={() => openModal(index)}
+                      sx={{ color: isDarkMode ? "white" : "inherit" }}
+                      className="text-blue-500 hover:text-blue-700"
+                    >
+                      Replace
+                    </IconButton>
+                    <IconButton
+                      size="small"
                       onClick={() => removeComponent(index)}
                       sx={{ color: isDarkMode ? "white" : "inherit" }}
                       className="text-red-500 hover:text-red-700"
@@ -152,4 +160,4 @@ const NewDashboard: React.FC = () => {
   );
 };
 
-export default NewDashboard;
+export default Dashboard1;

@@ -10,11 +10,11 @@ import { MdOutlineLogout } from "react-icons/md";
 import { RxDashboard } from "react-icons/rx";
 import { useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
-import { RootState } from "../../redux/store";
-import ModeToggle from "./ModeToggle";
 import Logo from "../../assets/basefood_logo.png";
-import LogoutModal from "../modals/Logout";
 import { base_food_white_logo } from "../../assets/images";
+import { RootState } from "../../redux/store";
+import LogoutModal from "../modals/Logout";
+import ModeToggle from "./ModeToggle";
 
 const tooltipTheme = createTheme({
   components: {
@@ -171,9 +171,11 @@ const Sidebar = ({
                       <div className="flex items-center">
                         <RxDashboard className="text-md text-gray-900 dark:text-white" />
                         {!isCollapsed && (
-                          <span className="ml-4 text-gray-900 dark:text-white">
-                            My Dashboards
-                          </span>
+                          <NavLink to={"/dashboard"}>
+                            <span className="ml-4 text-gray-900 dark:text-white">
+                              My Dashboards
+                            </span>
+                          </NavLink>
                         )}
                       </div>
                       {!isCollapsed && (
@@ -190,16 +192,18 @@ const Sidebar = ({
                 </ThemeProvider>
                 {!isCollapsed && isDashboardsOpen && (
                   <ul className="pl-10 flex flex-col space-y-2">
-                    <li className="flex items-center px-2 py-2 hover:bg-gray-100 dark:hover:bg-gray-800 cursor-pointer rounded">
-                      <span className="text-gray-900 dark:text-white">
-                        Dashboard 1
-                      </span>
-                    </li>
-                    <li className="flex items-center px-2 py-2 hover:bg-gray-100 dark:hover:bg-gray-800 cursor-pointer rounded">
+                    <NavLink to={"/dashboard1"}>
+                      <li className="flex items-center px-2 py-2 hover:bg-gray-100 dark:hover:bg-gray-800 cursor-pointer rounded">
+                        <span className="text-gray-900 dark:text-white">
+                          Dashboard 1
+                        </span>
+                      </li>
+                    </NavLink>
+                    {/* <li className="flex items-center px-2 py-2 hover:bg-gray-100 dark:hover:bg-gray-800 cursor-pointer rounded">
                       <span className="text-gray-900 dark:text-white">
                         Dashboard 2
                       </span>
-                    </li>
+                    </li> */}
                     <NavLink to="/dashboards/new" className="flex items-center">
                       <li className="flex items-center px-2 py-2 hover:bg-gray-100 dark:hover:bg-gray-800 cursor-pointer rounded">
                         <FaPlus className="text-gray-900 dark:text-white text-sm" />

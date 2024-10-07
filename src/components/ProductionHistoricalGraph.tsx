@@ -101,50 +101,122 @@ import {
 } from "recharts";
 
 const data = [
-  { name: "Jan", coffee: 231, maize: 299, wheat: 150 },
-  { name: "Feb", coffee: 289, maize: 322, wheat: 200 },
-  { name: "Mar", coffee: 150, maize: 200, wheat: 229 },
-  { name: "Apr", coffee: 292, maize: 290, wheat: 340 },
-  { name: "May", coffee: 400, maize: 378, wheat: 300 },
-  { name: "Jun", coffee: 370, maize: 391, wheat: 370 },
-  { name: "Jul", coffee: 342, maize: 200, wheat: 400 },
-  { name: "Aug", coffee: 300, maize: 268, wheat: 367 },
-  { name: "Sep", coffee: 389, maize: 370, wheat: 310 },
-  { name: "Oct", coffee: 430, maize: 400, wheat: 290 },
-  { name: "Nov", coffee: 482, maize: 441, wheat: 250 },
-  { name: "Dec", coffee: 428, maize: 392, wheat: 277 },
-  { name: "Jan", coffee: 231, maize: 299, wheat: 150 },
-  { name: "Feb", coffee: 289, maize: 322, wheat: 200 },
-  { name: "Mar", coffee: 150, maize: 200, wheat: 229 },
-  { name: "Apr", coffee: 292, maize: 290, wheat: 340 },
-  { name: "May", coffee: 400, maize: 378, wheat: 300 },
-  { name: "Jun", coffee: 370, maize: 391, wheat: 370 },
-  { name: "Jul", coffee: 342, maize: 200, wheat: 400 },
-  { name: "Aug", coffee: 300, maize: 268, wheat: 367 },
-  { name: "Sep", coffee: 389, maize: 370, wheat: 310 },
-  { name: "Oct", coffee: 430, maize: 400, wheat: 290 },
-  { name: "Nov", coffee: 482, maize: 441, wheat: 250 },
-  { name: "Dec", coffee: 428, maize: 392, wheat: 277 },
+  {
+    name: "Jan",
+    Chili: 231,
+    maize: 299,
+    wheat: 150,
+    sesame: 120,
+    avocado: 168,
+  },
+  {
+    name: "Feb",
+    Chili: 289,
+    maize: 322,
+    wheat: 200,
+    sesame: 151,
+    avocado: 240,
+  },
+  {
+    name: "Mar",
+    Chili: 150,
+    maize: 200,
+    wheat: 229,
+    sesame: 170,
+    avocado: 280,
+  },
+  {
+    name: "Apr",
+    Chili: 292,
+    maize: 290,
+    wheat: 340,
+    sesame: 100,
+    avocado: 320,
+  },
+  {
+    name: "May",
+    Chili: 400,
+    maize: 378,
+    wheat: 300,
+    sesame: 170,
+    avocado: 270,
+  },
+  {
+    name: "Jun",
+    Chili: 370,
+    maize: 391,
+    wheat: 370,
+    sesame: 210,
+    avocado: 210,
+  },
+  {
+    name: "Jul",
+    Chili: 342,
+    maize: 200,
+    wheat: 400,
+    sesame: 270,
+    avocado: 180,
+  },
+  {
+    name: "Aug",
+    Chili: 300,
+    maize: 268,
+    wheat: 367,
+    sesame: 313,
+    avocado: 217,
+  },
+  {
+    name: "Sep",
+    Chili: 389,
+    maize: 370,
+    wheat: 310,
+    sesame: 282,
+    avocado: 260,
+  },
+  {
+    name: "Oct",
+    Chili: 430,
+    maize: 400,
+    wheat: 290,
+    sesame: 200,
+    avocado: 300,
+  },
+  {
+    name: "Nov",
+    Chili: 482,
+    maize: 441,
+    wheat: 250,
+    sesame: 140,
+    avocado: 340,
+  },
+  {
+    name: "Dec",
+    Chili: 428,
+    maize: 392,
+    wheat: 277,
+    sesame: 100,
+    avocado: 370,
+  },
 ];
 
-const ProductionHistoricalGraph = () => {
-  const visible = {
-    coffee: true,
-    maize: true,
-    wheat: true,
-  };
+interface ProductionHistoricalGraphProps {
+  checkedRows: boolean[];
+}
 
-  // const handleCheckboxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-  //   const { name, checked } = e.target;
-  //   setVisible((prev) => ({
-  //     ...prev,
-  //     [name]: checked,
-  //   }));
-  // };
+const ProductionHistoricalGraph: React.FC<ProductionHistoricalGraphProps> = ({
+  checkedRows,
+}) => {
+  const visible = {
+    Chili: checkedRows[2],
+    maize: checkedRows[0],
+    wheat: checkedRows[1],
+    Sesame: checkedRows[3],
+    Avocado: checkedRows[4],
+  };
 
   return (
     <div>
-      <ResponsiveContainer width="100%" height={290}>
+      <ResponsiveContainer width="100%" height={280}>
         <LineChart
           data={data}
           margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
@@ -154,10 +226,10 @@ const ProductionHistoricalGraph = () => {
           <YAxis />
           <Tooltip />
           <Legend />
-          {visible.coffee && (
+          {visible.Chili && (
             <Line
               type="monotone"
-              dataKey="coffee"
+              dataKey="Chili"
               stroke="#8884d8"
               strokeWidth={1}
             />
@@ -175,6 +247,22 @@ const ProductionHistoricalGraph = () => {
               type="monotone"
               dataKey="wheat"
               stroke="#ff7300"
+              strokeWidth={1}
+            />
+          )}
+          {visible.Sesame && (
+            <Line
+              type="monotone"
+              dataKey="sesame"
+              stroke="#252525"
+              strokeWidth={1}
+            />
+          )}
+          {visible.Avocado && (
+            <Line
+              type="monotone"
+              dataKey="avocado"
+              stroke="#126c54"
               strokeWidth={1}
             />
           )}

@@ -14,6 +14,7 @@ import NewDashboard from "../pages/NewDashboard";
 import NewsPage from "../pages/News";
 import WelcomePage from "../pages/WelcomePage";
 import ProfilePage from "../pages/ProfilePage";
+import Dashboard1 from "../components/dashboards/Dashboard1";
 
 const AppRoutes = () => {
   const handleNext = () => {};
@@ -39,6 +40,8 @@ const AppRoutes = () => {
           <Route index element={<Dashboard />} />
           <Route path="news" element={<NewsPage />} />
           <Route path="profile" element={<ProfilePage />} />
+          <Route path="dashboard" element={<Dashboard1 />} />
+          <Route path="dashboard1" element={<Dashboard1 />} />
           <Route path="dashboards/new" element={<NewDashboard />} />
         </Route>
         <Route
