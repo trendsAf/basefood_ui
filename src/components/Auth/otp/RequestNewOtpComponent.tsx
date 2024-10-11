@@ -9,6 +9,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { RequestNewOtpComponentFieldProps } from "../../../@types/fileTypes";
 import { emailSchema } from "../../../validations/formValidations";
 import OtpComponent from "./OtpComponent";
+import { textFieldSx } from "../../../utils/MUI/muiStyles";
 
 interface RequestNewOtpComponentProps {
   onNext: () => void;
@@ -48,18 +49,6 @@ const RequestNewOtpComponent: React.FC<RequestNewOtpComponentProps> = ({
       console.log(error);
       setLoading(false);
     }
-  };
-
-  const textFieldSx = {
-    "& .MuiOutlinedInput-input": {
-      padding: "14px 14px",
-    },
-    "& .MuiInputLabel-root": {
-      transform: "translate(14px, 16px) scale(0.89)",
-    },
-    "& .MuiInputLabel-shrink": {
-      transform: "translate(14px, -8px) scale(0.75)",
-    },
   };
 
   if (otpSent) {
