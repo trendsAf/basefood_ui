@@ -15,6 +15,7 @@ import NewsPage from "../pages/News";
 import WelcomePage from "../pages/WelcomePage";
 import ProfilePage from "../pages/ProfilePage";
 import Dashboard1 from "../components/dashboards/Dashboard1";
+import OtpErrorPage from "../components/Auth/otp/OtpErrorPage";
 
 const AppRoutes = () => {
   const handleNext = () => {};
@@ -28,6 +29,7 @@ const AppRoutes = () => {
           element={<VerificationPage onNext={handleNext} />}
         />
         <Route path="/success" element={<OtpSuccess />} />
+        <Route path="/error" element={<OtpErrorPage />} />
         <Route path="/business" element={<BusinessDetailsParent />} />
         <Route path="/welcome" element={<WelcomePage />} />
 

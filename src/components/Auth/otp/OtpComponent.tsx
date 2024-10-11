@@ -1,100 +1,100 @@
-import { TextField } from "@mui/material";
-import { Controller, SubmitHandler, useForm } from "react-hook-form";
-import { toast, ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-import { yupResolver } from "@hookform/resolvers/yup";
-import { useRef, useState } from "react";
-import { otpSchema } from "../../../validations/formValidations";
-import { useNavigate } from "react-router-dom";
+// import { TextField } from "@mui/material";
+// import { Controller, SubmitHandler, useForm } from "react-hook-form";
+// import { toast, ToastContainer } from "react-toastify";
+// import "react-toastify/dist/ReactToastify.css";
+// import { yupResolver } from "@hookform/resolvers/yup";
+// import { useRef, useState } from "react";
+// import { otpSchema } from "../../../validations/formValidations";
+// import { useNavigate } from "react-router-dom";
 import { IoIosMail } from "react-icons/io";
-import RequestNewOtpComponent from "./RequestNewOtpComponent";
-import { OtpComponentFieldProps } from "../../../@types/fileTypes";
+// import RequestNewOtpComponent from "./RequestNewOtpComponent";
+// import { OtpComponentFieldProps } from "../../../@types/fileTypes";
 
 interface OtpComponentProps {
   onNext: () => void;
 }
 
-const OtpComponent: React.FC<OtpComponentProps> = ({ onNext }) => {
-  const [loading, setLoading] = useState(false);
-  const [showRequestNewOtp, setShowRequestNewOtp] = useState(false);
-  const inputRefs = useRef<(HTMLInputElement | null)[]>([]);
-  const [otp, setOtp] = useState(new Array(6).fill(""));
-  const navigate = useNavigate();
+const OtpComponent: React.FC<OtpComponentProps> = () => {
+  // const [loading, setLoading] = useState(false);
+  // const [showRequestNewOtp, setShowRequestNewOtp] = useState(false);
+  // const inputRefs = useRef<(HTMLInputElement | null)[]>([]);
+  // const [otp, setOtp] = useState(new Array(8).fill(""));
+  // const navigate = useNavigate();
 
-  const {
-    handleSubmit,
-    control,
-    setValue,
-    formState: { errors },
-  } = useForm<OtpComponentFieldProps>({
-    resolver: yupResolver(otpSchema),
-    mode: "onSubmit",
-  });
+  // const {
+  //   handleSubmit,
+  //   control,
+  //   setValue,
+  //   formState: { errors },
+  // } = useForm<OtpComponentFieldProps>({
+  //   resolver: yupResolver(otpSchema),
+  //   mode: "onSubmit",
+  // });
 
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
-    idx: number,
-  ) => {
-    const value = e.target.value;
-    if (!/^[0-9]?$/.test(value)) return;
+  // const handleChange = (
+  //   e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+  //   idx: number,
+  // ) => {
+  //   const value = e.target.value;
+  //   if (!/^[0-9]?$/.test(value)) return;
 
-    const otpArray = [...otp];
-    otpArray[idx] = value;
+  //   const otpArray = [...otp];
+  //   otpArray[idx] = value;
 
-    setOtp(otpArray);
-    setValue("otp", otpArray.join(""));
+  //   setOtp(otpArray);
+  //   setValue("otp", otpArray.join(""));
 
-    if (value && idx < otp.length - 1) {
-      inputRefs.current[idx + 1]?.focus();
-    }
-  };
+  //   if (value && idx < otp.length - 1) {
+  //     inputRefs.current[idx + 1]?.focus();
+  //   }
+  // };
 
-  const handleKeyDown = (
-    e: React.KeyboardEvent<HTMLInputElement>,
-    idx: number,
-  ) => {
-    if (e.key === "Backspace") {
-      if (otp[idx] === "" && idx > 0) {
-        inputRefs.current[idx - 1]?.focus();
-      }
+  // const handleKeyDown = (
+  //   e: React.KeyboardEvent<HTMLInputElement>,
+  //   idx: number,
+  // ) => {
+  //   if (e.key === "Backspace") {
+  //     if (otp[idx] === "" && idx > 0) {
+  //       inputRefs.current[idx - 1]?.focus();
+  //     }
 
-      const otpArray = [...otp];
-      otpArray[idx] = "";
-      setOtp(otpArray);
-      setValue("otp", otpArray.join(""));
-    }
-  };
+  //     const otpArray = [...otp];
+  //     otpArray[idx] = "";
+  //     setOtp(otpArray);
+  //     setValue("otp", otpArray.join(""));
+  //   }
+  // };
 
-  const onSubmit: SubmitHandler<OtpComponentFieldProps> = (data) => {
-    setLoading(true);
-    setTimeout(() => {
-      if (data.otp === "484848") {
-        setLoading(false);
-        navigate("/success");
-      } else {
-        toast.error("Invalid OTP, please try again");
-        setLoading(false);
-      }
-    }, 1000);
-  };
+  // const onSubmit: SubmitHandler<OtpComponentFieldProps> = (data) => {
+  //   setLoading(true);
+  //   setTimeout(() => {
+  //     if (data.otp === "484848") {
+  //       setLoading(false);
+  //       navigate("/success");
+  //     } else {
+  //       toast.error("Invalid OTP, please try again");
+  //       setLoading(false);
+  //     }
+  //   }, 1000);
+  // };
 
-  if (showRequestNewOtp) {
-    return <RequestNewOtpComponent onNext={onNext} />;
-  }
+  // if (showRequestNewOtp) {
+  //   return <RequestNewOtpComponent onNext={onNext} />;
+  // }
 
   return (
     <div className="shadow-xl p-10">
-      <ToastContainer />
+      {/* <ToastContainer /> */}
       <div className="flex flex-col justify-center items-center border-b-2 pb-4">
         <IoIosMail className="text-5xl text-green" />
         <h1 className="text-center text-2xl logo">VERIFY YOUR EMAIL ADDRESS</h1>
       </div>
       <div className="max-w-md">
         <h1 className="my-4">
-          Please check your email and enter the verification code below to
-          verify your email address
+          Please check your email and verify you account to continue, if you
+          can't find the verification link check in spam box
         </h1>
-        <form
+        {/* <form
           onSubmit={handleSubmit(onSubmit)}
           className="w-full py-4 flex flex-col gap-5"
         >
@@ -139,8 +139,8 @@ const OtpComponent: React.FC<OtpComponentProps> = ({ onNext }) => {
               {loading ? "Verifying..." : "Verify"}
             </button>
           </div>
-        </form>
-        <div className="flex justify-center mt-5">
+        </form> */}
+        {/* <div className="flex justify-center mt-5">
           <div className="text-base helvetica text-center">
             <h1>
               Having problems with the code?
@@ -152,7 +152,7 @@ const OtpComponent: React.FC<OtpComponentProps> = ({ onNext }) => {
               </span>
             </h1>
           </div>
-        </div>
+        </div> */}
       </div>
     </div>
   );

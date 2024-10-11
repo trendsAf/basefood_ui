@@ -1,12 +1,56 @@
-import axios from "axios";
+// import axios from "axios";
 
-const api = axios.create({
-  baseURL: import.meta.env.VITE_BASE_URL,
-  headers: {
-    "Content-Type": "application/json",
-  },
+// const api = axios.create({
+//   baseURL: import.meta.env.VITE_BASE_URL,
+//   headers: {
+//     "Content-Type": "application/json",
+//   },
+// });
+
+// console.log(import.meta.env.VITE_BASE_URL);
+
+// export default api;
+
+import axios, {
+  AxiosError,
+  AxiosInstance,
+  AxiosResponse,
+  InternalAxiosRequestConfig,
+} from "axios";
+
+const API: AxiosInstance = axios.create({
+  baseURL: `${import.meta.env.VITE_BASE_URL}`,
+  timeout: 50000,
+  headers: {},
 });
 
-console.log(import.meta.env.VITE_BASE_URL);
+const requestHandler = (
+  config: InternalAxiosRequestConfig,
+): InternalAxiosRequestConfig => {
+  const token = localStorage.getItem("access-token") || "";
+  config.headers = config.headers || {};
+  config.headers.Authorization = `Bearer ${token}`;
+  return config;
+};
 
-export default api;
+const responseHandler = (response: AxiosResponse): AxiosResponse => response;
+
+const errorHandler = (error: AxiosError): Promise<AxiosError> => {
+  if (error.response?.status === 401) {
+    //We will handle different error codes here
+  }
+
+  return Promise.reject(error);
+};
+
+API.interceptors.request.use(
+  (config: InternalAxiosRequestConfig) => requestHandler(config),
+  (error: AxiosError) => errorHandler(error),
+);
+
+API.interceptors.response.use(
+  (response: AxiosResponse) => responseHandler(response),
+  (error: AxiosError) => errorHandler(error),
+);
+
+export default API;
