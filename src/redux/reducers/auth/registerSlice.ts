@@ -38,7 +38,13 @@ const registerSlice = createSlice({
     });
     builder.addCase(register.rejected, (state, action: PayloadAction<any>) => {
       state.isLoading = false;
-      state.error = action.payload.data?.message;
+      if (action.payload?.data?.message) {
+        state.error = action.payload.data.message;
+      } else if (action.payload?.message) {
+        state.error = action.payload.message;
+      } else {
+        state.error = "An unexpected error occurred";
+      }
     });
   },
 });

@@ -50,7 +50,7 @@ export type LoginTypes = {
 export type ReducerTypes = {
   isLoading: boolean;
   data?: DynamicType;
-  error: null;
+  error: string | null;
   isVerified?: boolean;
   message?: string | null;
 };
