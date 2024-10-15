@@ -41,8 +41,10 @@ const BusinessDetails: React.FC<BusinessDetailsProps> = () => {
   });
 
   const onSubmit = async (data: BusinessDetailsFormValues) => {
+    console.log("Submitting business info:", data);
     try {
-      await dispatch(businessInfo(data)).unwrap();
+      const result = await dispatch(businessInfo(data)).unwrap();
+      console.log("Dispatch result:", result);
       toast.success("Success");
     } catch (error) {
       toast.error("Failed to submit business info.");
@@ -58,6 +60,7 @@ const BusinessDetails: React.FC<BusinessDetailsProps> = () => {
         <div className="p-6 bg-white rounded-lg w-full">
           <h1 className="text-2xl font-semibold mb-6">Company Information</h1>
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+            <p>Form Errors: {JSON.stringify(errors)}</p>
             <div>
               <Controller
                 name="company_name"

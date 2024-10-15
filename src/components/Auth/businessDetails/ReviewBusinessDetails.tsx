@@ -99,7 +99,7 @@ const ReviewBusinessDetails: React.FC<ReviewBusinessDetailsProps> = ({
 
             <div className="flex items-center">
               <TextField
-                value={data.revenue}
+                value={data.annual_revenue}
                 variant="outlined"
                 fullWidth
                 label="Revenue Range"
