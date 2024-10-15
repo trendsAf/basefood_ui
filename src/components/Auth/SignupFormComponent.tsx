@@ -31,16 +31,16 @@ const SignupFormComponent: React.FC = () => {
   ) => {
     try {
       const response = await dispatch(register(data)).unwrap();
-      toast(response.message);
+      toast(response?.message);
       console.log(response, "Reeeesponsee");
       setTimeout(() => {
         navigate("/verify");
       }, 3000);
     } catch (error: any) {
-      if (error.response && error.response.data) {
-        toast(error.response.data.message);
-      } else if (error.message) {
-        toast(error.message);
+      if (error?.response && error?.response?.data) {
+        toast(error?.response?.data.message);
+      } else if (error?.message) {
+        toast(error?.message);
       } else {
         toast("An unexpected error occurred");
       }
@@ -85,8 +85,8 @@ const SignupFormComponent: React.FC = () => {
                 fullWidth
                 className="bg-white"
                 sx={textFieldSx}
-                error={!!errors.firstname}
-                helperText={errors.firstname?.message}
+                error={!!errors?.firstname}
+                helperText={errors?.firstname?.message}
               />
             )}
           />
@@ -102,8 +102,8 @@ const SignupFormComponent: React.FC = () => {
                 fullWidth
                 className="bg-white"
                 sx={textFieldSx}
-                error={!!errors.lastname}
-                helperText={errors.lastname?.message}
+                error={!!errors?.lastname}
+                helperText={errors?.lastname?.message}
               />
             )}
           />
@@ -120,8 +120,8 @@ const SignupFormComponent: React.FC = () => {
                 fullWidth
                 className="bg-white"
                 sx={textFieldSx}
-                error={!!errors.email}
-                helperText={errors.email?.message}
+                error={!!errors?.email}
+                helperText={errors?.email?.message}
               />
             )}
           />
@@ -138,8 +138,8 @@ const SignupFormComponent: React.FC = () => {
                 fullWidth
                 className="bg-white"
                 sx={textFieldSx}
-                error={!!errors.password}
-                helperText={errors.password?.message}
+                error={!!errors?.password}
+                helperText={errors?.password?.message}
               />
             )}
           />
@@ -156,8 +156,8 @@ const SignupFormComponent: React.FC = () => {
                 fullWidth
                 className="bg-white"
                 sx={textFieldSx}
-                error={!!errors.confirmPassword}
-                helperText={errors.confirmPassword?.message}
+                error={!!errors?.confirmPassword}
+                helperText={errors?.confirmPassword?.message}
               />
             )}
           />

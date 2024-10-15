@@ -40,6 +40,7 @@ export const businessDetailsSchema = yup
     company_role: yup.string().required("Please select your role"),
     phone: yup.string().required("Please enter your phone "),
     province: yup.string().required("Please enter your province "),
+    revenue: yup.string().required("Please enter your province "),
   })
   .required();
 
