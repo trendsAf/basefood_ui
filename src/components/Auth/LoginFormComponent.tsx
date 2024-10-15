@@ -42,13 +42,15 @@ const LoginFormComponent = () => {
   const onSubmit = async (data: LoginFormComponentFieldProps) => {
     try {
       const res = await dispatch(login(data)).unwrap();
-      console.log(res, "Reeeeeesssssponse");
+      // console.log(res, "Reeeeeesssssponse");
       if (res.status && res.is_confirmed) {
+        Cookies.set("access_token", res.access_token);
         toast.success("You're logged in");
         setTimeout(() => {
           navigate("/");
         }, 3500);
       } else if (res.status && !res.is_confirmed) {
+        Cookies.set("access_token", res.access_token);
         toast.success("Please complete profile");
         setTimeout(() => {
           navigate("/business");
