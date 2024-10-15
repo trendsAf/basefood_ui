@@ -60,7 +60,7 @@ const BusinessDetails: React.FC<BusinessDetailsProps> = () => {
         <div className="p-6 bg-white rounded-lg w-full">
           <h1 className="text-2xl font-semibold mb-6">Company Information</h1>
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
-            <p>Form Errors: {JSON.stringify(errors)}</p>
+            {/* <p>Form Errors: {JSON.stringify(errors)}</p> */}
             <div>
               <Controller
                 name="company_name"
