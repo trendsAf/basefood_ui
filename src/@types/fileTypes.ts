@@ -2,7 +2,7 @@ import { otpSchema } from "../validations/formValidations";
 import * as yup from "yup";
 
 export type BusinessDetailsFormValues = {
-  revenue: string;
+  // revenue: string;
   company_name: string;
   company_type: string;
   company_size: string;

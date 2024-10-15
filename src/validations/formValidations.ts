@@ -38,9 +38,9 @@ export const businessDetailsSchema = yup
     annual_revenue: yup.string().required("Please select a revenue range"),
     start_year: yup.string().required("Please select a year"),
     company_role: yup.string().required("Please select your role"),
-    phone: yup.string().required("Please enter your phone "),
-    province: yup.string().required("Please enter your province "),
-    revenue: yup.string().required("Please enter your province "),
+    phone: yup.string().required("Please enter your phone"),
+    province: yup.string().required("Please enter your province"),
+    // revenue: yup.string().required("Please enter your revenue range"),
   })
   .required();
 
