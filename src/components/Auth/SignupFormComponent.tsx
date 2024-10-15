@@ -1,58 +1,50 @@
 /* eslint-disable no-console */
-import { SubmitHandler, useForm, Controller } from "react-hook-form";
-import { Link, useNavigate } from "react-router-dom";
-import { FcGoogle } from "react-icons/fc";
-import { FaLinkedinIn } from "react-icons/fa";
+import { yupResolver } from "@hookform/resolvers/yup";
 import { TextField } from "@mui/material";
+import { Controller, SubmitHandler, useForm } from "react-hook-form";
+import { FaLinkedinIn } from "react-icons/fa";
+import { FcGoogle } from "react-icons/fc";
+import { Link, useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { yupResolver } from "@hookform/resolvers/yup";
-import { useState } from "react";
+import { RegisterTypes } from "../../@types/fileTypes";
+import { useAppDispatch, useAppSelector } from "../../redux/hooks";
+import { register } from "../../redux/reducers/auth/registerSlice";
+import { textFieldSx } from "../../utils/MUI/muiStyles";
 import { signupSchema } from "../../validations/formValidations";
 
-interface SignupFormComponentFieldProps {
-  firstName: string;
-  lastName: string;
-  email: string;
-  password: string;
-  confirmPassword: string;
-}
-
 const SignupFormComponent: React.FC = () => {
-  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
+  const { isLoading } = useAppSelector((state) => state.register);
 
   const {
     handleSubmit,
     control,
     formState: { errors },
-  } = useForm<SignupFormComponentFieldProps>({
+  } = useForm<RegisterTypes>({
     resolver: yupResolver(signupSchema),
   });
 
-  const onSubmit: SubmitHandler<SignupFormComponentFieldProps> = (data) => {
-    setLoading(true);
-    console.log(data);
-
-    setTimeout(() => {
-      toast.success("Account created, check email for verifications");
-      setLoading(false);
+  const onSubmit: SubmitHandler<RegisterTypes> = async (
+    data: RegisterTypes,
+  ) => {
+    try {
+      const response = await dispatch(register(data)).unwrap();
+      toast(response?.message);
+      console.log(response, "Reeeesponsee");
       setTimeout(() => {
         navigate("/verify");
-      }, 4000);
-    }, 1000);
-  };
-
-  const textFieldSx = {
-    "& .MuiOutlinedInput-input": {
-      padding: "14px 14px",
-    },
-    "& .MuiInputLabel-root": {
-      transform: "translate(14px, 16px) scale(0.89)",
-    },
-    "& .MuiInputLabel-shrink": {
-      transform: "translate(14px, -8px) scale(0.75)",
-    },
+      }, 3000);
+    } catch (error: any) {
+      if (error?.response && error?.response?.data) {
+        toast(error?.response?.data.message);
+      } else if (error?.message) {
+        toast(error?.message);
+      } else {
+        toast("An unexpected error occurred");
+      }
+    }
   };
 
   return (
@@ -82,7 +74,7 @@ const SignupFormComponent: React.FC = () => {
       >
         <div className="flex flex-col gap-4">
           <Controller
-            name="firstName"
+            name="firstname"
             control={control}
             defaultValue=""
             render={({ field }) => (
@@ -93,13 +85,13 @@ const SignupFormComponent: React.FC = () => {
                 fullWidth
                 className="bg-white"
                 sx={textFieldSx}
-                error={!!errors.firstName}
-                helperText={errors.firstName?.message}
+                error={!!errors?.firstname}
+                helperText={errors?.firstname?.message}
               />
             )}
           />
           <Controller
-            name="lastName"
+            name="lastname"
             control={control}
             defaultValue=""
             render={({ field }) => (
@@ -110,8 +102,8 @@ const SignupFormComponent: React.FC = () => {
                 fullWidth
                 className="bg-white"
                 sx={textFieldSx}
-                error={!!errors.lastName}
-                helperText={errors.lastName?.message}
+                error={!!errors?.lastname}
+                helperText={errors?.lastname?.message}
               />
             )}
           />
@@ -128,8 +120,8 @@ const SignupFormComponent: React.FC = () => {
                 fullWidth
                 className="bg-white"
                 sx={textFieldSx}
-                error={!!errors.email}
-                helperText={errors.email?.message}
+                error={!!errors?.email}
+                helperText={errors?.email?.message}
               />
             )}
           />
@@ -146,8 +138,8 @@ const SignupFormComponent: React.FC = () => {
                 fullWidth
                 className="bg-white"
                 sx={textFieldSx}
-                error={!!errors.password}
-                helperText={errors.password?.message}
+                error={!!errors?.password}
+                helperText={errors?.password?.message}
               />
             )}
           />
@@ -164,18 +156,18 @@ const SignupFormComponent: React.FC = () => {
                 fullWidth
                 className="bg-white"
                 sx={textFieldSx}
-                error={!!errors.confirmPassword}
-                helperText={errors.confirmPassword?.message}
+                error={!!errors?.confirmPassword}
+                helperText={errors?.confirmPassword?.message}
               />
             )}
           />
           <div className="flex justify-center">
             <button
               type="submit"
-              className={`text-white bg-brand-blue px-5 py-3 w-full rounded-[5px] font-bold transition-all duration-300 ${loading ? "opacity-50 cursor-not-allowed" : "hover:bg-blue-600"}`}
-              disabled={loading}
+              className={`text-white bg-brand-blue px-5 py-3 w-full rounded-[5px] font-bold transition-all duration-300 ${isLoading ? "opacity-50 cursor-not-allowed" : "hover:bg-blue-600"}`}
+              disabled={isLoading}
             >
-              {loading ? "Creating..." : "Create Account"}
+              {isLoading ? "Creating..." : "Create Account"}
             </button>
           </div>
         </div>

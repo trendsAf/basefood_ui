@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Controller, useForm } from "react-hook-form";
 import { BusinessDetailsFormValues, years } from "../../../@types/fileTypes";
@@ -13,16 +14,22 @@ import { features } from "../../../utils/signUpData";
 import { businessDetailsSchema } from "../../../validations/formValidations";
 import SignupLeftSection from "../../common/SignupLeftSection";
 import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
+import { useAppDispatch, useAppSelector } from "../../../redux/hooks";
+import { businessInfo } from "../../../redux/reducers/auth/businessInfoSlice";
+// import Cookies from "js-cookie";
+import { toast, ToastContainer } from "react-toastify";
 
 interface BusinessDetailsProps {
   onSubmit: (data: BusinessDetailsFormValues) => void;
-  defaultValues?: BusinessDetailsFormValues | null;
+  defaultValues: any;
 }
 
-const BusinessDetails: React.FC<BusinessDetailsProps> = ({
-  onSubmit,
-  defaultValues,
-}) => {
+const BusinessDetails: React.FC<BusinessDetailsProps> = () => {
+  const dispatch = useAppDispatch();
+  const { isLoading, error } = useAppSelector((state) => state.businessInfo);
+  // const token = Cookies.get("csrf_token");
+  // console.log(token, "Ccccccc==========>");
+
   const {
     handleSubmit,
     control,
@@ -30,8 +37,18 @@ const BusinessDetails: React.FC<BusinessDetailsProps> = ({
   } = useForm<BusinessDetailsFormValues>({
     resolver: yupResolver(businessDetailsSchema),
     mode: "onSubmit",
-    defaultValues: defaultValues || {},
+    defaultValues: {},
   });
+
+  const onSubmit = async (data: BusinessDetailsFormValues) => {
+    try {
+      await dispatch(businessInfo(data)).unwrap();
+      toast.success("Success");
+    } catch (error) {
+      toast.error("Failed to submit business info.");
+      console.error("Error submitting business info:", error);
+    }
+  };
 
   return (
     <div className="flex h-screen">
@@ -41,30 +58,28 @@ const BusinessDetails: React.FC<BusinessDetailsProps> = ({
         <div className="p-6 bg-white rounded-lg w-full">
           <h1 className="text-2xl font-semibold mb-6">Company Information</h1>
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
-            {/* Company Name Input */}
             <div>
               <Controller
-                name="companyName"
+                name="company_name"
                 control={control}
                 defaultValue=""
                 render={({ field }) => (
                   <input
                     {...field}
                     className={`w-full p-3 border ${
-                      errors.companyName ? "border-red-500" : "border-gray-300"
+                      errors.company_name ? "border-red-500" : "border-gray-300"
                     } rounded-md`}
                     placeholder="Enter company name"
                   />
                 )}
               />
-              {errors.companyName && (
+              {errors.company_name && (
                 <p className="text-red text-sm mt-1">
-                  {errors.companyName.message}
+                  {errors.company_name.message}
                 </p>
               )}
             </div>
 
-            {/* Country Select */}
             <div>
               <FormControl fullWidth error={Boolean(errors.country)}>
                 <InputLabel>Select country</InputLabel>
@@ -90,12 +105,33 @@ const BusinessDetails: React.FC<BusinessDetailsProps> = ({
               )}
             </div>
 
-            {/* Company Type Select */}
             <div>
-              <FormControl fullWidth error={Boolean(errors.companyType)}>
+              <Controller
+                name="province"
+                control={control}
+                defaultValue=""
+                render={({ field }) => (
+                  <input
+                    {...field}
+                    className={`w-full p-3 border ${
+                      errors.province ? "border-red-500" : "border-gray-300"
+                    } rounded-md`}
+                    placeholder="Enter province"
+                  />
+                )}
+              />
+              {errors.province && (
+                <p className="text-red text-sm mt-1">
+                  {errors.province.message}
+                </p>
+              )}
+            </div>
+
+            <div>
+              <FormControl fullWidth error={Boolean(errors.company_type)}>
                 <InputLabel>Select company type</InputLabel>
                 <Controller
-                  name="companyType"
+                  name="company_type"
                   control={control}
                   defaultValue=""
                   render={({ field }) => (
@@ -109,19 +145,18 @@ const BusinessDetails: React.FC<BusinessDetailsProps> = ({
                   )}
                 />
               </FormControl>
-              {errors.companyType && (
+              {errors.company_type && (
                 <p className="text-red text-sm mt-1">
-                  {errors.companyType.message}
+                  {errors.company_type.message}
                 </p>
               )}
             </div>
 
-            {/* Company Size Select */}
             <div>
-              <FormControl fullWidth error={Boolean(errors.companySize)}>
+              <FormControl fullWidth error={Boolean(errors.company_size)}>
                 <InputLabel>Select company size</InputLabel>
                 <Controller
-                  name="companySize"
+                  name="company_size"
                   control={control}
                   defaultValue=""
                   render={({ field }) => (
@@ -135,45 +170,18 @@ const BusinessDetails: React.FC<BusinessDetailsProps> = ({
                   )}
                 />
               </FormControl>
-              {errors.companySize && (
+              {errors.company_size && (
                 <p className="text-red text-sm mt-1">
-                  {errors.companySize.message}
+                  {errors.company_size.message}
                 </p>
               )}
             </div>
 
-            {/* Revenue Select */}
             <div>
-              <FormControl fullWidth error={Boolean(errors.revenue)}>
-                <InputLabel>Select revenue range</InputLabel>
+              <FormControl fullWidth error={Boolean(errors.start_year)}>
+                <InputLabel>Select year founded</InputLabel>
                 <Controller
-                  name="revenue"
-                  control={control}
-                  defaultValue=""
-                  render={({ field }) => (
-                    <Select {...field} label="Select revenue range">
-                      {revenueRanges.map((range, index) => (
-                        <MenuItem key={index} value={range}>
-                          {range}
-                        </MenuItem>
-                      ))}
-                    </Select>
-                  )}
-                />
-              </FormControl>
-              {errors.revenue && (
-                <p className="text-red text-sm mt-1">
-                  {errors.revenue.message}
-                </p>
-              )}
-            </div>
-
-            {/* Year Founded Select */}
-            <div>
-              <FormControl fullWidth error={Boolean(errors.yearFounded)}>
-                <InputLabel>Select year</InputLabel>
-                <Controller
-                  name="yearFounded"
+                  name="start_year"
                   control={control}
                   defaultValue=""
                   render={({ field }) => (
@@ -190,19 +198,43 @@ const BusinessDetails: React.FC<BusinessDetailsProps> = ({
                   )}
                 />
               </FormControl>
-              {errors.yearFounded && (
+              {errors.start_year && (
                 <p className="text-red text-sm mt-1">
-                  {errors.yearFounded.message}
+                  {errors.start_year.message}
                 </p>
               )}
             </div>
 
-            {/* Role Select */}
             <div>
-              <FormControl fullWidth error={Boolean(errors.role)}>
+              <FormControl fullWidth error={Boolean(errors.annual_revenue)}>
+                <InputLabel>Select annual revenue</InputLabel>
+                <Controller
+                  name="annual_revenue"
+                  control={control}
+                  defaultValue=""
+                  render={({ field }) => (
+                    <Select {...field} label="Select annual revenue">
+                      {revenueRanges.map((range, index) => (
+                        <MenuItem key={index} value={range}>
+                          {range}
+                        </MenuItem>
+                      ))}
+                    </Select>
+                  )}
+                />
+              </FormControl>
+              {errors.annual_revenue && (
+                <p className="text-red text-sm mt-1">
+                  {errors.annual_revenue.message}
+                </p>
+              )}
+            </div>
+
+            <div>
+              <FormControl fullWidth error={Boolean(errors.company_role)}>
                 <InputLabel>Select role</InputLabel>
                 <Controller
-                  name="role"
+                  name="company_role"
                   control={control}
                   defaultValue=""
                   render={({ field }) => (
@@ -216,23 +248,47 @@ const BusinessDetails: React.FC<BusinessDetailsProps> = ({
                   )}
                 />
               </FormControl>
-              {errors.role && (
-                <p className="text-red text-sm mt-1">{errors.role.message}</p>
+              {errors.company_role && (
+                <p className="text-red text-sm mt-1">
+                  {errors.company_role.message}
+                </p>
               )}
             </div>
 
-            {/* Submit Button */}
+            <div>
+              <Controller
+                name="phone"
+                control={control}
+                defaultValue=""
+                render={({ field }) => (
+                  <input
+                    {...field}
+                    className={`w-full p-3 border ${
+                      errors.phone ? "border-red-500" : "border-gray-300"
+                    } rounded-md`}
+                    placeholder="Enter phone number"
+                  />
+                )}
+              />
+              {errors.phone && (
+                <p className="text-red text-sm mt-1">{errors.phone.message}</p>
+              )}
+            </div>
+
             <div>
               <button
                 type="submit"
                 className="w-full p-3 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition-colors"
+                disabled={isLoading}
               >
-                Next
+                {isLoading ? "Submitting..." : "Next"}
               </button>
+              {error && <p className="text-red-500 text-sm mt-2">{error}</p>}
             </div>
           </form>
         </div>
       </div>
+      <ToastContainer />
     </div>
   );
 };

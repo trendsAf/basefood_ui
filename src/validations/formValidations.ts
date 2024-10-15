@@ -1,8 +1,8 @@
 import * as yup from "yup";
 
 export const signupSchema = yup.object().shape({
-  firstName: yup.string().required("First Name is required"),
-  lastName: yup.string().required("Last Name is required"),
+  firstname: yup.string().required("First Name is required"),
+  lastname: yup.string().required("Last Name is required"),
   email: yup
     .string()
     .email("Invalid email address")
@@ -31,13 +31,16 @@ export const otpSchema = yup.object().shape({
 
 export const businessDetailsSchema = yup
   .object({
-    companyName: yup.string().required("Company name is required"),
+    company_name: yup.string().required("Company name is required"),
     country: yup.string().required("Please select a country"),
-    companyType: yup.string().required("Please select a company type"),
-    companySize: yup.string().required("Please select a company size"),
-    revenue: yup.string().required("Please select a revenue range"),
-    yearFounded: yup.string().required("Please select a year"),
-    role: yup.string().required("Please select your role"),
+    company_type: yup.string().required("Please select a company type"),
+    company_size: yup.string().required("Please select a company size"),
+    annual_revenue: yup.string().required("Please select a revenue range"),
+    start_year: yup.string().required("Please select a year"),
+    company_role: yup.string().required("Please select your role"),
+    phone: yup.string().required("Please enter your phone "),
+    province: yup.string().required("Please enter your province "),
+    revenue: yup.string().required("Please enter your province "),
   })
   .required();
 

@@ -1,14 +1,15 @@
-import { useForm, Controller } from "react-hook-form";
-import { Link, useNavigate } from "react-router-dom";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { TextField } from "@mui/material";
+import Cookies from "js-cookie";
+import { Controller, useForm } from "react-hook-form";
 import { FaLinkedinIn } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
-import { TextField } from "@mui/material";
-import * as yup from "yup";
-import { yupResolver } from "@hookform/resolvers/yup";
-import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import Cookies from "js-cookie";
+import * as yup from "yup";
+import { useAppDispatch, useAppSelector } from "../../redux/hooks";
+import { login } from "../../redux/reducers/auth/loginSlice";
 
 interface LoginFormComponentFieldProps {
   email: string;
@@ -33,25 +34,38 @@ const LoginFormComponent = () => {
     mode: "onBlur",
   });
 
-  const [isLoading, setIsLoading] = useState(false);
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
-  const onSubmit = (data: LoginFormComponentFieldProps) => {
-    setIsLoading(true);
+  const { isLoading, error } = useAppSelector((state) => state.login);
 
-    if (data.email === "aphrodis@gmail.com" && data.password === "My@pass12") {
-      toast.success("You're logged in!");
-      Cookies.set("accessToken", "dummyAccessToken");
-      Cookies.set("userInfo", JSON.stringify({ email: data.email }));
-
-      setTimeout(() => {
-        navigate("/welcome");
-      }, 3000);
-    } else {
-      toast.error("Wrong credentials. Please try again.");
+  const onSubmit = async (data: LoginFormComponentFieldProps) => {
+    try {
+      const res = await dispatch(login(data)).unwrap();
+      // console.log(res, "Reeeeeesssssponse");
+      if (res.status && res.is_confirmed) {
+        Cookies.set("access_token", res.access_token);
+        toast.success("You're logged in");
+        setTimeout(() => {
+          navigate("/");
+        }, 3500);
+      } else if (res.status && !res.is_confirmed) {
+        Cookies.set("access_token", res.access_token);
+        toast.success("Please complete profile");
+        setTimeout(() => {
+          navigate("/business");
+        }, 3500);
+      } else {
+        toast.error(res.message);
+      }
+    } catch (error: any) {
+      if (error.response?.data?.message) {
+        toast.error(error.response.data.message);
+      } else {
+        toast.error("An unexpected error occurred. Please try again.");
+      }
+      console.error("Login error:", error);
     }
-
-    setIsLoading(false);
   };
 
   const textFieldSx = {
@@ -109,12 +123,14 @@ const LoginFormComponent = () => {
             <button
               className="text-white text-center bg-brand-blue px-5 py-3 w-full rounded-[5px] font-bold hover:bg-blue-600 transition-all duration-300"
               type="submit"
+              disabled={isLoading}
             >
               {isLoading ? "Loading..." : "Login"}
             </button>
           </div>
         </div>
       </form>
+      {error && <p className="text-red-500 text-center mt-2">{error}</p>}
       <div className="flex justify-center items-center w-full">
         <button className="text-center helvetica text-sm my-5 text-brand-blue">
           Forgot password?
