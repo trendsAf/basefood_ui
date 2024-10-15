@@ -59,12 +59,11 @@ const LoginFormComponent = () => {
         toast.error(res.message);
       }
     } catch (error: any) {
-      if (error.response?.data?.message) {
-        toast.error(error.response.data.message);
+      if (error) {
+        toast.error(error.message);
       } else {
         toast.error("An unexpected error occurred. Please try again.");
       }
-      console.error("Login error:", error);
     }
   };
 
@@ -88,6 +87,7 @@ const LoginFormComponent = () => {
           <Controller
             name="email"
             control={control}
+            defaultValue=""
             render={({ field }) => (
               <TextField
                 {...field}
@@ -104,6 +104,7 @@ const LoginFormComponent = () => {
           <Controller
             name="password"
             control={control}
+            defaultValue=""
             render={({ field }) => (
               <TextField
                 {...field}

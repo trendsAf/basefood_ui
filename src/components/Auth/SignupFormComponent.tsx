@@ -37,12 +37,10 @@ const SignupFormComponent: React.FC = () => {
         navigate("/verify");
       }, 3000);
     } catch (error: any) {
-      if (error?.response && error?.response?.data) {
-        toast(error?.response?.data.message);
-      } else if (error?.message) {
-        toast(error?.message);
+      if (error?.message) {
+        toast.error(error?.message);
       } else {
-        toast("An unexpected error occurred");
+        toast.error("An unexpected error occurred");
       }
     }
   };
@@ -165,7 +163,7 @@ const SignupFormComponent: React.FC = () => {
             <button
               type="submit"
               className={`text-white bg-brand-blue px-5 py-3 w-full rounded-[5px] font-bold transition-all duration-300 ${isLoading ? "opacity-50 cursor-not-allowed" : "hover:bg-blue-600"}`}
-              disabled={isLoading}
+              // disabled={isLoading}
             >
               {isLoading ? "Creating..." : "Create Account"}
             </button>
