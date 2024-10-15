@@ -5,9 +5,7 @@ import BusinessDetails from "./BusinessDetails";
 import ReviewBusinessDetails from "./ReviewBusinessDetails";
 
 const BusinessDetailsParent = () => {
-  const [formData, setFormData] = useState<BusinessDetailsFormValues | null>(
-    null,
-  );
+  const [formData, setFormData] = useState<BusinessDetailsFormValues>();
   const [isReviewing, setIsReviewing] = useState(false);
 
   const handleFormSubmit = (data: BusinessDetailsFormValues) => {

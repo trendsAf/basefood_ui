@@ -18,6 +18,8 @@ import axios, {
   InternalAxiosRequestConfig,
 } from "axios";
 
+import Cookies from "js-cookie";
+
 const API: AxiosInstance = axios.create({
   baseURL: `${import.meta.env.VITE_BASE_URL}`,
   timeout: 50000,
@@ -27,7 +29,7 @@ const API: AxiosInstance = axios.create({
 const requestHandler = (
   config: InternalAxiosRequestConfig,
 ): InternalAxiosRequestConfig => {
-  const token = localStorage.getItem("access-token") || "";
+  const token = Cookies.get("access_token") || "";
   config.headers = config.headers || {};
   config.headers.Authorization = `Bearer ${token}`;
   return config;

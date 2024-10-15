@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Controller, useForm } from "react-hook-form";
 import { BusinessDetailsFormValues, years } from "../../../@types/fileTypes";
@@ -15,14 +16,19 @@ import SignupLeftSection from "../../common/SignupLeftSection";
 import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
 import { useAppDispatch, useAppSelector } from "../../../redux/hooks";
 import { businessInfo } from "../../../redux/reducers/auth/businessInfoSlice";
-import Cookies from "js-cookie";
-import { toast } from "react-toastify";
+// import Cookies from "js-cookie";
+import { toast, ToastContainer } from "react-toastify";
 
-const BusinessDetails: React.FC = () => {
+interface BusinessDetailsProps {
+  onSubmit: (data: BusinessDetailsFormValues) => void;
+  defaultValues: any;
+}
+
+const BusinessDetails: React.FC<BusinessDetailsProps> = () => {
   const dispatch = useAppDispatch();
   const { isLoading, error } = useAppSelector((state) => state.businessInfo);
-  const token = Cookies.get("csrf_token");
-  console.log(token, "Ccccccc==========>");
+  // const token = Cookies.get("csrf_token");
+  // console.log(token, "Ccccccc==========>");
 
   const {
     handleSubmit,
@@ -35,12 +41,13 @@ const BusinessDetails: React.FC = () => {
   });
 
   const onSubmit = async (data: BusinessDetailsFormValues) => {
-    // try {
-    //   toast.success(res.?data?.message)
-    // } catch (error) {
-    //   toast.error(error)
-    // }
-    const res = await dispatch(businessInfo(data)).unwrap();
+    try {
+      await dispatch(businessInfo(data)).unwrap();
+      toast.success("Success");
+    } catch (error) {
+      toast.error("Failed to submit business info.");
+      console.error("Error submitting business info:", error);
+    }
   };
 
   return (
@@ -281,6 +288,7 @@ const BusinessDetails: React.FC = () => {
           </form>
         </div>
       </div>
+      <ToastContainer />
     </div>
   );
 };

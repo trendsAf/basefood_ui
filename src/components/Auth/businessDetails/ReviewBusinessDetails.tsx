@@ -1,49 +1,32 @@
-/* eslint-disable no-console */
-import TextField from "@mui/material/TextField";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { BusinessDetailsFormValues } from "../../../@types/fileTypes";
+import TextField from "@mui/material/TextField";
 import Logo from "../../../assets/basefood_logo.png";
 import { features } from "../../../utils/signUpData";
 import SignupLeftSection from "../../common/SignupLeftSection";
+import { BusinessDetailsFormValues } from "../../../@types/fileTypes";
 
 interface ReviewBusinessDetailsProps {
   data: BusinessDetailsFormValues;
-  onEdit: (section: string) => void;
   onComplete: () => void;
+  onEdit: () => void;
 }
 
 const ReviewBusinessDetails: React.FC<ReviewBusinessDetailsProps> = ({
   data,
-  onEdit,
   onComplete,
 }) => {
   const [loading, setIsLoading] = useState(false);
-  const [formData, setFormData] = useState(data);
   const navigate = useNavigate();
 
-  const handleInputChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
-    field: keyof BusinessDetailsFormValues,
-  ) => {
-    setFormData({ ...formData, [field]: e.target.value });
-  };
-
-  const handleSave = () => {
-    console.log("Saved data: ", formData);
-    toast.success("Data saved successfully!");
-    onEdit("businessDetails");
-  };
-
   const handleComplete = () => {
-    console.log("Submitted data: ", formData);
     setIsLoading(true);
+    toast.success("Thank you for completing the profile!");
 
     setTimeout(() => {
       setIsLoading(false);
-      toast.success("Thank you for completing the profile!");
       onComplete();
     }, 1000);
 
@@ -64,122 +47,104 @@ const ReviewBusinessDetails: React.FC<ReviewBusinessDetailsProps> = ({
           <div className="space-y-4">
             <div className="flex items-center">
               <TextField
-                value={formData.companyName}
-                onChange={(e) => handleInputChange(e, "companyName")}
+                value={data.company_name}
                 variant="outlined"
                 fullWidth
-                placeholder="Company Name"
+                label="Company Name"
                 InputProps={{
-                  sx: { backgroundColor: "rgba(0, 0, 0, 0.05)" },
                   readOnly: true,
+                  sx: { backgroundColor: "rgba(0, 0, 0, 0.05)" },
                 }}
               />
             </div>
 
             <div className="flex items-center">
               <TextField
-                value={formData.country}
-                onChange={(e) => handleInputChange(e, "country")}
+                value={data.country}
                 variant="outlined"
                 fullWidth
-                placeholder="Country"
+                label="Country"
                 InputProps={{
-                  sx: { backgroundColor: "rgba(0, 0, 0, 0.05)" },
                   readOnly: true,
+                  sx: { backgroundColor: "rgba(0, 0, 0, 0.05)" },
                 }}
               />
             </div>
 
             <div className="flex items-center">
               <TextField
-                value={formData.companyType}
-                onChange={(e) => handleInputChange(e, "companyType")}
+                value={data.company_type}
                 variant="outlined"
                 fullWidth
-                placeholder="Company Type"
+                label="Company Type"
                 InputProps={{
-                  sx: { backgroundColor: "rgba(0, 0, 0, 0.05)" },
                   readOnly: true,
+                  sx: { backgroundColor: "rgba(0, 0, 0, 0.05)" },
                 }}
               />
             </div>
 
             <div className="flex items-center">
               <TextField
-                value={formData.companySize}
-                onChange={(e) => handleInputChange(e, "companySize")}
+                value={data.company_size}
                 variant="outlined"
                 fullWidth
-                placeholder="Company Size"
+                label="Company Size"
                 InputProps={{
-                  sx: { backgroundColor: "rgba(0, 0, 0, 0.05)" },
                   readOnly: true,
+                  sx: { backgroundColor: "rgba(0, 0, 0, 0.05)" },
                 }}
               />
             </div>
 
             <div className="flex items-center">
               <TextField
-                value={formData.revenue}
-                onChange={(e) => handleInputChange(e, "revenue")}
+                value={data.revenue}
                 variant="outlined"
                 fullWidth
-                placeholder="Revenue Range"
+                label="Revenue Range"
                 InputProps={{
-                  sx: { backgroundColor: "rgba(0, 0, 0, 0.05)" },
                   readOnly: true,
+                  sx: { backgroundColor: "rgba(0, 0, 0, 0.05)" },
                 }}
               />
             </div>
 
             <div className="flex items-center">
               <TextField
-                value={formData.yearFounded}
-                onChange={(e) => handleInputChange(e, "yearFounded")}
+                value={data.start_year}
                 variant="outlined"
                 fullWidth
-                placeholder="Year Founded"
+                label="Year Founded"
                 InputProps={{
-                  sx: { backgroundColor: "rgba(0, 0, 0, 0.05)" },
                   readOnly: true,
+                  sx: { backgroundColor: "rgba(0, 0, 0, 0.05)" },
                 }}
               />
             </div>
 
             <div className="flex items-center">
               <TextField
-                value={formData.role}
-                onChange={(e) => handleInputChange(e, "role")}
+                value={data.company_role}
                 variant="outlined"
                 fullWidth
-                placeholder="Role"
+                label="Role"
                 InputProps={{
-                  sx: { backgroundColor: "rgba(0, 0, 0, 0.05)" },
                   readOnly: true,
+                  sx: { backgroundColor: "rgba(0, 0, 0, 0.05)" },
                 }}
               />
             </div>
           </div>
 
-          <div className="grid grid-cols-2 gap-x-4">
-            <div className="mt-4">
-              <button
-                onClick={handleSave}
-                className="w-full p-3 bg-green/90 text-white rounded-md hover:bg-green transition-colors"
-              >
-                Update
-              </button>
-            </div>
-
-            <div className="mt-4">
-              <button
-                onClick={handleComplete}
-                disabled={loading}
-                className="w-full p-3 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition-colors"
-              >
-                {loading ? "Completing..." : "Complete Registration"}
-              </button>
-            </div>
+          <div className="mt-4">
+            <button
+              onClick={handleComplete}
+              disabled={loading}
+              className="w-full p-3 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition-colors"
+            >
+              {loading ? "Completing..." : "Complete Registration"}
+            </button>
           </div>
         </div>
       </div>
