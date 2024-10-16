@@ -13,6 +13,8 @@ import MarketNewsDashboardComponent from "../MarketNewsDashboardComponent";
 import PriceHistoricalGraph from "../PriceHistoricalGraph";
 import ProductionHistoricalGraph from "../ProductionHistoricalGraph";
 import WatchlistTable from "../WatchlistTable";
+import CountriesComponent from "../common/CountriesComponent";
+import { countriesColors, countriesData } from "../../utils/countiesData";
 
 const Dashboard1 = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -47,6 +49,24 @@ const Dashboard1 = () => {
     closeModal();
   };
 
+  const countriesWithColors = countriesData.map((country, index) => ({
+    ...country,
+    color: countriesColors[index % countriesColors.length],
+  }));
+
+  const [_selectedCountries, setSelectedCountries] = useState<string[]>(
+    countriesWithColors
+      .filter((country) => country.checked)
+      .map((country) => country.name),
+  );
+  const handleCountrySelect = (country: string) => {
+    setSelectedCountries((prev) =>
+      prev.includes(country)
+        ? prev.filter((c) => c !== country)
+        : [...prev, country],
+    );
+  };
+
   const renderComponent = (componentType: string | null) => {
     switch (componentType) {
       case "table":
@@ -57,6 +77,13 @@ const Dashboard1 = () => {
         return <ProductionHistoricalGraph checkedRows={checkedRows} />;
       case "news":
         return <MarketNewsDashboardComponent />;
+      case "countries":
+        return (
+          <CountriesComponent
+            countriesData={countriesWithColors}
+            onCountrySelect={handleCountrySelect}
+          />
+        );
       default:
         return null;
     }
@@ -72,6 +99,8 @@ const Dashboard1 = () => {
         return "Production Historical Graph";
       case "news":
         return "Latest news";
+      case "countries":
+        return "Countries";
       default:
         return "Component";
     }

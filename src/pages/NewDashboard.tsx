@@ -13,6 +13,8 @@ import {
 import PriceHistoricalGraph from "../components/PriceHistoricalGraph";
 import ProductionHistoricalGraph from "../components/ProductionHistoricalGraph";
 import MarketNewsDashboardComponent from "../components/MarketNewsDashboardComponent";
+import CountriesComponent from "../components/common/CountriesComponent";
+import { countriesColors, countriesData } from "../utils/countiesData";
 
 const NewDashboard: React.FC = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -47,6 +49,24 @@ const NewDashboard: React.FC = () => {
     closeModal();
   };
 
+  const countriesWithColors = countriesData.map((country, index) => ({
+    ...country,
+    color: countriesColors[index % countriesColors.length],
+  }));
+
+  const [_selectedCountries, setSelectedCountries] = useState<string[]>(
+    countriesWithColors
+      .filter((country) => country.checked)
+      .map((country) => country.name),
+  );
+  const handleCountrySelect = (country: string) => {
+    setSelectedCountries((prev) =>
+      prev.includes(country)
+        ? prev.filter((c) => c !== country)
+        : [...prev, country],
+    );
+  };
+
   const renderComponent = (componentType: string | null) => {
     switch (componentType) {
       case "table":
@@ -57,6 +77,13 @@ const NewDashboard: React.FC = () => {
         return <ProductionHistoricalGraph checkedRows={checkedRows} />;
       case "news":
         return <MarketNewsDashboardComponent />;
+      case "countries":
+        return (
+          <CountriesComponent
+            countriesData={countriesWithColors}
+            onCountrySelect={handleCountrySelect}
+          />
+        );
       default:
         return null;
     }
@@ -72,6 +99,8 @@ const NewDashboard: React.FC = () => {
         return "Production Historical Graph";
       case "news":
         return "Latest news";
+      case "countrues":
+        return "Countries";
       default:
         return "Component";
     }

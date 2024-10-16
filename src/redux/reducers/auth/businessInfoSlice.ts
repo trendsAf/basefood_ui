@@ -14,6 +14,7 @@ export const businessInfo = createAsyncThunk(
     try {
       const { data } = await API.post("/auth/confirmation", businessInfoData, {
         headers: { "X-CSRF-TOKEN": token },
+        withCredentials: true,
       });
 
       return data;
