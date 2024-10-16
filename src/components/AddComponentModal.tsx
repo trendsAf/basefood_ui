@@ -39,6 +39,12 @@ const componentOptions: ComponentOption[] = [
     icon: <TbNews className="text-2xl" />,
   },
   {
+    type: "countries",
+    title: "Countries",
+    description: "Display according to country.",
+    icon: <TbNews className="text-2xl" />,
+  },
+  {
     type: "list",
     title: "Track Shipping and Logistics",
     description:
