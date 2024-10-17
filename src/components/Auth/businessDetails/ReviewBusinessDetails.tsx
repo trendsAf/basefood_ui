@@ -1,12 +1,13 @@
+// ReviewBusinessDetails.tsx
+import TextField from "@mui/material/TextField";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import TextField from "@mui/material/TextField";
+import { BusinessDetailsFormValues } from "../../../@types/fileTypes";
 import Logo from "../../../assets/basefood_logo.png";
 import { features } from "../../../utils/signUpData";
 import SignupLeftSection from "../../common/SignupLeftSection";
-import { BusinessDetailsFormValues } from "../../../@types/fileTypes";
 
 interface ReviewBusinessDetailsProps {
   data: BusinessDetailsFormValues;
@@ -17,6 +18,7 @@ interface ReviewBusinessDetailsProps {
 const ReviewBusinessDetails: React.FC<ReviewBusinessDetailsProps> = ({
   data,
   onComplete,
+  onEdit,
 }) => {
   const [loading, setIsLoading] = useState(false);
   const navigate = useNavigate();
@@ -31,7 +33,7 @@ const ReviewBusinessDetails: React.FC<ReviewBusinessDetailsProps> = ({
     }, 1000);
 
     setTimeout(() => {
-      navigate("/login");
+      navigate("/");
     }, 4000);
   };
 
@@ -61,6 +63,18 @@ const ReviewBusinessDetails: React.FC<ReviewBusinessDetailsProps> = ({
             <div className="flex items-center">
               <TextField
                 value={data.country}
+                variant="outlined"
+                fullWidth
+                label="Country"
+                InputProps={{
+                  readOnly: true,
+                  sx: { backgroundColor: "rgba(0, 0, 0, 0.05)" },
+                }}
+              />
+            </div>
+            <div className="flex items-center">
+              <TextField
+                value={data.province}
                 variant="outlined"
                 fullWidth
                 label="Country"
@@ -135,9 +149,27 @@ const ReviewBusinessDetails: React.FC<ReviewBusinessDetailsProps> = ({
                 }}
               />
             </div>
+            <div className="flex items-center">
+              <TextField
+                value={data.phone}
+                variant="outlined"
+                fullWidth
+                label="Role"
+                InputProps={{
+                  readOnly: true,
+                  sx: { backgroundColor: "rgba(0, 0, 0, 0.05)" },
+                }}
+              />
+            </div>
           </div>
 
-          <div className="mt-4">
+          <div className="mt-4 flex justify-between gap-4">
+            <button
+              onClick={onEdit}
+              className="w-full p-3 bg-gray-300 text-gray-700 rounded-md hover:bg-gray-400 transition-colors"
+            >
+              Edit
+            </button>
             <button
               onClick={handleComplete}
               disabled={loading}
