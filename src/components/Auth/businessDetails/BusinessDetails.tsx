@@ -1,8 +1,12 @@
 /* eslint-disable no-console */
 import { yupResolver } from "@hookform/resolvers/yup";
+import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
 import { Controller, useForm } from "react-hook-form";
+import { toast, ToastContainer } from "react-toastify";
 import { BusinessDetailsFormValues, years } from "../../../@types/fileTypes";
 import Logo from "../../../assets/basefood_logo.png";
+import { useAppDispatch, useAppSelector } from "../../../redux/hooks";
+import { businessInfo } from "../../../redux/reducers/auth/businessInfoSlice";
 import {
   companySizes,
   companyTypes,
@@ -13,22 +17,18 @@ import {
 import { features } from "../../../utils/signUpData";
 import { businessDetailsSchema } from "../../../validations/formValidations";
 import SignupLeftSection from "../../common/SignupLeftSection";
-import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
-import { useAppDispatch, useAppSelector } from "../../../redux/hooks";
-import { businessInfo } from "../../../redux/reducers/auth/businessInfoSlice";
-// import Cookies from "js-cookie";
-import { toast, ToastContainer } from "react-toastify";
 
 interface BusinessDetailsProps {
   onSubmit: (data: BusinessDetailsFormValues) => void;
-  defaultValues: any;
+  defaultValues?: BusinessDetailsFormValues;
 }
 
-const BusinessDetails: React.FC<BusinessDetailsProps> = () => {
+const BusinessDetails: React.FC<BusinessDetailsProps> = ({
+  onSubmit,
+  defaultValues,
+}) => {
   const dispatch = useAppDispatch();
   const { isLoading, error } = useAppSelector((state) => state.businessInfo);
-  // const token = Cookies.get("csrf_token");
-  // console.log(token, "Ccccccc==========>");
 
   const {
     handleSubmit,
@@ -37,18 +37,18 @@ const BusinessDetails: React.FC<BusinessDetailsProps> = () => {
   } = useForm<BusinessDetailsFormValues>({
     resolver: yupResolver(businessDetailsSchema),
     mode: "onSubmit",
-    defaultValues: {},
+    defaultValues: defaultValues ?? {},
   });
 
-  const onSubmit = async (data: BusinessDetailsFormValues) => {
-    console.log("Submitting business info:", data);
+  const onSubmitForm = async (data: BusinessDetailsFormValues) => {
     try {
       const result = await dispatch(businessInfo(data)).unwrap();
       console.log("Dispatch result:", result);
-      toast.success("Success");
+      toast.success("Business details submitted successfully!");
+      onSubmit(data);
     } catch (error) {
-      toast.error("Failed to submit business info.");
-      console.error("Error submitting business info:", error);
+      toast.error("Failed to submit business details.");
+      console.error("Error submitting business details:", error);
     }
   };
 
@@ -59,7 +59,7 @@ const BusinessDetails: React.FC<BusinessDetailsProps> = () => {
       <div className="w-full px-[4%] flex items-center justify-center">
         <div className="p-6 bg-white rounded-lg w-full">
           <h1 className="text-2xl font-semibold mb-6">Company Information</h1>
-          <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+          <form onSubmit={handleSubmit(onSubmitForm)} className="space-y-6">
             {/* <p>Form Errors: {JSON.stringify(errors)}</p> */}
             <div>
               <Controller

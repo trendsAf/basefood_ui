@@ -5,7 +5,9 @@ import BusinessDetails from "./BusinessDetails";
 import ReviewBusinessDetails from "./ReviewBusinessDetails";
 
 const BusinessDetailsParent = () => {
-  const [formData, setFormData] = useState<BusinessDetailsFormValues>();
+  const [formData, setFormData] = useState<
+    BusinessDetailsFormValues | undefined
+  >(undefined);
   const [isReviewing, setIsReviewing] = useState(false);
 
   const handleFormSubmit = (data: BusinessDetailsFormValues) => {
@@ -18,7 +20,7 @@ const BusinessDetailsParent = () => {
   };
 
   const handleCompleteRegistration = () => {
-    console.log("Registration Complete:", formData);
+    console.log("");
   };
 
   return (
