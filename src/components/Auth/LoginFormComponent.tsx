@@ -3,13 +3,13 @@ import { TextField } from "@mui/material";
 import Cookies from "js-cookie";
 import { Controller, useForm } from "react-hook-form";
 import { FaLinkedinIn } from "react-icons/fa";
-import { FcGoogle } from "react-icons/fc";
 import { Link, useNavigate } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import * as yup from "yup";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { login } from "../../redux/reducers/auth/loginSlice";
+import GoogleButton from "../common/buttons/GoogleButton";
 
 interface LoginFormComponentFieldProps {
   email: string;
@@ -139,13 +139,7 @@ const LoginFormComponent = () => {
       </div>
       <div>
         <div className="flex justify-center my-4">
-          <button
-            type="button"
-            className=" bg-[#e5e5e5] text-black px-5 py-3 w-full rounded-[5px] font-bold hover:bg-[#d1d0d0] transition-all helvetica duration-300 flex items-center justify-center gap-3"
-          >
-            <FcGoogle className="text-2xl" />
-            Continue with Google
-          </button>
+          <GoogleButton />
         </div>
         <div className="flex justify-center my-4">
           <button

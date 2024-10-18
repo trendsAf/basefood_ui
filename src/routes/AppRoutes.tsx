@@ -2,9 +2,9 @@ import { SkeletonTheme } from "react-loading-skeleton";
 import { Route, Routes } from "react-router-dom";
 import BusinessDetailsParent from "../components/Auth/businessDetails/BusinessDetailsParent";
 import OtpErrorPage from "../components/Auth/otp/OtpErrorPage";
-import OtpSuccess from "../components/Auth/otp/OtpSuccess";
 import VerificationPage from "../components/Auth/otp/VerificationsPage";
-import ProtectedRoutesComponent from "../components/Auth/ProtectedRoutesComponent";
+// import ProtectedRoutesComponent from "../components/Auth/ProtectedRoutesComponent";
+import Verify from "../components/Auth/otp/Verify";
 import Dashboard1 from "../components/dashboards/Dashboard1";
 import PagesLayout from "../components/layouts/PagesLayout";
 import RootLayout from "../components/layouts/RootLayout";
@@ -17,43 +17,43 @@ import NewDashboard from "../pages/NewDashboard";
 import NewsPage from "../pages/News";
 import ProfilePage from "../pages/ProfilePage";
 import WelcomePage from "../pages/WelcomePage";
-import PublicRoutess from "../components/Auth/PublicRoutes";
+// import PublicRoutess from "../components/Auth/PublicRoutes";
 
 const AppRoutes = () => {
   const handleNext = () => {};
   return (
     <SkeletonTheme baseColor="#313131" highlightColor="#525252">
       <Routes>
-        <Route element={<PublicRoutess />}>
-          <Route path="/login" element={<Login />} />
-          <Route path="/signup" element={<Signup />} />
-          <Route
-            path="/verify"
-            element={<VerificationPage onNext={handleNext} />}
-          />
-          <Route path="/success" element={<OtpSuccess />} />
-          <Route path="/error" element={<OtpErrorPage />} />
-          <Route path="/business" element={<BusinessDetailsParent />} />
-          <Route path="/welcome" element={<WelcomePage />} />
-        </Route>
+        {/* <Route element={<PublicRoutess />}> */}
+        <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<Signup />} />
+        <Route
+          path="/verify"
+          element={<VerificationPage onNext={handleNext} />}
+        />
+        <Route path="/signup/confirm_email/:userId" element={<Verify />} />
+        <Route path="/error" element={<OtpErrorPage />} />
+        <Route path="/business" element={<BusinessDetailsParent />} />
+        <Route path="/welcome" element={<WelcomePage />} />
+        {/* </Route> */}
 
-        <Route element={<ProtectedRoutesComponent />}>
-          <Route path="/buyers" element={<PagesLayout />}>
-            <Route index element={<Buyers />} />
-            <Route path="sourcing" element={<RFQDetails />} />
-          </Route>
+        {/* <Route element={<ProtectedRoutesComponent />}> */}
+        <Route path="/buyers" element={<PagesLayout />}>
+          <Route index element={<Buyers />} />
+          <Route path="sourcing" element={<RFQDetails />} />
         </Route>
+        {/* </Route> */}
 
-        <Route element={<ProtectedRoutesComponent />}>
-          <Route path="/" element={<RootLayout />}>
-            <Route index element={<Dashboard />} />
-            <Route path="news" element={<NewsPage />} />
-            <Route path="profile" element={<ProfilePage />} />
-            <Route path="dashboard" element={<Dashboard1 />} />
-            <Route path="dashboard1" element={<Dashboard1 />} />
-            <Route path="dashboards/new" element={<NewDashboard />} />
-          </Route>
+        {/* <Route element={<ProtectedRoutesComponent />}> */}
+        <Route path="/" element={<RootLayout />}>
+          <Route index element={<Dashboard />} />
+          <Route path="news" element={<NewsPage />} />
+          <Route path="profile" element={<ProfilePage />} />
+          <Route path="dashboard" element={<Dashboard1 />} />
+          <Route path="dashboard1" element={<Dashboard1 />} />
+          <Route path="dashboards/new" element={<NewDashboard />} />
         </Route>
+        {/* </Route> */}
         <Route
           path="*"
           element={

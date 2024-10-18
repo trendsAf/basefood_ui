@@ -1,4 +1,4 @@
-import { otpSchema } from "../validations/formValidations";
+import { linkSchema } from "../validations/formValidations";
 import * as yup from "yup";
 
 export type BusinessDetailsFormValues = {
@@ -14,9 +14,9 @@ export type BusinessDetailsFormValues = {
   country: string;
 };
 
-export type OtpComponentFieldProps = yup.InferType<typeof otpSchema>;
+export type LinkComponentFieldProps = yup.InferType<typeof linkSchema>;
 
-export type RequestNewOtpComponentFieldProps = {
+export type RequestNewLinkComponentFieldProps = {
   email: string;
 };
 
