@@ -3,22 +3,22 @@
 // import { toast, ToastContainer } from "react-toastify";
 // import "react-toastify/dist/ReactToastify.css";
 // import { yupResolver } from "@hookform/resolvers/yup";
-// import { useRef, useState } from "react";
+import { useState } from "react";
 // import { otpSchema } from "../../../validations/formValidations";
 // import { useNavigate } from "react-router-dom";
 import { IoIosMail } from "react-icons/io";
-// import RequestNewOtpComponent from "./RequestNewOtpComponent";
-// import { OtpComponentFieldProps } from "../../../@types/fileTypes";
+import RequestNewLinkComponent from "./RequestNewLinkComponent";
+// import { LinkComponentFieldProps } from "../../../@types/fileTypes";
 
-interface OtpComponentProps {
+interface LinkComponentProps {
   onNext: () => void;
 }
 
-const OtpComponent: React.FC<OtpComponentProps> = () => {
+const LinkComponent: React.FC<LinkComponentProps> = ({ onNext }) => {
   // const [loading, setLoading] = useState(false);
-  // const [showRequestNewOtp, setShowRequestNewOtp] = useState(false);
+  const [showRequestNewLink, setShowRequestNewLink] = useState(false);
   // const inputRefs = useRef<(HTMLInputElement | null)[]>([]);
-  // const [otp, setOtp] = useState(new Array(8).fill(""));
+  // const [otp, setLink] = useState(new Array(8).fill(""));
   // const navigate = useNavigate();
 
   // const {
@@ -26,7 +26,7 @@ const OtpComponent: React.FC<OtpComponentProps> = () => {
   //   control,
   //   setValue,
   //   formState: { errors },
-  // } = useForm<OtpComponentFieldProps>({
+  // } = useForm<LinkComponentFieldProps>({
   //   resolver: yupResolver(otpSchema),
   //   mode: "onSubmit",
   // });
@@ -41,7 +41,7 @@ const OtpComponent: React.FC<OtpComponentProps> = () => {
   //   const otpArray = [...otp];
   //   otpArray[idx] = value;
 
-  //   setOtp(otpArray);
+  //   setLink(otpArray);
   //   setValue("otp", otpArray.join(""));
 
   //   if (value && idx < otp.length - 1) {
@@ -60,12 +60,12 @@ const OtpComponent: React.FC<OtpComponentProps> = () => {
 
   //     const otpArray = [...otp];
   //     otpArray[idx] = "";
-  //     setOtp(otpArray);
+  //     setLink(otpArray);
   //     setValue("otp", otpArray.join(""));
   //   }
   // };
 
-  // const onSubmit: SubmitHandler<OtpComponentFieldProps> = (data) => {
+  // const onSubmit: SubmitHandler<LinkComponentFieldProps> = (data) => {
   //   setLoading(true);
   //   setTimeout(() => {
   //     if (data.otp === "484848") {
@@ -78,9 +78,9 @@ const OtpComponent: React.FC<OtpComponentProps> = () => {
   //   }, 1000);
   // };
 
-  // if (showRequestNewOtp) {
-  //   return <RequestNewOtpComponent onNext={onNext} />;
-  // }
+  if (showRequestNewLink) {
+    return <RequestNewLinkComponent onNext={onNext} />;
+  }
 
   return (
     <div className="shadow-xl p-10">
@@ -140,22 +140,22 @@ const OtpComponent: React.FC<OtpComponentProps> = () => {
             </button>
           </div>
         </form> */}
-        {/* <div className="flex justify-center mt-5">
+        <div className="flex justify-center mt-5">
           <div className="text-base helvetica text-center">
             <h1>
-              Having problems with the code?
+              Having problems with the link?
               <span
                 className="text-brand-blue cursor-pointer ml-2 hover:underline"
-                onClick={() => setShowRequestNewOtp(true)}
+                onClick={() => setShowRequestNewLink(true)}
               >
                 Request new
               </span>
             </h1>
           </div>
-        </div> */}
+        </div>
       </div>
     </div>
   );
 };
 
-export default OtpComponent;
+export default LinkComponent;

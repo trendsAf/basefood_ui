@@ -21,7 +21,7 @@ export const signupSchema = yup.object().shape({
     .required("Confirm Password is required"),
 });
 
-export const otpSchema = yup.object().shape({
+export const linkSchema = yup.object().shape({
   otp: yup
     .string()
     .matches(/^\d+$/, "OTP must be a number")

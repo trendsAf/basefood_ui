@@ -1,6 +1,6 @@
 import { useState } from "react";
-import OtpComponent from "./OtpComponent";
-import RequestNewOtpComponent from "./RequestNewOtpComponent";
+import OtpComponent from "./LinkComponent";
+import RequestNewOtpComponent from "./RequestNewLinkComponent";
 
 interface VerificationPageProps {
   onNext: () => void;
