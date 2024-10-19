@@ -31,7 +31,7 @@ const AppRoutes = () => {
           path="/verify"
           element={<VerificationPage onNext={handleNext} />}
         />
-        <Route path="/signup/confirm_email/:userId" element={<Verify />} />
+        <Route path="/confirm_email" element={<Verify />} />
         <Route path="/error" element={<OtpErrorPage />} />
         <Route path="/business" element={<BusinessDetailsParent />} />
         <Route path="/welcome" element={<WelcomePage />} />
