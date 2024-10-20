@@ -133,9 +133,11 @@ const LoginFormComponent = () => {
       </form>
       {error && <p className="text-red-500 text-center mt-2">{error}</p>}
       <div className="flex justify-center items-center w-full">
-        <button className="text-center helvetica text-sm my-5 text-brand-blue">
-          Forgot password?
-        </button>
+        <Link to={"/forgot_password"} className="w-full">
+          <button className="text-center helvetica text-sm my-5 text-brand-blue">
+            Forgot password?
+          </button>
+        </Link>
       </div>
       <div>
         <div className="flex justify-center my-4">

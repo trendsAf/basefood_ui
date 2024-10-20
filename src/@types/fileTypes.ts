@@ -47,6 +47,10 @@ export type ResetType = {
   email: string;
 };
 
+export type PasswordType = {
+  password: string;
+};
+
 export type LoginTypes = {
   email: string;
   password: string;

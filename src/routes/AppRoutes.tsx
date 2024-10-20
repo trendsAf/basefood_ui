@@ -4,6 +4,7 @@ import BusinessDetailsParent from "../components/Auth/businessDetails/BusinessDe
 import OtpErrorPage from "../components/Auth/otp/OtpErrorPage";
 import VerificationPage from "../components/Auth/otp/VerificationsPage";
 // import ProtectedRoutesComponent from "../components/Auth/ProtectedRoutesComponent";
+import ForgotPassword from "../components/Auth/ForgotPassword";
 import Verify from "../components/Auth/otp/Verify";
 import Dashboard1 from "../components/dashboards/Dashboard1";
 import PagesLayout from "../components/layouts/PagesLayout";
@@ -17,6 +18,7 @@ import NewDashboard from "../pages/NewDashboard";
 import NewsPage from "../pages/News";
 import ProfilePage from "../pages/ProfilePage";
 import WelcomePage from "../pages/WelcomePage";
+import ResetPassword from "../components/Auth/ResetPassword";
 // import PublicRoutess from "../components/Auth/PublicRoutes";
 
 const AppRoutes = () => {
@@ -25,8 +27,13 @@ const AppRoutes = () => {
     <SkeletonTheme baseColor="#313131" highlightColor="#525252">
       <Routes>
         {/* <Route element={<PublicRoutess />}> */}
-        <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/forgot_password" element={<ForgotPassword />} />
+        <Route
+          path="/auth/pwd_link_verify/:token"
+          element={<ResetPassword />}
+        />
         <Route
           path="/verify"
           element={<VerificationPage onNext={handleNext} />}

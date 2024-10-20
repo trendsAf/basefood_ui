@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import { useEffect } from "react";
 import { IoMdCloudDone } from "react-icons/io";
 import { MdError } from "react-icons/md";

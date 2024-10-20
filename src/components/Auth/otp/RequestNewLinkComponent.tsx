@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import { yupResolver } from "@hookform/resolvers/yup";
 import { TextField } from "@mui/material";
 import { useState } from "react";
