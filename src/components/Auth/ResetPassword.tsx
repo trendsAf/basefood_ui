@@ -1,20 +1,38 @@
 /* eslint-disable no-console */
-import { TextField } from "@mui/material";
-import React from "react";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { Visibility, VisibilityOff } from "@mui/icons-material";
+import { IconButton, TextField } from "@mui/material";
+import React, { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { IoMdMail } from "react-icons/io";
+import { useParams } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useAppDispatch } from "../../redux/hooks";
 import { resetPassword } from "../../redux/reducers/auth/resetPasswordSlice";
-import { useParams } from "react-router-dom";
+import { passwordSchema } from "../../validations/formValidations";
 
 const ResetPassword: React.FC = () => {
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+
+  const handleClickShowPassword = () => setShowPassword((show) => !show);
+  const handleClickShowConfirmPassword = () =>
+    setShowConfirmPassword((show) => !show);
+
+  const handleMouseDownPassword = (
+    event: React.MouseEvent<HTMLButtonElement>,
+  ) => {
+    event.preventDefault();
+  };
+
   const {
     control,
     handleSubmit,
     formState: { errors },
-  } = useForm();
+  } = useForm({
+    resolver: yupResolver(passwordSchema),
+  });
   const dispatch = useAppDispatch();
   const { token } = useParams();
 
@@ -47,17 +65,11 @@ const ResetPassword: React.FC = () => {
             onSubmit={handleSubmit(onSubmit)}
           >
             <div className="flex flex-col gap-4">
+              {/* Password Field */}
               <Controller
                 name="password"
                 control={control}
                 defaultValue=""
-                rules={{
-                  required: "Password is required",
-                  minLength: {
-                    value: 6,
-                    message: "Password must be at least 6 characters",
-                  },
-                }}
                 render={({ field }) => (
                   <TextField
                     {...field}
@@ -65,12 +77,60 @@ const ResetPassword: React.FC = () => {
                     variant="outlined"
                     fullWidth
                     className="bg-white"
-                    type="password"
+                    type={showPassword ? "text" : "password"}
                     error={!!errors.password}
-                    // helperText={errors.password ? errors.password.message : ""}
+                    helperText={errors.password?.message || ""}
+                    InputProps={{
+                      endAdornment: (
+                        <IconButton
+                          aria-label="toggle password visibility"
+                          onClick={handleClickShowPassword}
+                          onMouseDown={handleMouseDownPassword}
+                          edge="end"
+                        >
+                          {showPassword ? <VisibilityOff /> : <Visibility />}
+                        </IconButton>
+                      ),
+                    }}
                   />
                 )}
               />
+
+              {/* Confirm Password Field */}
+              <Controller
+                name="confirmPassword"
+                control={control}
+                defaultValue=""
+                render={({ field }) => (
+                  <TextField
+                    {...field}
+                    label="Confirm your new password"
+                    variant="outlined"
+                    fullWidth
+                    className="bg-white"
+                    type={showConfirmPassword ? "text" : "password"}
+                    error={!!errors.confirmPassword}
+                    helperText={errors.confirmPassword?.message || ""}
+                    InputProps={{
+                      endAdornment: (
+                        <IconButton
+                          aria-label="toggle confirm password visibility"
+                          onClick={handleClickShowConfirmPassword}
+                          onMouseDown={handleMouseDownPassword}
+                          edge="end"
+                        >
+                          {showConfirmPassword ? (
+                            <VisibilityOff />
+                          ) : (
+                            <Visibility />
+                          )}
+                        </IconButton>
+                      ),
+                    }}
+                  />
+                )}
+              />
+
               <div className="flex justify-center">
                 <button
                   type="submit"
