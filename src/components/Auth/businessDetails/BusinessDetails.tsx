@@ -28,7 +28,7 @@ const BusinessDetails: React.FC<BusinessDetailsProps> = ({
   defaultValues,
 }) => {
   const dispatch = useAppDispatch();
-  const { isLoading, error } = useAppSelector((state) => state.businessInfo);
+  const { isLoading } = useAppSelector((state) => state.businessInfo);
 
   const {
     handleSubmit,
@@ -46,8 +46,8 @@ const BusinessDetails: React.FC<BusinessDetailsProps> = ({
       console.log("Dispatch result:", result);
       toast.success("Business details submitted successfully!");
       onSubmit(data);
-    } catch (error) {
-      toast.error("Failed to submit business details.");
+    } catch (error: any) {
+      toast.error(error?.message);
       console.error("Error submitting business details:", error);
     }
   };
@@ -286,7 +286,7 @@ const BusinessDetails: React.FC<BusinessDetailsProps> = ({
               >
                 {isLoading ? "Submitting..." : "Next"}
               </button>
-              {error && <p className="text-red-500 text-sm mt-2">{error}</p>}
+              {/* {error && <p className="text-red-500 text-sm mt-2">{error}</p>} */}
             </div>
           </form>
         </div>
