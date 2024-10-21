@@ -42,6 +42,11 @@ export type RegisterTypes = {
   password: string;
   confirmPassword: string;
 };
+
+export type ResetType = {
+  email: string;
+};
+
 export type LoginTypes = {
   email: string;
   password: string;

@@ -4,6 +4,7 @@ import registerReducer from "./reducers/auth/registerSlice";
 import verifyAccountReducer from "./reducers/auth/verifySlice";
 import businessInfoReducer from "./reducers/auth/businessInfoSlice";
 import loginReducer from "./reducers/auth/loginSlice";
+import resetLinkSlice from "./reducers/auth/resetSlice";
 
 export const store = configureStore({
   reducer: {
@@ -12,6 +13,7 @@ export const store = configureStore({
     verifyAccount: verifyAccountReducer,
     businessInfo: businessInfoReducer,
     login: loginReducer,
+    resetLink: resetLinkSlice,
   },
 });
 

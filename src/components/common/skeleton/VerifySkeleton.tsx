@@ -1,10 +1,10 @@
 const VerifySkeleton = () => {
   return (
     <div className="w-full h-screen flex items-center justify-center">
-      <div className=" p-4 rounded max-w-[400px] animate-pulse w-full flex flex-col items-center">
-        <div className="relative h-60 w-60 mb-4 flex justify-center items-center bg-gray-300 rounded-full overflow-hidden">
+      <div className=" p-4 rounded max-w-[400px] animate-pulse w-full flex flex-col items-center mb-32 gap-4">
+        <div className="relative h-40 w-40 flex justify-center items-center bg-gray-300 rounded-full overflow-hidden">
           <svg
-            className="w-10 h-10 text-gray-200 dark:text-gray-600"
+            className="w-8 h-8 text-gray-200 dark:text-gray-600"
             aria-hidden="true"
             xmlns="http://www.w3.org/2000/svg"
             fill="currentColor"

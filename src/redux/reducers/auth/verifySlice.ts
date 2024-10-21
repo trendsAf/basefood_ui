@@ -5,12 +5,17 @@ import API from "../../api";
 
 export const verifyAccount = createAsyncThunk(
   "verifyAccount",
-  async (userId: string, { rejectWithValue }) => {
+  async (
+    { status, message }: { status: string; message: string },
+    { rejectWithValue },
+  ) => {
     try {
-      const data = await API.get(`/signup/virify-email/${userId}`);
+      const data = await API.get(
+        `/signup/virify-email?status=${status}&message=${message}`,
+      );
       return data;
-    } catch (error) {
-      rejectWithValue((error as DynamicType).response);
+    } catch (error: any) {
+      return rejectWithValue((error as DynamicType).response || error.message);
     }
   },
 );
