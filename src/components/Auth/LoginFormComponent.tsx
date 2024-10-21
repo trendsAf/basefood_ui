@@ -1,36 +1,36 @@
 import { yupResolver } from "@hookform/resolvers/yup";
-import { TextField } from "@mui/material";
+import { IconButton, TextField } from "@mui/material";
 import Cookies from "js-cookie";
 import { Controller, useForm } from "react-hook-form";
 import { FaLinkedinIn } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import * as yup from "yup";
+import { LoginTypes } from "../../@types/fileTypes";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { login } from "../../redux/reducers/auth/loginSlice";
+import { loginSchema } from "../../validations/formValidations";
 import GoogleButton from "../common/buttons/GoogleButton";
-
-interface LoginFormComponentFieldProps {
-  email: string;
-  password: string;
-}
-
-const schema = yup.object().shape({
-  email: yup
-    .string()
-    .email("Invalid email format")
-    .required("Email is required"),
-  password: yup.string().required("Password is required"),
-});
+import { useState } from "react";
+import { Visibility, VisibilityOff } from "@mui/icons-material";
 
 const LoginFormComponent = () => {
+  const [showPassword, setShowPassword] = useState(false);
+
+  const handleClickShowPassword = () => setShowPassword((show) => !show);
+
+  const handleMouseDownPassword = (
+    event: React.MouseEvent<HTMLButtonElement>,
+  ) => {
+    event.preventDefault();
+  };
+
   const {
     handleSubmit,
     control,
     formState: { errors },
-  } = useForm<LoginFormComponentFieldProps>({
-    resolver: yupResolver(schema),
+  } = useForm<LoginTypes>({
+    resolver: yupResolver(loginSchema),
     mode: "onBlur",
   });
 
@@ -39,7 +39,7 @@ const LoginFormComponent = () => {
 
   const { isLoading, error } = useAppSelector((state) => state.login);
 
-  const onSubmit = async (data: LoginFormComponentFieldProps) => {
+  const onSubmit = async (data: LoginTypes) => {
     try {
       const res = await dispatch(login(data)).unwrap();
       // console.log(res, "Reeeeeesssssponse");
@@ -108,7 +108,7 @@ const LoginFormComponent = () => {
             render={({ field }) => (
               <TextField
                 {...field}
-                type="password"
+                type={showPassword ? "text" : "password"}
                 label="Password"
                 variant="outlined"
                 fullWidth
@@ -116,6 +116,18 @@ const LoginFormComponent = () => {
                 sx={textFieldSx}
                 error={!!errors.password}
                 helperText={errors.password?.message}
+                InputProps={{
+                  endAdornment: (
+                    <IconButton
+                      aria-label="toggle password visibility"
+                      onClick={handleClickShowPassword}
+                      onMouseDown={handleMouseDownPassword}
+                      edge="end"
+                    >
+                      {showPassword ? <VisibilityOff /> : <Visibility />}
+                    </IconButton>
+                  ),
+                }}
               />
             )}
           />

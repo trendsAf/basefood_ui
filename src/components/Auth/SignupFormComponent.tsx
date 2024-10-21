@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
 import { yupResolver } from "@hookform/resolvers/yup";
-import { TextField } from "@mui/material";
+import { IconButton, TextField } from "@mui/material";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import { FaLinkedinIn } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
@@ -12,11 +12,23 @@ import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { register } from "../../redux/reducers/auth/registerSlice";
 import { textFieldSx } from "../../utils/MUI/muiStyles";
 import { signupSchema } from "../../validations/formValidations";
+import { useState } from "react";
+import { VisibilityOff, Visibility } from "@mui/icons-material";
 
 const SignupFormComponent: React.FC = () => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const { isLoading } = useAppSelector((state) => state.register);
+
+  const [showPassword, setShowPassword] = useState(false);
+
+  const handleClickShowPassword = () => setShowPassword((show) => !show);
+
+  const handleMouseDownPassword = (
+    event: React.MouseEvent<HTMLButtonElement>,
+  ) => {
+    event.preventDefault();
+  };
 
   const {
     handleSubmit,
@@ -130,17 +142,30 @@ const SignupFormComponent: React.FC = () => {
             render={({ field }) => (
               <TextField
                 {...field}
+                type={showPassword ? "text" : "password"}
                 label="Password"
-                type="password"
                 variant="outlined"
                 fullWidth
                 className="bg-white"
                 sx={textFieldSx}
-                error={!!errors?.password}
-                helperText={errors?.password?.message}
+                error={!!errors.password}
+                helperText={errors.password?.message}
+                InputProps={{
+                  endAdornment: (
+                    <IconButton
+                      aria-label="toggle password visibility"
+                      onClick={handleClickShowPassword}
+                      onMouseDown={handleMouseDownPassword}
+                      edge="end"
+                    >
+                      {showPassword ? <VisibilityOff /> : <Visibility />}
+                    </IconButton>
+                  ),
+                }}
               />
             )}
           />
+
           <Controller
             name="confirmPassword"
             control={control}
