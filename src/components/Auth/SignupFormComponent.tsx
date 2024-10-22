@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import { yupResolver } from "@hookform/resolvers/yup";
 import { IconButton, TextField } from "@mui/material";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
@@ -43,14 +42,13 @@ const SignupFormComponent: React.FC = () => {
   ) => {
     try {
       const response = await dispatch(register(data)).unwrap();
-      toast(response?.message);
-      console.log(response, "Reeeesponsee");
+      toast.success(response?.message);
       setTimeout(() => {
-        navigate("/verify");
+        navigate("/verify_email");
       }, 3000);
     } catch (error: any) {
-      if (error?.message) {
-        toast.error(error?.message);
+      if (error) {
+        toast.error(error?.data?.message);
       } else {
         toast.error("An unexpected error occurred");
       }
@@ -165,9 +163,43 @@ const SignupFormComponent: React.FC = () => {
               />
             )}
           />
-
           <Controller
             name="confirmPassword"
+            // name="password"
+            control={control}
+            defaultValue=""
+            render={({ field }) => (
+              <TextField
+                {...field}
+                label="Confirm Password"
+                // type="password"
+                type={showPassword ? "text" : "password"}
+                // label="Password"
+                variant="outlined"
+                fullWidth
+                className="bg-white"
+                sx={textFieldSx}
+                error={!!errors?.confirmPassword}
+                helperText={errors?.confirmPassword?.message}
+                // helperText={errors.password?.message}
+                // error={!!errors.password}
+                InputProps={{
+                  endAdornment: (
+                    <IconButton
+                      aria-label="toggle password visibility"
+                      onClick={handleClickShowPassword}
+                      onMouseDown={handleMouseDownPassword}
+                      edge="end"
+                    >
+                      {showPassword ? <VisibilityOff /> : <Visibility />}
+                    </IconButton>
+                  ),
+                }}
+              />
+            )}
+          />
+
+          {/* <Controller
             control={control}
             defaultValue=""
             render={({ field }) => (
@@ -183,7 +215,7 @@ const SignupFormComponent: React.FC = () => {
                 helperText={errors?.confirmPassword?.message}
               />
             )}
-          />
+          /> */}
           <div className="flex justify-center">
             <button
               type="submit"

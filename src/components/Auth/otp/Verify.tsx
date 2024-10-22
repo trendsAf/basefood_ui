@@ -45,7 +45,7 @@ const Verify = () => {
           <h2 className="text-2xl logo mb-5">
             Your email was verified successfully
           </h2>
-          <Link to={"/business"}>
+          <Link to={"/login"}>
             <button
               className="text-white bg-brand-blue px-5 py-2 cursor-pointer"
               type="submit"

@@ -53,7 +53,7 @@ const LoginFormComponent = () => {
         Cookies.set("access_token", res.access_token);
         toast.success("Please complete profile");
         setTimeout(() => {
-          navigate("/business");
+          navigate("/business_information");
         }, 3500);
       } else {
         toast.error(res.message);
@@ -168,7 +168,7 @@ const LoginFormComponent = () => {
       <div className="text-sm">
         <h1 className="text-center helvetica">
           New to baseFood?
-          <Link to={"/signup"}>
+          <Link to={"/register"}>
             <b className="text-brand-blue cursor-pointer ml-2 hover:underline">
               Sign Up
             </b>
