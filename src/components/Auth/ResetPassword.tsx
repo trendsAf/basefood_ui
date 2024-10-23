@@ -42,7 +42,7 @@ const ResetPassword: React.FC = () => {
         const response = await dispatch(
           resetPassword({ token, newPassword: data.password }),
         ).unwrap();
-        toast.success("Password reset successful!");
+        toast.success(response.data.message);
         console.log(response);
       } catch (error: any) {
         toast.error(error.message || "Password reset failed!");

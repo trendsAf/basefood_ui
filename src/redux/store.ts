@@ -17,6 +17,14 @@ export const store = configureStore({
     resetLink: resetLinkSlice,
     requestPasswordReset: resetPasswordRequest,
   },
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      serializableCheck: {
+        // Ignore the AxiosHeaders type (or any other non-serializable objects you encounter)
+        ignoredActions: ["register/rejected"],
+        ignoredPaths: ["payload.headers"],
+      },
+    }),
 });
 
 export type RootState = ReturnType<typeof store.getState>;
