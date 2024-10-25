@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import { yupResolver } from "@hookform/resolvers/yup";
 import { IconButton, TextField } from "@mui/material";
 import Cookies from "js-cookie";
@@ -42,25 +43,25 @@ const LoginFormComponent = () => {
   const onSubmit = async (data: LoginTypes) => {
     try {
       const res = await dispatch(login(data)).unwrap();
-      // console.log(res, "Reeeeeesssssponse");
-      if (res.status && res.is_confirmed) {
-        Cookies.set("access_token", res.access_token);
+      console.log(res, "Reeeeeesssssponse");
+      if (res && res?.auth_token) {
+        Cookies.set("access_token", res?.auth_token);
         toast.success("You're logged in");
         setTimeout(() => {
           navigate("/");
         }, 3500);
-      } else if (res.status && !res.is_confirmed) {
-        Cookies.set("access_token", res.access_token);
+      } else if (res && res?.access_token) {
+        Cookies.set("access_token", res?.access_token);
         toast.success("Please complete profile");
         setTimeout(() => {
           navigate("/business_information");
         }, 3500);
       } else {
-        toast.error(res.message);
+        toast.error(res?.message);
       }
     } catch (error: any) {
       if (error) {
-        toast.error(error.message);
+        toast.error(error?.message);
       } else {
         toast.error("An unexpected error occurred. Please try again.");
       }

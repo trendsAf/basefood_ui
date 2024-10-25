@@ -1,5 +1,6 @@
+/* eslint-disable no-console */
 /* eslint-disable quotes */
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Categories from "../components/market/Categories";
 import CropsMarket from "../components/market/CropsMarket";
 // import MarketNews from "../components/market/MarketNews";
@@ -9,6 +10,9 @@ import Countries from "../components/market/Countries";
 import MarketInsights from "../components/market/MarketInsights";
 import { dashboardBuyersData } from "../utils/buyersData";
 import marketData from "../utils/marketData.json";
+import Cookies from "js-cookie";
+import { decodeToken } from "../utils/config/decode";
+import { useNavigate } from "react-router-dom";
 
 const distinctColors = [
   "#FF4136", // Bright Red
@@ -67,11 +71,32 @@ const countriesWithColors = countriesData.map((country, index) => ({
 }));
 
 const Dashboard: React.FC<DashboardProps> = () => {
+  const navigate = useNavigate();
   const [selectedCountries, setSelectedCountries] = useState<string[]>(
     countriesWithColors
       .filter((country) => country.checked)
       .map((country) => country.name),
   );
+
+  const token = Cookies.get("access_token");
+  useEffect(() => {
+    if (token) {
+      try {
+        const decodedToken = decodeToken(token);
+        console.log(decodedToken, "decoded token");
+
+        if (decodedToken?.is_confirmed === true) {
+          navigate("/");
+        } else {
+          navigate("/business_information");
+        }
+      } catch (error) {
+        console.error("Token decoding failed:", error);
+      }
+    } else {
+      navigate("/login");
+    }
+  }, [token, navigate]);
 
   const [selectedCrops, setSelectedCrops] = useState<string[]>([
     "Maize",

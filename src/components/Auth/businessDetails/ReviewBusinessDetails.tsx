@@ -154,7 +154,7 @@ const ReviewBusinessDetails: React.FC<ReviewBusinessDetailsProps> = ({
                 value={data.phone}
                 variant="outlined"
                 fullWidth
-                label="Role"
+                label="Phone number"
                 InputProps={{
                   readOnly: true,
                   sx: { backgroundColor: "rgba(0, 0, 0, 0.05)" },
