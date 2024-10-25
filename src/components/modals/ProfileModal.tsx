@@ -1,12 +1,19 @@
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { profileModalVariants } from "../../utils/variants";
+import Cookies from "js-cookie";
 
 interface ProfileModalProps {
   toggleDropdown: () => void;
 }
 
 const ProfileModal: React.FC<ProfileModalProps> = ({ toggleDropdown }) => {
+  const handleLogout = () => {
+    Cookies.remove("access_token");
+    toggleDropdown();
+    window.location.reload();
+  };
+
   return (
     <div className="w-full h-screen inset-0 fixed " onClick={toggleDropdown}>
       <motion.div
@@ -38,13 +45,12 @@ const ProfileModal: React.FC<ProfileModalProps> = ({ toggleDropdown }) => {
           >
             Subscriptions
           </Link>
-          <Link
-            to="/login"
-            className="block px-4 py-2 text-gray-900 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
-            onClick={toggleDropdown}
+          <button
+            className="flex items-start px-4 w-full py-2 text-gray-900 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
+            onClick={handleLogout}
           >
             Logout
-          </Link>
+          </button>
         </div>
       </motion.div>
     </div>
