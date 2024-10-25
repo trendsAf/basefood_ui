@@ -21,8 +21,8 @@ const RequestNewLinkComponent: React.FC<RequestNewLinkComponentProps> = ({
   onNext,
 }) => {
   const dispatch = useAppDispatch();
-  const { isLoading } = useAppSelector((state) => state.verifyAccount);
-  const [otpSent, setLinkSent] = useState(false);
+  const { isLoading } = useAppSelector((state) => state.resetLink);
+  const [linkSent, setLinkSent] = useState(false);
 
   const {
     handleSubmit,
@@ -38,15 +38,17 @@ const RequestNewLinkComponent: React.FC<RequestNewLinkComponentProps> = ({
     try {
       setLinkSent(false);
       const res = await dispatch(reset({ email: data.email })).unwrap();
-      console.log(data, "daaaaataaa");
+      console.log(res, "daaaaataaa");
       toast.success(res.message);
-      setLinkSent(true);
+      setTimeout(() => {
+        setLinkSent(true);
+      }, 4000);
     } catch (error: any) {
       toast.error(error?.message || "Failed to send OTP. Please try again.");
     }
   };
 
-  if (otpSent) {
+  if (linkSent) {
     return <LinkComponent onNext={onNext} />;
   }
 

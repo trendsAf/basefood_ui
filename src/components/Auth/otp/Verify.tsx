@@ -58,9 +58,9 @@ const Verify = () => {
         <div className="flex flex-col items-center gap-2 justify-center h-screen pb-40">
           <MdError className="text-[#ED4337] text-[9rem]" />
           <h2 className="text-2xl logo mb-5">
-            Unable to verify your email. {message && message}
+            Unable to verify your email, {message && message}
           </h2>
-          <Link to={"/verify"} className="flex items-center gap-3">
+          <Link to={"/verify_email"} className="flex items-center gap-3">
             Having trouble with the link?
             <button className="text-brand-blue hover:underline" type="submit">
               Click here

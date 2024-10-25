@@ -1,20 +1,22 @@
-/* eslint-disable no-console */
+// /* eslint-disable no-console */
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import { IconButton, TextField } from "@mui/material";
 import React, { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { IoMdMail } from "react-icons/io";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { useAppDispatch } from "../../redux/hooks";
+import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { resetPassword } from "../../redux/reducers/auth/resetPasswordSlice";
 import { passwordSchema } from "../../validations/formValidations";
 
 const ResetPassword: React.FC = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const { isLoading } = useAppSelector((state) => state.resetPassword);
+  const navigate = useNavigate();
 
   const handleClickShowPassword = () => setShowPassword((show) => !show);
   const handleClickShowConfirmPassword = () =>
@@ -43,10 +45,13 @@ const ResetPassword: React.FC = () => {
           resetPassword({ token, newPassword: data.password }),
         ).unwrap();
         toast.success(response.data.message);
-        console.log(response);
+        setTimeout(() => {
+          navigate("/login");
+        }, 4000);
+        // console.log(response);
       } catch (error: any) {
         toast.error(error.message || "Password reset failed!");
-        console.error(error);
+        // console.error(error);
       }
     } else {
       toast.error("Token not found.");
@@ -136,7 +141,7 @@ const ResetPassword: React.FC = () => {
                   type="submit"
                   className="text-white bg-brand-blue px-5 py-3 w-full rounded-[5px] font-bold transition-all duration-300"
                 >
-                  Reset Password
+                  {isLoading ? "Resetting..." : "Reset"}
                 </button>
               </div>
             </div>
