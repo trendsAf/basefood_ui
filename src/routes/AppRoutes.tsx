@@ -6,9 +6,13 @@ import VerificationPage from "../components/Auth/otp/VerificationsPage";
 import ProtectedRoutesComponent from "../components/Auth/ProtectedRoutesComponent";
 import ForgotPassword from "../components/Auth/ForgotPassword";
 import Verify from "../components/Auth/otp/Verify";
+import ResetPassword from "../components/Auth/ResetPassword";
+import ResetPasswordError from "../components/Auth/ResetPasswordError";
 import Dashboard1 from "../components/dashboards/Dashboard1";
 import PagesLayout from "../components/layouts/PagesLayout";
 import RootLayout from "../components/layouts/RootLayout";
+import ConsumerProductComponent from "../components/products/consumer/ConsumerProductComponent";
+import ProducerSingleProductComponent from "../components/products/Producer/ProducerSingleProductComponent";
 import RFQDetails from "../components/RFQDetails";
 import Login from "../pages/Auth/Login";
 import Signup from "../pages/Auth/Signup";
@@ -16,10 +20,9 @@ import Buyers from "../pages/Buyers";
 import Dashboard from "../pages/Index";
 import NewDashboard from "../pages/NewDashboard";
 import NewsPage from "../pages/News";
+import ProductsPage from "../pages/products/ProductsPage";
 import ProfilePage from "../pages/ProfilePage";
 import WelcomePage from "../pages/WelcomePage";
-import ResetPassword from "../components/Auth/ResetPassword";
-import ResetPasswordError from "../components/Auth/ResetPasswordError";
 import PublicRoutess from "../components/Auth/PublicRoutes";
 
 const AppRoutes = () => {
@@ -61,6 +64,12 @@ const AppRoutes = () => {
             <Route path="dashboard" element={<Dashboard1 />} />
             <Route path="dashboard1" element={<Dashboard1 />} />
             <Route path="dashboards/new" element={<NewDashboard />} />
+            <Route path="products" element={<ProductsPage />} />
+            <Route path="prod" element={<ConsumerProductComponent />} />
+            <Route
+              path="products/:id"
+              element={<ProducerSingleProductComponent />}
+            />
           </Route>
         </Route>
         <Route

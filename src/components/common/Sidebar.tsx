@@ -15,6 +15,7 @@ import { base_food_white_logo } from "../../assets/images";
 import { RootState } from "../../redux/store";
 import LogoutModal from "../modals/Logout";
 import ModeToggle from "./ModeToggle";
+import { FaShoppingBasket } from "react-icons/fa";
 
 const tooltipTheme = createTheme({
   components: {
@@ -247,23 +248,23 @@ const Sidebar = ({
                   </Tooltip>
                 </ThemeProvider>
               </a>
-              {/* <NavLink to="buyers">
+              <NavLink to="/products">
                 <ThemeProvider theme={tooltipTheme}>
                   <Tooltip
                     title={`${isCollapsed ? "Analytics" : ""}`}
                     placement="right"
                   >
-                    <li className="flex items-center px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-800 cursor-pointer rounded">
-                      <LiaMoneyCheckAltSolid className="text-xl text-gray-900 dark:text-white" />
+                    <li className="flex items-center px-2 py-2 hover:bg-gray-100 dark:hover:bg-gray-800 cursor-pointer rounded">
+                      <FaShoppingBasket className="text-md text-gray-900 dark:text-white" />
                       {!isCollapsed && (
                         <span className="ml-4 text-gray-900 dark:text-white">
-                          Find buyers
+                          Products
                         </span>
                       )}
                     </li>
                   </Tooltip>
                 </ThemeProvider>
-              </NavLink> */}
+              </NavLink>
               <ThemeProvider theme={tooltipTheme}>
                 <Tooltip
                   title={`${isCollapsed ? "Subscriptions" : ""}`}
