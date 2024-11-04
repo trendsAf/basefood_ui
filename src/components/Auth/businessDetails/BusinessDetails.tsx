@@ -18,6 +18,7 @@ import { features } from "../../../utils/signUpData";
 import { businessDetailsSchema } from "../../../validations/formValidations";
 import SignupLeftSection from "../../common/SignupLeftSection";
 import Cookies from "js-cookie";
+import { decodeToken } from "../../../utils/config/decode";
 
 interface BusinessDetailsProps {
   onSubmit: (data: BusinessDetailsFormValues) => void;
@@ -48,6 +49,8 @@ const BusinessDetails: React.FC<BusinessDetailsProps> = ({
       console.log("Dispatch result:", result);
       toast.success(result?.message);
       Cookies.set("access_token", result.auth_token);
+      const decodedToken = decodeToken(result.auth_token);
+      Cookies.set("userInfo", JSON.stringify(decodedToken));
       console.log(token);
       onSubmit(data);
     } catch (error: any) {

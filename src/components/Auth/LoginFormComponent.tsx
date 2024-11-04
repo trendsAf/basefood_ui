@@ -14,6 +14,7 @@ import { loginSchema } from "../../validations/formValidations";
 import GoogleButton from "../common/buttons/GoogleButton";
 import { useState } from "react";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
+import { decodeToken } from "../../utils/config/decode";
 
 const LoginFormComponent = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -47,6 +48,8 @@ const LoginFormComponent = () => {
       if (res && res?.auth_token) {
         Cookies.set("access_token", res?.auth_token);
         toast.success("You're logged in");
+        const decodedToken = decodeToken(res?.auth_token);
+        Cookies.set("userInfo", JSON.stringify(decodedToken));
         setTimeout(() => {
           navigate("/");
         }, 3500);

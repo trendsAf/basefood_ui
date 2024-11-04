@@ -83,7 +83,6 @@ const Dashboard: React.FC<DashboardProps> = () => {
     if (token) {
       try {
         const decodedToken = decodeToken(token);
-        console.log(decodedToken, "decoded token");
 
         if (decodedToken?.is_confirmed === true) {
           navigate("/");

@@ -2,14 +2,16 @@
 import { useForm } from "react-hook-form";
 import { motion } from "framer-motion";
 import { formVariants, itemVariants } from "../../utils/variants";
+import Cookies from "js-cookie";
 
 const ProfileInformation = () => {
+  const userInfo = JSON.parse(Cookies.get("userInfo") as string) || undefined;
   const { register, handleSubmit } = useForm({
     defaultValues: {
-      username: "garrix10",
-      firstName: "Aphrodis",
-      lastName: "Uwineza",
-      email: "aphrodis@gmail.com",
+      // username: userInfo ? : "",
+      firstName: userInfo ? userInfo.firstname : "",
+      lastName: userInfo ? userInfo.lastname : "",
+      email: userInfo ? userInfo.email : "",
       phoneNumber: "0789438437",
     },
   });
@@ -34,14 +36,14 @@ const ProfileInformation = () => {
         className="flex flex-col gap-4"
         variants={formVariants}
       >
-        <motion.div variants={itemVariants} className="flex flex-col gap-1">
+        {/* <motion.div variants={itemVariants} className="flex flex-col gap-1">
           <label className="block mb-1">User name</label>
           <input
             type="text"
             {...register("username")}
             className="w-full p-3 border border-gray-300 dark:bg-[#353535] dark:text-white"
           />
-        </motion.div>
+        </motion.div> */}
 
         <motion.div variants={itemVariants} className="flex flex-col gap-1">
           <label className="block mb-1">First name</label>
