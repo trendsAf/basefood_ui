@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import { yupResolver } from "@hookform/resolvers/yup";
 import { IconButton, TextField } from "@mui/material";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
@@ -43,6 +44,7 @@ const SignupFormComponent: React.FC = () => {
     try {
       const response = await dispatch(register(data)).unwrap();
       toast.success(response?.message);
+      console.log(response, "SiiiigupRessssss");
       setTimeout(() => {
         navigate("/verify_email");
       }, 3000);
