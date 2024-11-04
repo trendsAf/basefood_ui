@@ -17,6 +17,7 @@ import {
 import { features } from "../../../utils/signUpData";
 import { businessDetailsSchema } from "../../../validations/formValidations";
 import SignupLeftSection from "../../common/SignupLeftSection";
+import Cookies from "js-cookie";
 
 interface BusinessDetailsProps {
   onSubmit: (data: BusinessDetailsFormValues) => void;
@@ -29,6 +30,7 @@ const BusinessDetails: React.FC<BusinessDetailsProps> = ({
 }) => {
   const dispatch = useAppDispatch();
   const { isLoading } = useAppSelector((state) => state.businessInfo);
+  const token = Cookies.get("access_token");
 
   const {
     handleSubmit,
@@ -44,7 +46,9 @@ const BusinessDetails: React.FC<BusinessDetailsProps> = ({
     try {
       const result = await dispatch(businessInfo(data)).unwrap();
       console.log("Dispatch result:", result);
-      toast.success("Business details submitted successfully!");
+      toast.success(result?.message);
+      Cookies.set("access_token", result.auth_token);
+      console.log(token);
       onSubmit(data);
     } catch (error: any) {
       toast.error(error?.message);
