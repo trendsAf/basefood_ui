@@ -7,23 +7,21 @@ import { motion, AnimatePresence } from "framer-motion";
 import { profileVariants } from "../utils/variants";
 import { CgProfile } from "react-icons/cg";
 import { FaBriefcase } from "react-icons/fa";
+import Cookies from "js-cookie";
 
 const ProfilePage = () => {
   const [activeComponent, setActiveComponent] = useState("ProfileInformation");
+  const userInfo = JSON.parse(Cookies.get("userInfo") as string) || undefined;
 
   return (
     <div className="flex min-h-[85vh] flex-col md:flex-row bg-gray-100 dark:bg-[#252525] px-2 py-5">
       <div className="w-full md:w-1/4 bg-white dark:bg-[#151515] py-5 px-2 shadow-lg dark:shadow-none dark:border-r-4 dark:border-r-black/20">
         <div className="flex flex-col items-center mb-6">
-          <div className="w-24 h-24 rounded-full overflow-hidden mb-4">
-            <img
-              src="https://images.unsplash.com/photo-1480455624313-e29b44bbfde1?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8Z3V5fGVufDB8fDB8fHww"
-              alt="profile"
-              className="w-full h-full object-cover"
-            />
-          </div>
-          <h1 className="text-xl font-semibold dark:text-white">
-            Aphrodis Uwineza
+          {/* <div className="w-24 h-24 rounded-full bg-red overflow-hidden mb-4"> */}
+          <CgProfile className="text-7xl z-10  dark:text-white" />
+          {/* </div> */}
+          <h1 className="text-xl mt-4 font-semibold dark:text-white whitespace-nowrap">
+            {userInfo?.firstname + " " + userInfo.lastname}
           </h1>
           <div className="flex items-center gap-2 text-gray-600 dark:text-gray-300 mt-2">
             <FaLocationDot className="" />
