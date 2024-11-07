@@ -22,28 +22,32 @@ export const countries = [
   { code: "TUN", name: "Tunisia" },
 ];
 
-export const roles = ["Owner/CEO", "Department Manager", "Analyst", "Member"];
+export const roles = [
+  { name: "Owner/CEO", value: "A" },
+  { name: "Department Manager", value: "B" },
+  { name: "Analyst", value: "C" },
+  { name: "Member", value: "D" },
+];
 
 export const companyTypes = [
-  "Commodity Buyers",
-  "Suppliers (Farmers or Farm Organizations)",
-  "Brokers",
-  "Researchers",
+  { name: "Commodity Buyers", value: "A" },
+  { name: "Suppliers (Farmers or Farm Organizations)", value: "B" },
+  { name: "Brokers", value: "C" },
+  { name: "Researchers", value: "D" },
 ];
 
 export const companySizes = [
-  "Sole Proprietorship",
-  "Small (1-50 employees)",
-  "Medium (51-200 employees)",
-  "Large (201+ employees)",
+  { name: "Sole Proprietorship", value: "A" },
+  { name: "Small (1-50 employees)", value: "B" },
+  { name: "Medium (51-200 employees)", value: "C" },
+  { name: "Large (201+ employees)", value: "D" },
 ];
 
 export const revenueRanges = [
-  "Less than $100K",
-  "$100K - $500K",
-  "$500K - $1M",
-  "$1M - $5M",
-  "$5M - $50M",
-  "$50M - $500M",
-  "Above $500M",
+  { name: "Less than $100K", value: "A" },
+  { name: "$500K - $1M", value: "B" },
+  { name: "$1M - $5M", value: "C" },
+  { name: "$5M - $50M", value: "D" },
+  { name: "$50M - $500M", value: "E" },
+  { name: "Above $500M", value: "F" },
 ];

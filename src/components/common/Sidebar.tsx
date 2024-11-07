@@ -16,6 +16,7 @@ import { RootState } from "../../redux/store";
 import LogoutModal from "../modals/Logout";
 import ModeToggle from "./ModeToggle";
 import { FaShoppingBasket } from "react-icons/fa";
+import { useRole } from "../../context/RoleProvider";
 
 const tooltipTheme = createTheme({
   components: {
@@ -75,6 +76,8 @@ const Sidebar = ({
     console.log("User logged out");
     setOpenLogoutModal(false);
   };
+
+  const { isProducer } = useRole();
 
   return (
     <>
@@ -231,23 +234,25 @@ const Sidebar = ({
                   </li>
                 </Tooltip>
               </ThemeProvider>
-              <a href="/buyers" target="_blank">
-                <ThemeProvider theme={tooltipTheme}>
-                  <Tooltip
-                    title={`${isCollapsed ? "Analytics" : ""}`}
-                    placement="right"
-                  >
-                    <li className="flex items-center px-2 py-2 hover:bg-gray-100 dark:hover:bg-gray-800 cursor-pointer rounded">
-                      <LiaMoneyCheckAltSolid className="text-md text-gray-900 dark:text-white" />
-                      {!isCollapsed && (
-                        <span className="ml-4 text-gray-900 dark:text-white">
-                          Find buyers
-                        </span>
-                      )}
-                    </li>
-                  </Tooltip>
-                </ThemeProvider>
-              </a>
+              {isProducer("producer") ? (
+                <a href="/buyers" target="_blank">
+                  <ThemeProvider theme={tooltipTheme}>
+                    <Tooltip
+                      title={`${isCollapsed ? "Analytics" : ""}`}
+                      placement="right"
+                    >
+                      <li className="flex items-center px-2 py-2 hover:bg-gray-100 dark:hover:bg-gray-800 cursor-pointer rounded">
+                        <LiaMoneyCheckAltSolid className="text-md text-gray-900 dark:text-white" />
+                        {!isCollapsed && (
+                          <span className="ml-4 text-gray-900 dark:text-white">
+                            Find buyers
+                          </span>
+                        )}
+                      </li>
+                    </Tooltip>
+                  </ThemeProvider>
+                </a>
+              ) : null}
               <NavLink to="/products">
                 <ThemeProvider theme={tooltipTheme}>
                   <Tooltip

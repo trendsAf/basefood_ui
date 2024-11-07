@@ -31,7 +31,6 @@ const BusinessDetails: React.FC<BusinessDetailsProps> = ({
 }) => {
   const dispatch = useAppDispatch();
   const { isLoading } = useAppSelector((state) => state.businessInfo);
-  const token = Cookies.get("access_token");
 
   const {
     handleSubmit,
@@ -46,12 +45,10 @@ const BusinessDetails: React.FC<BusinessDetailsProps> = ({
   const onSubmitForm = async (data: BusinessDetailsFormValues) => {
     try {
       const result = await dispatch(businessInfo(data)).unwrap();
-      console.log("Dispatch result:", result);
       toast.success(result?.message);
       Cookies.set("access_token", result.auth_token);
       const decodedToken = decodeToken(result.auth_token);
       Cookies.set("userInfo", JSON.stringify(decodedToken));
-      console.log(token);
       onSubmit(data);
     } catch (error: any) {
       toast.error(error?.message);
@@ -147,8 +144,8 @@ const BusinessDetails: React.FC<BusinessDetailsProps> = ({
                   render={({ field }) => (
                     <Select {...field} label="Select company type">
                       {companyTypes.map((type, index) => (
-                        <MenuItem key={index} value={type}>
-                          {type}
+                        <MenuItem key={index} value={type.value}>
+                          {type.name}
                         </MenuItem>
                       ))}
                     </Select>
@@ -172,8 +169,8 @@ const BusinessDetails: React.FC<BusinessDetailsProps> = ({
                   render={({ field }) => (
                     <Select {...field} label="Select company size">
                       {companySizes.map((size, index) => (
-                        <MenuItem key={index} value={size}>
-                          {size}
+                        <MenuItem key={index} value={size.value}>
+                          {size.name}
                         </MenuItem>
                       ))}
                     </Select>
@@ -225,8 +222,8 @@ const BusinessDetails: React.FC<BusinessDetailsProps> = ({
                   render={({ field }) => (
                     <Select {...field} label="Select annual revenue">
                       {revenueRanges.map((range, index) => (
-                        <MenuItem key={index} value={range}>
-                          {range}
+                        <MenuItem key={index} value={range.value}>
+                          {range.name}
                         </MenuItem>
                       ))}
                     </Select>
@@ -250,8 +247,8 @@ const BusinessDetails: React.FC<BusinessDetailsProps> = ({
                   render={({ field }) => (
                     <Select {...field} label="Select role">
                       {roles.map((role, index) => (
-                        <MenuItem key={index} value={role}>
-                          {role}
+                        <MenuItem key={index} value={role.value}>
+                          {role.name}
                         </MenuItem>
                       ))}
                     </Select>

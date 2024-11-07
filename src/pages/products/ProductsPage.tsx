@@ -1,14 +1,13 @@
 import ProducerProductComponent from "../../components/products/Producer/ProducerProductComponent";
 import ConsumerProductComponent from "../../components/products/consumer/ConsumerProductComponent";
+import { useRole } from "../../context/RoleProvider";
 
 const ProductsPage = () => {
-  const user = {
-    name: "producer",
-  };
+  const { isProducer } = useRole();
 
   return (
     <div>
-      {user.name === "producer" ? (
+      {isProducer("producer") ? (
         <ProducerProductComponent />
       ) : (
         <ConsumerProductComponent />
