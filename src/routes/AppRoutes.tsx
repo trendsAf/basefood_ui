@@ -1,5 +1,10 @@
 import { SkeletonTheme } from "react-loading-skeleton";
 import { Route, Routes } from "react-router-dom";
+import { createTheme, CssBaseline, ThemeProvider } from "@mui/material";
+import { useSelector } from "react-redux";
+import { RootState } from "../redux/store";
+
+// Import components
 import BusinessDetailsParent from "../components/Auth/businessDetails/BusinessDetailsParent";
 import OtpErrorPage from "../components/Auth/otp/OtpErrorPage";
 import VerificationPage from "../components/Auth/otp/VerificationsPage";
@@ -23,14 +28,28 @@ import NewsPage from "../pages/News";
 import ProductsPage from "../pages/products/ProductsPage";
 import ProfilePage from "../pages/ProfilePage";
 import WelcomePage from "../pages/WelcomePage";
-import PublicRoutess from "../components/Auth/PublicRoutes";
+import PublicRoutes from "../components/Auth/PublicRoutes";
+
+const lightTheme = createTheme({
+  palette: {
+    mode: "light",
+  },
+});
+
+const darkTheme = createTheme({
+  palette: {
+    mode: "dark",
+  },
+});
 
 const AppRoutes = () => {
-  const handleNext = () => {};
+  const theme = useSelector((state: RootState) => state.theme.value);
+
   return (
     <SkeletonTheme baseColor="#313131" highlightColor="#525252">
       <Routes>
-        <Route element={<PublicRoutess />}>
+        {/* Public Routes */}
+        <Route element={<PublicRoutes />}>
           <Route path="/register" element={<Signup />} />
           <Route path="/login" element={<Login />} />
           <Route path="/forgot_password" element={<ForgotPassword />} />
@@ -38,25 +57,21 @@ const AppRoutes = () => {
           <Route path="reset_password_error" element={<ResetPasswordError />} />
           <Route
             path="/verify_email"
-            element={<VerificationPage onNext={handleNext} />}
+            element={<VerificationPage onNext={() => {}} />}
           />
           <Route path="/confirm_email" element={<Verify />} />
           <Route path="/error" element={<OtpErrorPage />} />
           <Route path="/welcome" element={<WelcomePage />} />
         </Route>
 
-        <Route element={<ProtectedRoutesComponent />}>
-          <Route
-            path="/business_information"
-            element={<BusinessDetailsParent />}
-          />
-          <Route path="/buyers" element={<PagesLayout />}>
-            <Route index element={<Buyers />} />
-            <Route path="sourcing" element={<RFQDetails />} />
-          </Route>
-        </Route>
-
-        <Route element={<ProtectedRoutesComponent />}>
+        <Route
+          element={
+            <ThemeProvider theme={theme === "dark" ? darkTheme : lightTheme}>
+              <CssBaseline />
+              <ProtectedRoutesComponent />
+            </ThemeProvider>
+          }
+        >
           <Route path="/" element={<RootLayout />}>
             <Route index element={<Dashboard />} />
             <Route path="news" element={<NewsPage />} />
@@ -71,12 +86,20 @@ const AppRoutes = () => {
               element={<ProducerSingleProductComponent />}
             />
           </Route>
+          <Route
+            path="/business_information"
+            element={<BusinessDetailsParent />}
+          />
+          <Route path="/buyers" element={<PagesLayout />}>
+            <Route index element={<Buyers />} />
+            <Route path="sourcing" element={<RFQDetails />} />
+          </Route>
         </Route>
+
         <Route
           path="*"
           element={
             <div className="flex w-full h-screen items-center justify-center text-3xl logo">
-              {" "}
               Page not found
             </div>
           }
