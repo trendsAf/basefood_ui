@@ -12,7 +12,7 @@ import MarketInsights from "../components/market/MarketInsights";
 import { decodeToken } from "../utils/config/decode";
 import marketData from "../utils/marketData.json";
 import CountriesComponent from "../components/countries/CountriesComponent";
-import SingleCountryChart from "../components/market/SingleCountryChart";
+// import SingleCountryChart from "../components/market/SingleCountryChart";
 
 const distinctColors = [
   "#FF4136", // Bright Red
@@ -93,6 +93,8 @@ const Dashboard: React.FC<DashboardProps> = () => {
       .map((country) => country.name),
   );
 
+  console.log(selectedSingleCountries);
+
   const token = Cookies.get("access_token");
   useEffect(() => {
     if (token) {
@@ -153,12 +155,12 @@ const Dashboard: React.FC<DashboardProps> = () => {
         <MarketInsights />
       </div>
       <div className="w-full  flex flex-col gap-4 md:w-[65%] h-full">
-        <SingleCountryChart
+        {/* <SingleCountryChart
           selectedSingleCountries={selectedSingleCountries}
           SingleCountriesData={singleCountryData}
           selectedCrops={selectedCrops}
           marketData={marketData}
-        />
+        /> */}
         <Chart
           selectedCountries={selectedCountries}
           countriesData={countriesWithColors}
