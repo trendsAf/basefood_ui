@@ -23,25 +23,18 @@ const cropsData: CropItem[] = [
 const label = { inputProps: { "aria-label": "Checkbox demo" } };
 
 interface CropsMarketProps {
-  onCropSelect: (selectedCrops: string[]) => void;
+  onCropSelect: (selectedCrops: string | null) => void;
 }
 
 const CropsMarket: React.FC<CropsMarketProps> = ({ onCropSelect }) => {
-  const [selectedCrops, setSelectedCrops] = useState<string[]>(["Maize"]);
+  const [selectedCrops, setSelectedCrops] = useState<string | null>("Maize");
 
   useEffect(() => {
     onCropSelect(selectedCrops);
-  }, []);
+  }, [selectedCrops]);
 
   const handleCropChange = (crop: string) => {
-    setSelectedCrops((prev) =>
-      prev.includes(crop) ? prev.filter((c) => c !== crop) : [...prev, crop],
-    );
-    onCropSelect(
-      selectedCrops.includes(crop)
-        ? selectedCrops.filter((c) => c !== crop)
-        : [...selectedCrops, crop],
-    );
+    setSelectedCrops((prev) => (prev === crop ? null : crop));
   };
 
   return (
@@ -62,24 +55,9 @@ const CropsMarket: React.FC<CropsMarketProps> = ({ onCropSelect }) => {
               className={`${index !== cropsData.length - 1 ? "border-b dark:border-gray-700" : ""}  `}
             >
               <td className="flex items-center py-2 text-sm">
-                {/* <Checkbox
-                  {...label}
-                  checked={selectedCrops.includes(crop.name)}
-                  onChange={() => handleCropChange(crop.name)}
-                  sx={{
-                    // color: cropColors[crop.name],
-                    color: "#248185",
-                    "&.Mui-checked": {
-                      // color: cropColors[crop.name],
-                      color: "#248185",
-                    },
-                    "& .MuiSvgIcon-root": { fontSize: 20 },
-                    padding: "4px",
-                  }}
-                /> */}
                 <Checkbox
                   {...label}
-                  checked={selectedCrops.includes(crop.name)}
+                  checked={selectedCrops === crop.name}
                   onChange={() => handleCropChange(crop.name)}
                   sx={{
                     color: "#d6d7da",
