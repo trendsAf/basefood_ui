@@ -9,8 +9,6 @@ const ProfileDropdown = () => {
   const [isOpen, setIsOpen] = useState(false);
   const userInfo = JSON.parse(Cookies.get("userInfo") as string) || undefined;
 
-  console.log("user info", userInfo);
-
   const toggleDropdown = () => {
     setIsOpen(!isOpen);
   };

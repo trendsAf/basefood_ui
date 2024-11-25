@@ -32,11 +32,12 @@ const ApexChart: React.FC<ApexChartProps> = ({ data }) => {
       enabled: false,
     },
     stroke: {
-      width: 3,
+      width: 2.5,
+      curve: "smooth",
     },
     fill: {
       type: "solid",
-      opacity: 1,
+      opacity: 0.6,
     },
     markers: {
       size: 1,
