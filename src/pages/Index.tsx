@@ -1,18 +1,15 @@
 /* eslint-disable no-console */
 /* eslint-disable quotes */
-import React, { useEffect, useState } from "react";
-import Categories from "../components/market/Categories";
-import CropsMarket from "../components/market/CropsMarket";
-// import MarketNews from "../components/market/MarketNews";
 import Cookies from "js-cookie";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Chart from "../components/market/Chart";
 import Countries from "../components/market/Countries";
+import Crops from "../components/market/crops/Index";
+import CropsMarket from "../components/market/CropsMarket";
 import MarketInsights from "../components/market/MarketInsights";
 import { decodeToken } from "../utils/config/decode";
 import marketData from "../utils/marketData.json";
-import CountriesComponent from "../components/countries/CountriesComponent";
-// import SingleCountryChart from "../components/market/SingleCountryChart";
 
 const distinctColors = [
   "#FF4136", // Bright Red
@@ -38,13 +35,6 @@ const distinctColors = [
   "#BF360C", // Deep Red
 ];
 
-const singleCountryData = [
-  { name: "Rwanda", checked: true },
-  { name: "Tanzania", checked: false },
-  { name: "Uganda", checked: false },
-  { name: "Kenya", checked: false },
-];
-
 const countriesData = [
   { name: "Rwanda", checked: true },
   { name: "Uganda", checked: false },
@@ -52,7 +42,6 @@ const countriesData = [
   { name: "Burundi", checked: false },
   { name: "Kenya", checked: false },
   { name: "Zambia", checked: false },
-  { name: "Zimbabwe", checked: false },
   { name: "Zimbabwe", checked: false },
   { name: "Somalia", checked: false },
   { name: "Tunisia", checked: false },
@@ -85,15 +74,6 @@ const Dashboard: React.FC<DashboardProps> = () => {
       .filter((country) => country.checked)
       .map((country) => country.name),
   );
-  const [selectedSingleCountries, setSelectedSingleCountries] = useState<
-    string[]
-  >(
-    singleCountryData
-      .filter((country) => country.checked)
-      .map((country) => country.name),
-  );
-
-  console.log(selectedSingleCountries);
 
   const token = Cookies.get("access_token");
   useEffect(() => {
@@ -127,12 +107,6 @@ const Dashboard: React.FC<DashboardProps> = () => {
         : [...prev, country],
     );
   };
-  const handleSingleCountrySelect = (country: string) => {
-    setSelectedSingleCountries([country]);
-    singleCountryData.forEach((c) => {
-      c.checked = c.name === country;
-    });
-  };
 
   const handleCropSelect = (crop: string | null) => {
     setSelectedCrops(crop ? [crop] : []);
@@ -142,25 +116,12 @@ const Dashboard: React.FC<DashboardProps> = () => {
     <div className=" flex flex-col md:flex-row w-full pt-3 items-start justify-between gap-3">
       <div className={`flex w-full md:w-[20%] flex-col gap-4`}>
         <div className="flex 2xl:flex-row flex-col items-center justify-between dark:bg-secondary-black pr-2 py-1 rounded">
-          <CountriesComponent
-            countries={singleCountryData.map((c) => ({
-              name: c.name,
-              checked: c.checked,
-            }))}
-            onCountrySelect={handleSingleCountrySelect}
-          />
-          <Categories />
+          <Crops />
         </div>
         <CropsMarket onCropSelect={handleCropSelect} />
         <MarketInsights />
       </div>
       <div className="w-full  flex flex-col gap-4 md:w-[65%] h-full">
-        {/* <SingleCountryChart
-          selectedSingleCountries={selectedSingleCountries}
-          SingleCountriesData={singleCountryData}
-          selectedCrops={selectedCrops}
-          marketData={marketData}
-        /> */}
         <Chart
           selectedCountries={selectedCountries}
           countriesData={countriesWithColors}

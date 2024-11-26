@@ -56,6 +56,12 @@ export type LoginTypes = {
   password: string;
 };
 
+export type GetCropState = {
+  isLoading: boolean;
+  getError?: string | null;
+  cropList: any[];
+};
+
 export type ReducerTypes = {
   isLoading: boolean;
   data?: DynamicType;
