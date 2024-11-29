@@ -72,3 +72,50 @@
     opacity: 1;
   }
 }
+
+.market-indicators-swiper .swiper-slide {
+  width: auto !important;
+  height: auto !important;
+}
+
+.market-indicators-swiper .swiper-wrapper {
+  transition-timing-function: linear !important;
+}
+
+/* Gradient fade effects */
+.market-indicators-swiper::before,
+.market-indicators-swiper::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  width: 50px;
+  height: 100%;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.market-indicators-swiper::before {
+  left: 0;
+  background: linear-gradient(
+    to right,
+    rgba(255, 255, 255, 1),
+    rgba(255, 255, 255, 0)
+  );
+}
+
+.market-indicators-swiper::after {
+  right: 0;
+  background: linear-gradient(
+    to left,
+    rgba(255, 255, 255, 1),
+    rgba(255, 255, 255, 0)
+  );
+}
+
+.dark .market-indicators-swiper::before {
+  background: linear-gradient(to right, rgb(31, 31, 31), rgba(31, 31, 31, 0));
+}
+
+.dark .market-indicators-swiper::after {
+  background: linear-gradient(to left, rgb(31, 31, 31), rgba(31, 31, 31, 0));
+}

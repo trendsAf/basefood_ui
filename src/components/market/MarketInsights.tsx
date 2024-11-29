@@ -13,7 +13,7 @@ const MarketInsights = ({ name, data }: MarketInsightsProps) => {
           {data.map((item, idx) => (
             <p
               key={idx}
-              className="text-white/60 flex gap-1 items-start text-sm"
+              className="dark:text-white/60 flex gap-1 items-start text-sm"
             >
               <GoDotFill className="mt-1" /> {item}
             </p>

@@ -1,13 +1,19 @@
 import React, { useState, useEffect } from "react";
 import ApexChart from "../graphs/ApexChart";
 
-const datasets = {
-  "1 D": "1 D",
-  "1 W": "1 W",
-  "1 M": "1 M",
-  "6 M": "6 M",
-  "1 Y": "1 Y",
-};
+// const datasets = {
+//   "1 D": "1 D",
+//   "1 W": "1 W",
+//   "1 M": "1 M",
+//   "6 M": "6 M",
+//   "1 Y": "1 Y",
+// };
+
+const TIME_RANGES = {
+  WEEK: "Week",
+  MONTH: "Month",
+} as const;
+type TimeRange = keyof typeof TIME_RANGES;
 
 interface ChartProps {
   selectedCountries: string[];
@@ -22,9 +28,8 @@ const Chart: React.FC<ChartProps> = ({
   selectedCrops,
   marketData,
 }) => {
-  const [selectedRange, setSelectedRange] =
-    useState<keyof typeof datasets>("1 Y");
   const [seriesData, setSeriesData] = useState<any[]>([]);
+  const [selectedRange, setSelectedRange] = useState<TimeRange>("WEEK");
 
   useEffect(() => {
     const newSeriesData = selectedCountries.flatMap((country) =>
@@ -33,9 +38,12 @@ const Chart: React.FC<ChartProps> = ({
         const cropData = marketData.countries.find(
           (c: any) => c.name === country,
         )?.crops[crop];
+
+        const dataRange = selectedRange === "WEEK" ? "1 W" : "1 M";
+
         return {
           name: `${country} - ${crop}`,
-          data: cropData ? cropData[selectedRange] : [],
+          data: cropData ? cropData[dataRange] : [],
           color: countryInfo?.color,
         };
       }),
@@ -52,16 +60,21 @@ const Chart: React.FC<ChartProps> = ({
   return (
     <div className="p-4 bg-white dark:bg-secondary-black dark:text-white rounded-[4px]">
       <h2 className="text-md font-bold mb-2">Crop Price Movement</h2>
-      <div className="flex items-center gap-6 mb-2">
-        {Object.values(datasets).map((range) => (
+      <div className="flex items-center mb-2">
+        {Object.entries(TIME_RANGES).map(([key, label]) => (
           <button
-            key={range}
-            onClick={() => setSelectedRange(range as keyof typeof datasets)}
-            className={`py-1 text-sm  hover:text-brand-blue ${
-              selectedRange === range ? "text-brand-blue" : ""
-            }`}
+            key={key}
+            onClick={() => setSelectedRange(key as TimeRange)}
+            className={`
+              px-4 py-2 text-sm font-medium rounded-md transition-all
+              ${
+                selectedRange === key
+                  ? "bg-bg-gray dark:bg-black text-brand-blue shadow-sm"
+                  : "text-gray-500 dark:text-gray-400 hover:text-brand-blue"
+              }
+            `}
           >
-            {range}
+            {label}
           </button>
         ))}
       </div>
