@@ -10,6 +10,8 @@ import CropsMarket from "../components/market/CropsMarket";
 import MarketInsights from "../components/market/MarketInsights";
 import { decodeToken } from "../utils/config/decode";
 import marketData from "../utils/marketData.json";
+import { insightsData } from "../utils/market/insightData";
+import MarketIndicators from "../components/MarketIndicators";
 
 const distinctColors = [
   "#FF4136", // Bright Red
@@ -50,13 +52,13 @@ const countriesData = [
   { name: "Libya", checked: false },
   { name: "Madagascar", checked: false },
   { name: "Malawi", checked: false },
-  { name: "Eswatini", checked: false },
-  { name: "Ethiopia", checked: false },
-  { name: "Djibouti", checked: false },
-  { name: "Egypt", checked: false },
-  { name: "Eritrea", checked: false },
-  { name: "Comoros", checked: false },
-  { name: "Sudan", checked: false },
+  // { name: "Eswatini", checked: false },
+  // { name: "Ethiopia", checked: false },
+  // { name: "Djibouti", checked: false },
+  // { name: "Egypt", checked: false },
+  // { name: "Eritrea", checked: false },
+  // { name: "Comoros", checked: false },
+  // { name: "Sudan", checked: false },
 ];
 
 interface DashboardProps {
@@ -113,29 +115,37 @@ const Dashboard: React.FC<DashboardProps> = () => {
   };
 
   return (
-    <div className=" flex flex-col md:flex-row w-full pt-3 items-start justify-between gap-3">
-      <div className={`flex w-full md:w-[20%] flex-col gap-4`}>
-        <div className="flex 2xl:flex-row flex-col items-center justify-between dark:bg-secondary-black pr-2 py-1 rounded">
-          <Crops />
+    <>
+      <MarketIndicators />
+      <div className=" flex flex-col md:flex-row w-full pt-3 items-start justify-between gap-3">
+        <div className={`flex w-full md:w-[20%] flex-col gap-4`}>
+          <div className=" bg-white dark:bg-secondary-black px-2 py-1 rounded">
+            <Crops />
+          </div>
+          <div className={`w-full `}>
+            <Countries
+              countriesData={countriesWithColors}
+              onCountrySelect={handleCountrySelect}
+            />
+          </div>
         </div>
-        <CropsMarket onCropSelect={handleCropSelect} />
-        <MarketInsights />
+        <div className="w-full  flex flex-col gap-3 h-full">
+          <CropsMarket onCropSelect={handleCropSelect} />
+          <Chart
+            selectedCountries={selectedCountries}
+            countriesData={countriesWithColors}
+            selectedCrops={selectedCrops}
+            marketData={marketData}
+          />
+        </div>
+        <div className="flex flex-col gap-3 w-full md:w-2/5">
+          <h1 className="logo text-start text-xl">Market insights</h1>
+          {insightsData.map((insight, idx) => (
+            <MarketInsights key={idx} name={insight.name} data={insight.data} />
+          ))}
+        </div>
       </div>
-      <div className="w-full  flex flex-col gap-4 md:w-[65%] h-full">
-        <Chart
-          selectedCountries={selectedCountries}
-          countriesData={countriesWithColors}
-          selectedCrops={selectedCrops}
-          marketData={marketData}
-        />
-      </div>
-      <div className={`w-full md:w-[15%]`}>
-        <Countries
-          countriesData={countriesWithColors}
-          onCountrySelect={handleCountrySelect}
-        />
-      </div>
-    </div>
+    </>
   );
 };
 
