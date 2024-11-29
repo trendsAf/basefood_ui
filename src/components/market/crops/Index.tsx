@@ -55,10 +55,10 @@ const CropSelector: React.FC = () => {
   };
 
   return (
-    <div className="flex items-center 2xl:flex-row flex-col">
+    <div className="flex items-center flex-col w-full">
       {/* Categories Dropdown */}
       <FormControl
-        sx={{ m: 1, minWidth: 120, maxWidth: 120 }}
+        sx={{ m: 1, minWidth: 120, width: "100%" }}
         size="small"
         disabled={categoryLoading || cropCategoryList.length === 0}
       >
@@ -80,7 +80,7 @@ const CropSelector: React.FC = () => {
 
       {/* Crops Dropdown */}
       <FormControl
-        sx={{ m: 1, minWidth: 120, maxWidth: 120 }}
+        sx={{ m: 1, minWidth: 120, width: "100%" }}
         size="small"
         disabled={cropsLoading || !filteredCrops.length || !selectedCategory}
       >

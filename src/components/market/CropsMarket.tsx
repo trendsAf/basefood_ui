@@ -4,8 +4,10 @@ import { TiArrowSortedDown, TiArrowSortedUp } from "react-icons/ti";
 
 interface CropItem {
   name: string;
-  price: number;
+  average: number;
   change: number;
+  min_price: number;
+  max_price: number;
 }
 
 // const cropColors: Record<string, string> = {
@@ -15,9 +17,21 @@ interface CropItem {
 // };
 
 const cropsData: CropItem[] = [
-  { name: "Maize", price: 20, change: -20 },
-  { name: "Wheat", price: 30, change: +20 },
-  { name: "Coffee", price: 50, change: +20 },
+  { name: "Maize", average: 26, min_price: 16, max_price: 20, change: -4 },
+  {
+    name: "Wheat",
+    average: 39,
+    change: +9,
+    min_price: 18,
+    max_price: 30,
+  },
+  {
+    name: "Coffee",
+    average: 68.5,
+    change: +18.5,
+    min_price: 37,
+    max_price: 50,
+  },
 ];
 
 const label = { inputProps: { "aria-label": "Checkbox demo" } };
@@ -44,8 +58,10 @@ const CropsMarket: React.FC<CropsMarketProps> = ({ onCropSelect }) => {
         <thead className="bg-bg-gray dark:bg-black dark:text-white">
           <tr className="text-gray-500  dark:text-gray-400 text-sm">
             <th className="py-2 pl-2">Item</th>
-            <th className="py-2 ">Price</th>
-            <th className="py-2 pl-2">Change</th>
+            <th className="py-2 ">Min price</th>
+            <th className="py-2 ">Max price</th>
+            <th className="py-2 ">Average price</th>
+            <th className="py-2 pl-2">Price change</th>
           </tr>
         </thead>
         <tbody>
@@ -73,7 +89,13 @@ const CropsMarket: React.FC<CropsMarketProps> = ({ onCropSelect }) => {
                 </span>
               </td>
               <td className="py-2 text-gray-700 dark:text-white">
-                ${crop.price}
+                ${crop.min_price}
+              </td>
+              <td className="py-2 text-gray-700 dark:text-white">
+                ${crop.max_price}
+              </td>
+              <td className="py-2 text-gray-700 dark:text-white">
+                ${crop.average}
               </td>
               <td
                 className={`py-2 font-bold ${
@@ -81,11 +103,11 @@ const CropsMarket: React.FC<CropsMarketProps> = ({ onCropSelect }) => {
                 }`}
               >
                 {crop.change > 0 ? (
-                  <span className="flex items-center text-green justify-start">
+                  <span className="flex items-center text-green ml-2">
                     {crop.change}% <TiArrowSortedUp />
                   </span>
                 ) : (
-                  <span className="flex items-center text-red justify-start">
+                  <span className="flex items-center text-red ml-2">
                     {crop.change}% <TiArrowSortedDown />
                   </span>
                 )}
