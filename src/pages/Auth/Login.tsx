@@ -50,7 +50,7 @@ const Login = () => {
       <div className="flex flex-1 items-center justify-center w-[50%] bg-[url('https://res.cloudinary.com/dq6npfdgz/video/upload/v1725639485/4778066-uhd_2562_1440_25fps_ytvf2g.mp4')]">
         <div className="px-2 flex flex-col items-center justify-center space-y-6 w-[80%] h-3/5 rounded-lg">
           <div className="w-full max-w-md">
-            <h1 className="text-2xl text-center space_grotesk2 font-medium mb-10">
+            <h1 className="text-2xl text-center space_grotesk2  mb-10">
               Log in to your <b className="font-bold">basefood</b> Account
             </h1>
             <LoginFormComponent />

@@ -66,7 +66,7 @@ const Chart: React.FC<ChartProps> = ({
             key={key}
             onClick={() => setSelectedRange(key as TimeRange)}
             className={`
-              px-4 py-2 text-sm font-medium rounded-md transition-all
+              px-4 py-2 text-sm  rounded-md transition-all
               ${
                 selectedRange === key
                   ? "bg-bg-gray dark:bg-black text-brand-blue shadow-sm"

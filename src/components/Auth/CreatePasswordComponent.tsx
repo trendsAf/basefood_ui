@@ -42,7 +42,7 @@ const CreatePasswordComponent: React.FC<CreatePasswordComponentProps> = ({
       onSubmit={handleSubmit(onSubmit)}
       className="w-full bg-white rounded-[5px]"
     >
-      <h1 className="text-2xl space_grotesk2 font-medium mb-4 text-center">
+      <h1 className="text-2xl space_grotesk2  mb-4 text-center">
         Create your password
       </h1>
       <p className="text-gray-600 helvetica mb-6 text-center">

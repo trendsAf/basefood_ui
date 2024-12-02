@@ -57,7 +57,7 @@ const BuyersCard = ({
               alt="Profile"
               className="w-5 h-5 md:w-6 md:h-6 object-cover rounded-full"
             />
-            <p className="text-xs sm:text-sm font-medium text-gray-800 dark:text-gray-200">
+            <p className="text-xs sm:text-sm  text-gray-800 dark:text-gray-200">
               {name}
             </p>
           </div> */}
