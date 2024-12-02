@@ -45,11 +45,11 @@ const OngoingCard = ({
           </div>
           <div className="flex flex-col gap-2 md:gap-4">
             <div>
-              <button className="bg-black/10 py-1 px-2 sm:px-3 rounded-full bg-yellow-100 text-yellow-600 text-xs font-medium">
+              <button className="bg-black/10 py-1 px-2 sm:px-3 rounded-full bg-yellow-100 text-yellow-600 text-xs ">
                 Ongoing D-{onGoing}
               </button>
             </div>
-            <div className="flex items-center gap-2 text-xs sm:text-sm font-medium text-gray-800 dark:text-gray-200">
+            <div className="flex items-center gap-2 text-xs sm:text-sm  text-gray-800 dark:text-gray-200">
               <h1>{productName}</h1>
               <h1>{productQuantity} ton</h1>
             </div>
