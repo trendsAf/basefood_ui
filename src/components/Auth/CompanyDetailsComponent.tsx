@@ -52,7 +52,7 @@ const CompanyDetailsComponent: React.FC<CompanyDetailsComponentProps> = ({
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="w-full bg-white">
-      <h1 className="text-2xl space_grotesk2 text-center font-medium mb-4">
+      <h1 className="text-2xl space_grotesk2 text-center  mb-4">
         Add your Company Details
       </h1>
       <p className="text-md text-center helvetica text-gray-600 mb-6">

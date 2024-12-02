@@ -16,7 +16,7 @@ const RoleComponent: React.FC<RoleComponentProps> = ({ onNext }) => {
 
   return (
     <div className="py-8">
-      <h1 className="text-2xl text-center space_grotesk2 md:text-3xl font-medium text-gray-800">
+      <h1 className="text-2xl text-center space_grotesk2 md:text-3xl  text-gray-800">
         What is your role?
       </h1>
       <p className="text-center mt-4 text-sm text-gray-600">

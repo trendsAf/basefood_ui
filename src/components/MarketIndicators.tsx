@@ -108,7 +108,7 @@ const MarketIndicators: React.FC = () => {
               }}
             >
               <span
-                className={`text-sm font-medium dark:text-gray-200 mr-4
+                className={`text-sm  dark:text-gray-200 mr-4
                 ${hoveredIndex === index ? "text-primary-blue dark:text-primary-blue" : ""}`}
               >
                 {indicator.name}
@@ -118,7 +118,7 @@ const MarketIndicators: React.FC = () => {
                   {indicator.value}
                 </span>
                 <span
-                  className={`text-sm font-medium ${
+                  className={`text-sm  ${
                     indicator.isPositive ? "text-green" : "text-red"
                   }`}
                 >
