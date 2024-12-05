@@ -25,10 +25,11 @@ import Buyers from "../pages/Buyers";
 import Dashboard from "../pages/Index";
 import NewDashboard from "../pages/NewDashboard";
 import NewsPage from "../pages/News";
-import ProductsPage from "../pages/products/ProductsPage";
+// import ProductsPage from "../pages/products/ProductsPage";
 import ProfilePage from "../pages/ProfilePage";
 import WelcomePage from "../pages/WelcomePage";
 import PublicRoutes from "../components/Auth/PublicRoutes";
+import MainForm from "../components/Pricing/MainForm";
 
 const lightTheme = createTheme({
   palette: {
@@ -79,12 +80,13 @@ const AppRoutes = () => {
             <Route path="dashboard" element={<Dashboard1 />} />
             <Route path="dashboard1" element={<Dashboard1 />} />
             <Route path="dashboards/new" element={<NewDashboard />} />
-            <Route path="products" element={<ProductsPage />} />
+            {/* <Route path="products" element={<ProductsPage />} /> */}
             <Route path="prod" element={<ConsumerProductComponent />} />
             <Route
               path="products/:id"
               element={<ProducerSingleProductComponent />}
             />
+            <Route path="pricing" element={<MainForm />} />
           </Route>
           <Route
             path="/business_information"
