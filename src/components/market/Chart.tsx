@@ -19,14 +19,15 @@ const Chart: React.FC<ChartProps> = ({
   marketData,
 }) => {
   const dispatch = useAppDispatch();
-  // const { isLoading, error } = useAppSelector((state) => state.pricing);
   const formData = useAppSelector((state) => state.form);
 
   const [seriesData, setSeriesData] = useState<any[]>([]);
-  const [selectedRange, setSelectedRange] = useState<string>("Week");
+  const [selectedRange, setSelectedRange] = useState<string>(() => {
+    const storedDuration = localStorage.getItem("selectedDuration");
+    return storedDuration ? storedDuration : "Week";
+  });
 
-  // Define the available duration options
-  const duration = ["Week", "Month"];
+  const durations = ["Week", "Month"];
 
   useEffect(() => {
     const newSeriesData = selectedCountries.flatMap((country) =>
@@ -36,7 +37,6 @@ const Chart: React.FC<ChartProps> = ({
           (c: any) => c.name === country,
         )?.crops[crop];
 
-        // Adjust data range based on selected range (Week or Month)
         const dataRange = selectedRange === "Week" ? "1 W" : "1 M";
 
         return {
@@ -55,26 +55,39 @@ const Chart: React.FC<ChartProps> = ({
     marketData,
   ]);
 
+  useEffect(() => {
+    const interval = setInterval(() => {
+      const storedDuration = localStorage.getItem("selectedDuration");
+      if (storedDuration && storedDuration !== selectedRange) {
+        setSelectedRange(storedDuration);
+      }
+    }, 100);
+
+    return () => clearInterval(interval);
+  }, [selectedRange]);
+
+  useEffect(() => {
+    localStorage.setItem("selectedDuration", selectedRange);
+  }, [selectedRange]);
+
   const handleDurationChange = async (newDuration: string) => {
-    console.log("Previous duration:", selectedRange); // Log previous duration
+    // console.log("Previous duration:", selectedRange);
     setSelectedRange(newDuration);
 
-    // Update the duration field in Redux store
     dispatch(updateField({ field: "duration", value: newDuration }));
-    console.log("Updated duration in Redux:", newDuration); // Log updated duration
+    // console.log("Updated duration in Redux:", newDuration);
 
-    // Check the updated form data before making the API call
-    console.log("Form data before pricing API call:", formData);
+    // console.log("Form data before pricing API call:", formData);
 
     try {
-      // Trigger API call with the updated form data
-      const res = await dispatch(pricing(formData)).unwrap();
-      toast.success(res.message); // Show success toast
-      console.log("Submission success:", res); // Log successful submission
+      const response = await dispatch(pricing(formData)).unwrap();
+      toast.success(response.message);
+      // console.log("Submission success:", response);
+      const res = JSON.stringify(response);
+      localStorage.setItem("crops_market", res);
     } catch (err) {
-      // Handle any errors
-      console.error("Submission failed:", err);
-      toast.error("An error occurred while submitting."); // Show error toast
+      // console.error("Submission failed:", err);
+      toast.error("An error occurred while submitting.");
     }
   };
 
@@ -84,17 +97,17 @@ const Chart: React.FC<ChartProps> = ({
 
       {/* Duration Selector */}
       <div className="flex items-center mb-2">
-        {duration.map((key, idx) => (
+        {durations.map((duration) => (
           <button
-            key={idx}
-            onClick={() => handleDurationChange(key)}
+            key={duration}
+            onClick={() => handleDurationChange(duration)}
             className={`px-4 py-2 text-sm rounded-md transition-all ${
-              selectedRange === key
+              selectedRange === duration
                 ? "bg-bg-gray dark:bg-black text-brand-blue shadow-sm"
                 : "text-gray-500 dark:text-gray-400 hover:text-brand-blue"
             }`}
           >
-            {key}
+            {duration}
           </button>
         ))}
       </div>

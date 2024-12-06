@@ -118,7 +118,7 @@ const Dashboard: React.FC<DashboardProps> = () => {
         <div className="w-full flex flex-col gap-3 h-full">
           <CropsMarket onCropSelect={handleCropSelect} />
           <Chart
-            selectedCountries={selectedCountry ? [selectedCountry] : []} // Adjust for Chart compatibility
+            selectedCountries={selectedCountry ? [selectedCountry] : []}
             countriesData={countriesWithColors}
             selectedCrops={selectedCrops}
             marketData={marketData}
