@@ -1,14 +1,8 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Checkbox from "@mui/material/Checkbox";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { getCountry } from "../../redux/reducers/countries/countrySlice";
 import { updateField } from "../../redux/reducers/form/formSlice";
-
-interface Country {
-  name: string;
-  id: number; // Add id property to country object
-  color: string;
-}
 
 interface CountriesProps {
   selectedCountry: string | null;
@@ -39,29 +33,42 @@ const distinctColors = [
   "#BF360C",
 ];
 
-const Countries: React.FC<CountriesProps> = ({
-  selectedCountry,
-  onCountrySelect,
-}) => {
+const Countries: React.FC<CountriesProps> = ({ onCountrySelect }) => {
   const dispatch = useAppDispatch();
   const { countryList } = useAppSelector((state) => state.countries);
 
-  // Fetch country data when the component mounts
+  const [selectedCountry, setSelectedCountry] = useState<string | null>(
+    localStorage.getItem("selectedCountry") || null,
+  );
+  const [selectedCountryId, setSelectedCountryId] = useState<number | null>(
+    parseInt(localStorage.getItem("selectedCountryId") || "") || null,
+  );
+
   useEffect(() => {
     dispatch(getCountry());
   }, [dispatch]);
 
-  // Assign colors to countries dynamically
   const countriesWithColors = countryList.map((country, index) => ({
     ...country,
     color: distinctColors[index % distinctColors.length],
   }));
 
   const handleCountryChange = (country: string, countryId: number) => {
-    // Dispatch the selected country and countryId to the parent and Redux store
+    setSelectedCountry(country);
+    setSelectedCountryId(countryId);
+
+    localStorage.setItem("selectedCountry", country);
+    localStorage.setItem("selectedCountryId", countryId.toString());
+
     onCountrySelect(country, countryId);
     dispatch(updateField({ field: "country_id", value: countryId }));
   };
+
+  useEffect(() => {
+    if (selectedCountryId) {
+      console.log("Selected Country ID:", selectedCountryId);
+    }
+  }, [selectedCountryId]);
 
   return (
     <div className="p-4 bg-white dark:bg-secondary-black dark:text-white rounded-lg">

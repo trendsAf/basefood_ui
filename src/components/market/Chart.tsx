@@ -19,13 +19,15 @@ const Chart: React.FC<ChartProps> = ({
   marketData,
 }) => {
   const dispatch = useAppDispatch();
-  // const { isLoading, error } = useAppSelector((state) => state.pricing);
   const formData = useAppSelector((state) => state.form);
 
   const [seriesData, setSeriesData] = useState<any[]>([]);
-  const [selectedRange, setSelectedRange] = useState<string>("Week");
 
-  // Define the available duration options
+  // Initialize selectedRange from localStorage or default to "Week"
+  const [selectedRange, setSelectedRange] = useState<string>(
+    localStorage.getItem("selectedDuration") || "Week",
+  );
+
   const duration = ["Week", "Month"];
 
   useEffect(() => {
@@ -36,7 +38,6 @@ const Chart: React.FC<ChartProps> = ({
           (c: any) => c.name === country,
         )?.crops[crop];
 
-        // Adjust data range based on selected range (Week or Month)
         const dataRange = selectedRange === "Week" ? "1 W" : "1 M";
 
         return {
@@ -56,25 +57,26 @@ const Chart: React.FC<ChartProps> = ({
   ]);
 
   const handleDurationChange = async (newDuration: string) => {
-    console.log("Previous duration:", selectedRange); // Log previous duration
+    console.log("Previous duration:", selectedRange);
     setSelectedRange(newDuration);
 
-    // Update the duration field in Redux store
-    dispatch(updateField({ field: "duration", value: newDuration }));
-    console.log("Updated duration in Redux:", newDuration); // Log updated duration
+    // Save selected range to localStorage
+    localStorage.setItem("selectedDuration", newDuration);
 
-    // Check the updated form data before making the API call
+    dispatch(updateField({ field: "duration", value: newDuration }));
+    console.log("Updated duration in Redux:", newDuration);
+
     console.log("Form data before pricing API call:", formData);
 
     try {
-      // Trigger API call with the updated form data
-      const res = await dispatch(pricing(formData)).unwrap();
-      toast.success(res.message); // Show success toast
-      console.log("Submission success:", res); // Log successful submission
+      const response = await dispatch(pricing(formData)).unwrap();
+      toast.success(response.message);
+      console.log("Submission success:", response);
+      const res = JSON.stringify(response);
+      localStorage.setItem("crops_market", res);
     } catch (err) {
-      // Handle any errors
       console.error("Submission failed:", err);
-      toast.error("An error occurred while submitting."); // Show error toast
+      toast.error("An error occurred while submitting.");
     }
   };
 
