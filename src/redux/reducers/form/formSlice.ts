@@ -5,14 +5,14 @@ interface FormState {
   crop_id: string;
   country_id: string;
   duration: string;
-  selectedCountries: string[]; // Explicitly declare as an array of strings
+  selectedCountries: string[];
 }
 
 const initialState: FormState = {
   crop_id: "",
   country_id: "",
   duration: "",
-  selectedCountries: [], // Initialize as an empty array of strings
+  selectedCountries: [],
 };
 
 const formSlice = createSlice({
@@ -24,7 +24,7 @@ const formSlice = createSlice({
       action: PayloadAction<{ field: keyof FormState; value: any }>,
     ) => {
       const { field, value } = action.payload;
-      state[field] = value; // Type-safe dynamic update
+      state[field] = value;
     },
   },
 });

@@ -1,14 +1,10 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Checkbox from "@mui/material/Checkbox";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { getCountry } from "../../redux/reducers/countries/countrySlice";
 import { updateField } from "../../redux/reducers/form/formSlice";
-
-interface Country {
-  name: string;
-  id: number; // Add id property to country object
-  color: string;
-}
+import { pricing } from "../../redux/reducers/pricing/priceSlice";
+import { toast } from "react-toastify";
 
 interface CountriesProps {
   selectedCountry: string | null;
@@ -39,28 +35,78 @@ const distinctColors = [
   "#BF360C",
 ];
 
-const Countries: React.FC<CountriesProps> = ({
-  selectedCountry,
-  onCountrySelect,
-}) => {
+const Countries: React.FC<CountriesProps> = ({ onCountrySelect }) => {
   const dispatch = useAppDispatch();
   const { countryList } = useAppSelector((state) => state.countries);
+  const formData = useAppSelector((state) => state.form);
 
-  // Fetch country data when the component mounts
+  const [selectedCountry, setSelectedCountry] = useState<string | null>(
+    localStorage.getItem("selectedCountry") || null,
+  );
+  const [_, setSelectedCountryId] = useState<number | null>(
+    parseInt(localStorage.getItem("selectedCountryId") || "") || null,
+  );
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
   useEffect(() => {
+    // Fetch the list of countries on component mount
     dispatch(getCountry());
   }, [dispatch]);
 
-  // Assign colors to countries dynamically
   const countriesWithColors = countryList.map((country, index) => ({
     ...country,
     color: distinctColors[index % distinctColors.length],
   }));
 
-  const handleCountryChange = (country: string, countryId: number) => {
-    // Dispatch the selected country and countryId to the parent and Redux store
+  const handleCountryChange = async (country: string, countryId: number) => {
+    const { crop_id } = formData;
+
+    // Validate crop selection
+    if (!crop_id) {
+      toast.error("Please select a crop");
+      return;
+    }
+
+    // Immediately use the passed values
+    setSelectedCountry(country);
+    setSelectedCountryId(countryId);
+
+    // Store the selected country in localStorage
+    localStorage.setItem("selectedCountry", country);
+    localStorage.setItem("selectedCountryId", countryId.toString());
+
     onCountrySelect(country, countryId);
-    dispatch(updateField({ field: "country_id", value: countryId }));
+    dispatch(updateField({ field: "country_id", value: countryId.toString() }));
+
+    // Handle the API call with the "Week" duration
+    const selectedDuration = "Week";
+    dispatch(updateField({ field: "duration", value: selectedDuration }));
+    // console.log("Selected duration:", selectedDuration);
+
+    setIsSubmitting(true);
+    try {
+      // Ensure country_id is passed as a string
+      const updatedFormData = {
+        ...formData,
+        country_id: countryId.toString(),
+        crop_id: formData.crop_id,
+        duration: selectedDuration,
+        selectedCountries: [country],
+      };
+
+      const response = await dispatch(pricing(updatedFormData)).unwrap();
+      toast.success(response.message);
+      // console.log("Submission success:", response);
+
+      const res = JSON.stringify(response);
+      localStorage.setItem("crops_market", res);
+      localStorage.setItem("selectedDuration", selectedDuration);
+    } catch (err) {
+      // console.error("Submission failed:", err);
+      toast.error("An error occurred while submitting.");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -83,6 +129,7 @@ const Countries: React.FC<CountriesProps> = ({
                   "& .MuiSvgIcon-root": { fontSize: 20 },
                   padding: "4px",
                 }}
+                disabled={isSubmitting} // Disable interaction during submission
               />
               <label>{name}</label>
             </li>
