@@ -253,7 +253,7 @@ const Sidebar = ({
                   </ThemeProvider>
                 </a>
               ) : null}
-              <NavLink to="/products">
+              <NavLink to="/pricing">
                 <ThemeProvider theme={tooltipTheme}>
                   <Tooltip
                     title={`${isCollapsed ? "Analytics" : ""}`}
@@ -263,7 +263,7 @@ const Sidebar = ({
                       <FaShoppingBasket className="text-md text-gray-900 dark:text-white" />
                       {!isCollapsed && (
                         <span className="ml-4 text-gray-900 dark:text-white">
-                          Products
+                          pricing
                         </span>
                       )}
                     </li>

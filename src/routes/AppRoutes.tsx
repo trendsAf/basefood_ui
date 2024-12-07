@@ -1,16 +1,16 @@
-import { SkeletonTheme } from "react-loading-skeleton";
-import { Route, Routes } from "react-router-dom";
 import { createTheme, CssBaseline, ThemeProvider } from "@mui/material";
+import { SkeletonTheme } from "react-loading-skeleton";
 import { useSelector } from "react-redux";
+import { Route, Routes } from "react-router-dom";
 import { RootState } from "../redux/store";
 
 // Import components
 import BusinessDetailsParent from "../components/Auth/businessDetails/BusinessDetailsParent";
+import ForgotPassword from "../components/Auth/ForgotPassword";
 import OtpErrorPage from "../components/Auth/otp/OtpErrorPage";
 import VerificationPage from "../components/Auth/otp/VerificationsPage";
-import ProtectedRoutesComponent from "../components/Auth/ProtectedRoutesComponent";
-import ForgotPassword from "../components/Auth/ForgotPassword";
 import Verify from "../components/Auth/otp/Verify";
+import ProtectedRoutesComponent from "../components/Auth/ProtectedRoutesComponent";
 import ResetPassword from "../components/Auth/ResetPassword";
 import ResetPasswordError from "../components/Auth/ResetPasswordError";
 import Dashboard1 from "../components/dashboards/Dashboard1";
@@ -25,10 +25,10 @@ import Buyers from "../pages/Buyers";
 import Dashboard from "../pages/Index";
 import NewDashboard from "../pages/NewDashboard";
 import NewsPage from "../pages/News";
-import ProductsPage from "../pages/products/ProductsPage";
+// import ProductsPage from "../pages/products/ProductsPage";
+import PublicRoutes from "../components/Auth/PublicRoutes";
 import ProfilePage from "../pages/ProfilePage";
 import WelcomePage from "../pages/WelcomePage";
-import PublicRoutes from "../components/Auth/PublicRoutes";
 
 const lightTheme = createTheme({
   palette: {
@@ -79,7 +79,7 @@ const AppRoutes = () => {
             <Route path="dashboard" element={<Dashboard1 />} />
             <Route path="dashboard1" element={<Dashboard1 />} />
             <Route path="dashboards/new" element={<NewDashboard />} />
-            <Route path="products" element={<ProductsPage />} />
+            {/* <Route path="products" element={<ProductsPage />} /> */}
             <Route path="prod" element={<ConsumerProductComponent />} />
             <Route
               path="products/:id"

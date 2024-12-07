@@ -9,54 +9,81 @@ import {
 import { useAppDispatch, useAppSelector } from "../../../redux/hooks";
 import { getCropsCategory } from "../../../redux/reducers/crops/cropCategorySlice";
 import { getCrops } from "../../../redux/reducers/crops/cropSlice";
+import { updateField } from "../../../redux/reducers/form/formSlice";
 
 const CropSelector: React.FC = () => {
   const dispatch = useAppDispatch();
 
-  // State for category and crop selection
-  const [selectedCategory, setSelectedCategory] = useState<string>("");
-  const [selectedCrop, setSelectedCrop] = useState<string>("");
+  const [selectedCategory, setSelectedCategory] = useState<string>(
+    localStorage.getItem("selectedCategory") || "",
+  );
 
-  // Redux selectors
+  const storedCropId = localStorage.getItem("selectedCropId") || "";
+
   const { cropCategoryList, isLoading: categoryLoading } = useAppSelector(
     (state) => state.getCropCategory,
   );
   const { cropList, isLoading: cropsLoading } = useAppSelector(
     (state) => state.getCrops,
   );
+  const { crop_id } = useAppSelector((state) => state.form);
 
-  // Fetch categories and crops on component mount
   useEffect(() => {
     dispatch(getCropsCategory());
     dispatch(getCrops());
-  }, [dispatch]);
+    if (storedCropId) {
+      dispatch(updateField({ field: "crop_id", value: storedCropId }));
+    }
+  }, [dispatch, storedCropId]);
 
-  // Filter crops based on selected category
+  useEffect(() => {
+    if (selectedCategory) {
+      dispatch(updateField({ field: "crop_id", value: "" }));
+      localStorage.setItem("selectedCategory", selectedCategory);
+    }
+  }, [selectedCategory, dispatch]);
+
   const filteredCrops = selectedCategory
     ? cropList.filter(
         (crop) => crop.crop_category?.toString() === selectedCategory,
       )
     : [];
 
-  // Automatically set the first crop only when the category changes
   useEffect(() => {
-    if (filteredCrops.length > 0) {
-      setSelectedCrop(""); // Reset crop selection to allow user choice
+    if (storedCropId) {
+      const storedCrop = cropList.find(
+        (crop) => crop.id.toString() === storedCropId,
+      );
+      if (storedCrop) {
+        const isFromSelectedCategory =
+          storedCrop.crop_category?.toString() === selectedCategory;
+        if (isFromSelectedCategory) {
+          dispatch(updateField({ field: "crop_id", value: storedCropId }));
+        } else {
+          dispatch(updateField({ field: "crop_id", value: "" }));
+          localStorage.removeItem("selectedCropId");
+        }
+      }
     }
-  }, [selectedCategory]); // Depend only on category
+  }, [storedCropId, selectedCategory, cropList, dispatch]);
 
-  // Handlers for dropdown changes
+  useEffect(() => {
+    if (crop_id) {
+      localStorage.setItem("selectedCropId", crop_id);
+    }
+  }, [crop_id]);
+
   const handleCategoryChange = (e: SelectChangeEvent<string>) => {
     setSelectedCategory(e.target.value);
   };
 
   const handleCropChange = (e: SelectChangeEvent<string>) => {
-    setSelectedCrop(e.target.value);
+    dispatch(updateField({ field: "crop_id", value: e.target.value }));
   };
 
   return (
     <div className="flex items-center flex-col w-full">
-      {/* Categories Dropdown */}
+      {/* Category Dropdown */}
       <FormControl
         sx={{ m: 1, minWidth: 120, width: "100%" }}
         size="small"
@@ -89,11 +116,13 @@ const CropSelector: React.FC = () => {
           labelId="crop-select-label"
           id="crop-select"
           label="Crops"
-          value={selectedCrop}
+          value={crop_id || ""}
           onChange={handleCropChange}
+          displayEmpty
         >
+          <MenuItem value="">Select Crop</MenuItem>
           {filteredCrops.map((crop) => (
-            <MenuItem value={crop.id.toString()} key={crop.id}>
+            <MenuItem value={crop.id} key={crop.id}>
               {crop.name}
             </MenuItem>
           ))}

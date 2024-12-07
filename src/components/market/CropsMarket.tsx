@@ -10,40 +10,37 @@ interface CropItem {
   max_price: number;
 }
 
-// const cropColors: Record<string, string> = {
-//   Maize: "#FF5733",
-//   Wheat: "#33FF57",
-//   Coffee: "#5733FF",
-// };
-
-const cropsData: CropItem[] = [
-  { name: "Maize", average: 26, min_price: 16, max_price: 20, change: -4 },
-  {
-    name: "Wheat",
-    average: 39,
-    change: +9,
-    min_price: 18,
-    max_price: 30,
-  },
-  {
-    name: "Coffee",
-    average: 68.5,
-    change: +18.5,
-    min_price: 37,
-    max_price: 50,
-  },
-];
-
-const label = { inputProps: { "aria-label": "Checkbox demo" } };
-
 interface CropsMarketProps {
   onCropSelect: (selectedCrops: string | null) => void;
 }
 
 const CropsMarket: React.FC<CropsMarketProps> = ({ onCropSelect }) => {
-  const [selectedCrops, setSelectedCrops] = useState<string | null>("Maize");
+  const [selectedCrops, setSelectedCrops] = useState<string | null>(null);
+  const [cropsData, setCropsData] = useState<CropItem[]>([]);
 
   useEffect(() => {
+    // Fetch crops_market_data from localStorage
+    const cropsMarketData = localStorage.getItem("crops_market");
+
+    if (cropsMarketData) {
+      try {
+        const parsedData = JSON.parse(cropsMarketData);
+        const mappedData = parsedData.map((item: any) => ({
+          name: item.variety_name,
+          average: item.average_price,
+          change: item.price_change,
+          min_price: item.min_price,
+          max_price: item.max_price,
+        }));
+        setCropsData(mappedData);
+      } catch (error) {
+        console.error("Error parsing crops_market_data:", error);
+      }
+    }
+  }, []);
+
+  useEffect(() => {
+    // Whenever selectedCrops changes, call the onCropSelect prop to pass updated state
     onCropSelect(selectedCrops);
   }, [selectedCrops]);
 
@@ -68,11 +65,14 @@ const CropsMarket: React.FC<CropsMarketProps> = ({ onCropSelect }) => {
           {cropsData.map((crop, index) => (
             <tr
               key={crop.name}
-              className={`${index !== cropsData.length - 1 ? "border-b dark:border-gray-700" : ""}  `}
+              className={`${
+                index !== cropsData.length - 1
+                  ? "border-b dark:border-gray-700"
+                  : ""
+              }`}
             >
               <td className="flex items-center py-2 text-sm">
                 <Checkbox
-                  {...label}
                   checked={selectedCrops === crop.name}
                   onChange={() => handleCropChange(crop.name)}
                   sx={{
