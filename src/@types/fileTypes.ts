@@ -14,6 +14,12 @@ export type BusinessDetailsFormValues = {
   country: string;
 };
 
+export type PricingFormValues = {
+  crop_id: string;
+  country_id: string;
+  duration: string;
+};
+
 export type LinkComponentFieldProps = yup.InferType<typeof linkSchema>;
 
 export type RequestNewLinkComponentFieldProps = {
@@ -60,6 +66,11 @@ export type GetCropState = {
   isLoading: boolean;
   getError?: string | null;
   cropList: any[];
+};
+export type GetCountryState = {
+  isLoading: boolean;
+  getError?: string | null;
+  countryList: any[];
 };
 
 export type ReducerTypes = {

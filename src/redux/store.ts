@@ -9,6 +9,9 @@ import resetPasswordRequest from "./reducers/auth/passwordResetRequestSlice";
 import resetPasswordReducer from "./reducers/auth/resetPasswordSlice";
 import getCropsReducer from "./reducers/crops/cropSlice";
 import getCategoryReducer from "./reducers/crops/cropCategorySlice";
+import formReducer from "./reducers/form/formSlice";
+import pricingReducer from "./reducers/pricing/priceSlice";
+import countryReducer from "./reducers/countries/countrySlice";
 
 export const store = configureStore({
   reducer: {
@@ -22,6 +25,9 @@ export const store = configureStore({
     resetPassword: resetPasswordReducer,
     getCrops: getCropsReducer,
     getCropCategory: getCategoryReducer,
+    form: formReducer,
+    pricing: pricingReducer,
+    countries: countryReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
