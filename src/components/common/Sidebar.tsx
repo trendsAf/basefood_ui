@@ -86,7 +86,7 @@ const Sidebar = ({
           isCollapsed
             ? "w-20 border-r border-bg-gray dark:border-[#404040]"
             : "w-[80%] sm:w-[40%] md:w-[30%] lg:w-[16%] md:transition-none transition-all duration-300"
-        } border-r border-bg-gray dark:border-[#404040] bg-white px-4 flex flex-col  justify-between dark:bg-black transform ${
+        } border-r border-bg-gray dark:border-[#404040] bg-white px-4 lg:px-2 2xl:px-4 flex flex-col  justify-between dark:bg-black transform ${
           isSidebarVisible ? "translate-x-0" : "-translate-x-full"
         } lg:translate-x-0`}
       >
@@ -123,7 +123,7 @@ const Sidebar = ({
           </div>
 
           <nav className="mt-6 flex flex-col justify-center">
-            <ul className="flex flex-col space-y-4">
+            <ul className="flex flex-col space-y-2 text-sm lg:text-[12px] xl:text-sm  2xl:text-lg">
               <NavLink
                 to="/"
                 //@ts-ignore
@@ -135,9 +135,9 @@ const Sidebar = ({
                     placement="right"
                   >
                     <li className="flex items-center px-2 py-2 rounded hover:bg-gray-100 dark:hover:bg-gray-800 cursor-pointer">
-                      <GoHome className="text-lg whitespace-nowrap text-gray-900 dark:text-white" />
+                      <GoHome className="lg:text-sm xl:text-lg whitespace-nowrap text-gray-900 dark:text-white" />
                       {!isCollapsed && (
-                        <span className="ml-4 text-gray-900 dark:text-white">
+                        <span className="ml-2 xl:ml-4 text-gray-900 dark:text-white">
                           Today's Market
                         </span>
                       )}
@@ -152,9 +152,9 @@ const Sidebar = ({
                     placement="right"
                   >
                     <li className="flex items-center px-2 py-2 hover:bg-gray-100 dark:hover:bg-gray-800 cursor-pointer rounded">
-                      <LuNewspaper className="text-lg text-gray-900 dark:text-white" />
+                      <LuNewspaper className="lg:text-sm xl:text-lg text-gray-900 dark:text-white" />
                       {!isCollapsed && (
-                        <span className="ml-4 text-gray-900 dark:text-white">
+                        <span className="ml-2 xl:ml-4 text-gray-900 dark:text-white">
                           Market News
                         </span>
                       )}
@@ -169,21 +169,21 @@ const Sidebar = ({
                     placement="right"
                   >
                     <div
-                      className="flex items-center justify-between px-2 py-2 hover:bg-gray-100 dark:hover:bg-gray-800 cursor-pointer rounded"
+                      className="flex items-center px-2 py-2 hover:bg-gray-100 dark:hover:bg-gray-800 cursor-pointer rounded"
                       onClick={toggleDashboards}
                     >
                       <div className="flex items-center">
-                        <RxDashboard className="text-md text-gray-900 dark:text-white" />
+                        <RxDashboard className="lg:text-sm xl:text-lg text-gray-900 dark:text-white" />
                         {!isCollapsed && (
                           <NavLink to={"/dashboard"}>
-                            <span className="ml-4 text-gray-900 dark:text-white">
+                            <span className="ml-2 xl:ml-4 text-gray-900 dark:text-white">
                               My Dashboards
                             </span>
                           </NavLink>
                         )}
                       </div>
                       {!isCollapsed && (
-                        <span className="text-gray-900 dark:text-white">
+                        <span className="text-gray-900 dark:text-white lg:ml-2 xl:ml-2">
                           {isDashboardsOpen ? (
                             <FaChevronUp className="text-sm" />
                           ) : (
@@ -225,9 +225,9 @@ const Sidebar = ({
                   placement="right"
                 >
                   <li className="flex items-center px-2 py-2 hover:bg-gray-100 dark:hover:bg-gray-800 cursor-pointer rounded">
-                    <AiOutlineBell className="text-md text-gray-900 dark:text-white" />
+                    <AiOutlineBell className="lg:text-sm xl:text-lg text-gray-900 dark:text-white" />
                     {!isCollapsed && (
-                      <span className="ml-4 text-gray-900 dark:text-white">
+                      <span className="ml-2 xl:ml-4 text-gray-900 dark:text-white">
                         Notifications
                       </span>
                     )}
@@ -242,9 +242,9 @@ const Sidebar = ({
                       placement="right"
                     >
                       <li className="flex items-center px-2 py-2 hover:bg-gray-100 dark:hover:bg-gray-800 cursor-pointer rounded">
-                        <LiaMoneyCheckAltSolid className="text-md text-gray-900 dark:text-white" />
+                        <LiaMoneyCheckAltSolid className="lg:text-sm xl:text-lg text-gray-900 dark:text-white" />
                         {!isCollapsed && (
-                          <span className="ml-4 text-gray-900 dark:text-white">
+                          <span className="ml-2 xl:ml-4 text-gray-900 dark:text-white">
                             Find buyers
                           </span>
                         )}
@@ -260,9 +260,9 @@ const Sidebar = ({
                     placement="right"
                   >
                     <li className="flex items-center px-2 py-2 hover:bg-gray-100 dark:hover:bg-gray-800 cursor-pointer rounded">
-                      <FaShoppingBasket className="text-md text-gray-900 dark:text-white" />
+                      <FaShoppingBasket className="lg:text-sm xl:text-lg text-gray-900 dark:text-white" />
                       {!isCollapsed && (
-                        <span className="ml-4 text-gray-900 dark:text-white">
+                        <span className="ml-2 xl:ml-4 text-gray-900 dark:text-white">
                           pricing
                         </span>
                       )}
@@ -276,9 +276,9 @@ const Sidebar = ({
                   placement="right"
                 >
                   <li className="flex items-center px-2 py-2 hover:bg-gray-100 dark:hover:bg-gray-800 cursor-pointer rounded">
-                    <AiOutlineShop className="text-md text-gray-900 dark:text-white" />
+                    <AiOutlineShop className="lg:text-sm xl:text-lg text-gray-900 dark:text-white" />
                     {!isCollapsed && (
-                      <span className="ml-4 text-gray-900 dark:text-white">
+                      <span className="ml-2 xl:ml-4 text-gray-900 dark:text-white">
                         Subscriptions
                       </span>
                     )}
@@ -294,10 +294,12 @@ const Sidebar = ({
             <Tooltip title={`${isCollapsed ? "Logout" : ""}`} placement="right">
               <button
                 onClick={handleLogoutClick}
-                className="flex items-center py-2 px-4  text-gray-900 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-800 rounded"
+                className="flex items-center py-2 pl-2 xl:px-4  text-gray-900 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-800 rounded"
               >
-                <MdOutlineLogout className="text-md" />
-                {!isCollapsed && <span className="ml-4">Logout</span>}
+                <MdOutlineLogout className="lg:text-base xl:text-lg" />
+                {!isCollapsed && (
+                  <span className="ml-1 text-sm xl:ml-4">Logout</span>
+                )}
               </button>
             </Tooltip>
           </ThemeProvider>

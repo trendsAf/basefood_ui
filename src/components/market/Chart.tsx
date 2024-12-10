@@ -104,7 +104,9 @@ const Chart: React.FC<ChartProps> = ({
   return (
     <div className="p-4 bg-white dark:bg-secondary-black dark:text-white rounded-[4px]">
       <ToastContainer />
-      <h2 className="text-md font-bold mb-2">Crop Price Movement</h2>
+      <h2 className="text-md font-bold mb-2 sm:text-2xl lg:text-sm xl:text-lg">
+        Crop Price Movement
+      </h2>
 
       {/* Duration Selector */}
       <div className="flex items-center mb-2">
@@ -113,7 +115,7 @@ const Chart: React.FC<ChartProps> = ({
             key={duration}
             onClick={() => handleDurationChange(duration)}
             disabled={!durations.includes(duration)}
-            className={`px-4 py-2 text-sm rounded-md transition-all ${
+            className={`px-2 py-1 md:text-lg lg:text-[12px] xl:text-lg rounded-md transition-all ${
               selectedRange === duration
                 ? "bg-bg-gray dark:bg-black text-brand-blue shadow-sm"
                 : "text-gray-500 dark:text-gray-400 hover:text-brand-blue"

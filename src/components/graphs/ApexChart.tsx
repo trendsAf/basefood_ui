@@ -44,10 +44,13 @@ const ApexChart: React.FC<ApexChartProps> = ({ data }) => {
     },
     yaxis: {
       labels: {
-        formatter: (val: number) => `$${val.toFixed(0)}`,
+        formatter: (val: number) => `$${val.toFixed(0)}`, // Explicitly type 'val'
+        style: {
+          fontSize: "14px", // Default font size
+        },
       },
       title: {
-        text: "Price (in $)",
+        text: "Price (in $)", // Add this title explicitly
       },
     },
     xaxis: {
@@ -56,7 +59,7 @@ const ApexChart: React.FC<ApexChartProps> = ({ data }) => {
     tooltip: {
       shared: true,
       y: {
-        formatter: (val: number) => `$${val.toFixed(0)}`,
+        formatter: (val: number) => `$${val.toFixed(0)}`, // Explicitly type 'val'
       },
       theme: isDarkMode ? "dark" : "light",
       style: {
@@ -75,10 +78,63 @@ const ApexChart: React.FC<ApexChartProps> = ({ data }) => {
         reset: '<i class="fas fa-undo" width="20"></i>',
       },
     },
-    // theme: {
-    //   mode: isDarkMode ? 'dark' : 'light',
-    //   palette: 'palette2',
-    // },
+    responsive: [
+      {
+        breakpoint: 768,
+        options: {
+          chart: {
+            height: 300,
+          },
+          yaxis: {
+            labels: {
+              style: {
+                fontSize: "12px", // Smaller font size
+              },
+            },
+            title: {
+              text: "Price (in $)", // Retain title for this breakpoint
+            },
+          },
+          xaxis: {
+            labels: {
+              style: {
+                fontSize: "10px",
+              },
+            },
+          },
+        },
+      },
+      {
+        breakpoint: 480,
+        options: {
+          chart: {
+            height: 250,
+          },
+          yaxis: {
+            labels: {
+              style: {
+                fontSize: "10px",
+              },
+            },
+            title: {
+              text: "Price (in $)", // Retain title for this breakpoint
+            },
+          },
+          xaxis: {
+            labels: {
+              style: {
+                fontSize: "8px",
+              },
+            },
+          },
+          tooltip: {
+            style: {
+              fontSize: "8px",
+            },
+          },
+        },
+      },
+    ],
   };
 
   return (
