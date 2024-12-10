@@ -103,8 +103,8 @@ const Dashboard: React.FC<DashboardProps> = () => {
   return (
     <>
       <MarketIndicators />
-      <div className="flex flex-col md:flex-row w-full pt-3 items-start justify-between gap-3">
-        <div className={"flex w-full md:w-[20%] flex-col gap-4"}>
+      <div className="flex flex-col lg:flex-row w-full pt-3 items-start justify-between gap-3">
+        <div className={"flex w-full lg:w-[20%] flex-col gap-4"}>
           <div className="bg-white dark:bg-secondary-black px-2 py-1 rounded">
             <Crops />
           </div>
@@ -124,11 +124,19 @@ const Dashboard: React.FC<DashboardProps> = () => {
             marketData={marketData}
           />
         </div>
-        <div className="flex flex-col gap-3 w-full md:w-2/5">
-          <h1 className="logo text-start text-xl">Market insights</h1>
-          {insightsData.map((insight, idx) => (
-            <MarketInsights key={idx} name={insight.name} data={insight.data} />
-          ))}
+        <div className="flex flex-col gap-2 lg:gap-3 w-full lg:w-2/5">
+          <h1 className="logo text-start xl:text-xl lg:text-sm sm:text-2xl">
+            Market insights
+          </h1>
+          <div className="flex flex-col gap-4">
+            {insightsData.map((insight, idx) => (
+              <MarketInsights
+                key={idx}
+                name={insight.name}
+                data={insight.data}
+              />
+            ))}
+          </div>
         </div>
       </div>
     </>

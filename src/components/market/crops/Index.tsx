@@ -1,11 +1,10 @@
-import React, { useEffect, useState } from "react";
 import {
   FormControl,
-  InputLabel,
   MenuItem,
   Select,
   SelectChangeEvent,
 } from "@mui/material";
+import React, { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../../redux/hooks";
 import { getCropsCategory } from "../../../redux/reducers/crops/cropCategorySlice";
 import { getCrops } from "../../../redux/reducers/crops/cropSlice";
@@ -82,23 +81,35 @@ const CropSelector: React.FC = () => {
   };
 
   return (
-    <div className="flex items-center flex-col w-full">
+    <div className="flex items-center lg:flex-col md:flex-row w-full">
       {/* Category Dropdown */}
       <FormControl
         sx={{ m: 1, minWidth: 120, width: "100%" }}
         size="small"
         disabled={categoryLoading || cropCategoryList.length === 0}
       >
-        <InputLabel id="category-select-label">Category</InputLabel>
         <Select<string>
           labelId="category-select-label"
           id="category-select"
           label="Category"
+          className="!text-sm sm:!text-xl lg:!text-sm xl:!text-lg"
           value={selectedCategory}
           onChange={handleCategoryChange}
+          displayEmpty
         >
+          {/* Default "Select Category" Option */}
+          <MenuItem
+            value=""
+            className="!text-sm sm:!text-xl lg:!text-sm xl:!text-lg"
+          >
+            Select Category
+          </MenuItem>
           {cropCategoryList.map((category) => (
-            <MenuItem value={category.id.toString()} key={category.id}>
+            <MenuItem
+              value={category.id.toString()}
+              key={category.id}
+              className="!text-sm sm:!text-xl lg:!text-sm xl:!text-lg"
+            >
               {category.name}
             </MenuItem>
           ))}
@@ -111,18 +122,27 @@ const CropSelector: React.FC = () => {
         size="small"
         disabled={cropsLoading || !filteredCrops.length || !selectedCategory}
       >
-        <InputLabel id="crop-select-label">Crops</InputLabel>
         <Select<string>
           labelId="crop-select-label"
           id="crop-select"
           label="Crops"
+          className="!text-sm sm:!text-xl lg:!text-sm xl:!text-lg"
           value={crop_id || ""}
           onChange={handleCropChange}
           displayEmpty
         >
-          <MenuItem value="">Select Crop</MenuItem>
+          <MenuItem
+            value=""
+            className="!text-sm sm:!text-xl lg:!text-sm xl:!text-lg"
+          >
+            Select Crop
+          </MenuItem>
           {filteredCrops.map((crop) => (
-            <MenuItem value={crop.id} key={crop.id}>
+            <MenuItem
+              value={crop.id}
+              key={crop.id}
+              className="!text-sm sm:!text-xl lg:!text-sm xl:!text-lg"
+            >
               {crop.name}
             </MenuItem>
           ))}

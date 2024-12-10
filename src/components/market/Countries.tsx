@@ -110,14 +110,18 @@ const Countries: React.FC<CountriesProps> = ({ onCountrySelect }) => {
   };
 
   return (
-    <div className="p-4 bg-white dark:bg-secondary-black dark:text-white rounded-lg">
-      <h2 className="text-md font-bold mb-4">Countries</h2>
-      <ul>
+    <div className=" bg-white dark:bg-secondary-black dark:text-white rounded-lg">
+      <h2 className="font-bold text-start ml-2 lg:text-start xl:mr-16 pt-2 sm:text-2xl lg:text-base xl:text-lg">
+        Countries
+      </h2>
+      <ul className="mt-2 pb-2 grid sm:grid-cols-4 grid-cols-2 ml-4 sm:ml-0 lg:flex flex-col">
         {countriesWithColors.length === 0 ? (
-          <li>No countries available</li>
+          <li className="text-sm text-white/40 text-center">
+            No countries available
+          </li>
         ) : (
           countriesWithColors.map(({ name, id, color }) => (
-            <li key={id} className="flex items-center mb-2">
+            <li key={id} className="flex items-center  mb-2 md:px-4 lg:px-1 ">
               <Checkbox
                 checked={selectedCountry === name}
                 onChange={() => handleCountryChange(name, id)}
@@ -126,12 +130,14 @@ const Countries: React.FC<CountriesProps> = ({ onCountrySelect }) => {
                   "&.Mui-checked": {
                     color: color,
                   },
-                  "& .MuiSvgIcon-root": { fontSize: 20 },
+                  "& .MuiSvgIcon-root": { fontSize: [16, 30, 20, 20, 20] },
                   padding: "4px",
                 }}
-                disabled={isSubmitting} // Disable interaction during submission
+                disabled={isSubmitting}
               />
-              <label>{name}</label>
+              <label className="text-[12px] sm:text-xl lg:text-[12px] xl:text-lg">
+                {name}
+              </label>
             </li>
           ))
         )}

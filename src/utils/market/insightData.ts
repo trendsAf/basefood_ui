@@ -9,21 +9,21 @@ export const insightsData = [
     ],
   },
   {
-    name: "Wheat",
-    data: [
-      "New trade agreement to boost wheat exports from Kenya",
-      "Wheat harvest in South Africa expected to reach record levels",
-      "Global demand for wheat-based products rises by 10%",
-      "Wheat prices to remain stable due to favorable weather conditions in Europe",
-    ],
-  },
-  {
     name: "Maize",
     data: [
       "Maize prices expected to rise due to drought in major producing regions",
       "Increased government subsidies for maize farmers in Tanzania",
       "Maize production in Zambia affected by heavy rainfall",
       //   "Maize exports from Argentina expected to increase by 20%",
+    ],
+  },
+  {
+    name: "Wheat",
+    data: [
+      "New trade agreement to boost wheat exports from Kenya",
+      "Wheat harvest in South Africa expected to reach record levels",
+      "Global demand for wheat-based products rises by 10%",
+      "Wheat prices to remain stable due to favorable weather conditions in Europe",
     ],
   },
 ];
