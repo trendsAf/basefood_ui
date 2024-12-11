@@ -40,23 +40,24 @@ body::-webkit-scrollbar-thumb:hover {
   font-family: "Space Grotesk", sans-serif;
 }
 
-/* .active {
-  color: #3b82f6 !important;
-  background-color: #f7f8fa;
-  border-radius: 5px;
+.prompt svg {
+  position: absolute;
 }
-
-.dark .active {
-  color: #60a5fa !important;
-  background-color: #1f2937;
-  border-radius: 5px;
+.prompt .line {
+  stroke-dasharray: 260;
+  stroke-width: 1px;
+  fill: transparent;
+  stroke: rgba(78, 255, 13, 0.3);
+  animation: svgAnimation 2.5s linear infinite;
 }
-
-.active span,
-.active svg {
-  color: #2563eb !important;
-  font-weight: bold;
-} */
+@keyframes svgAnimation {
+  from {
+    stroke-dashoffset: 0;
+  }
+  to {
+    stroke-dashoffset: 1000;
+  }
+}
 
 @layer utilities {
   .active {
