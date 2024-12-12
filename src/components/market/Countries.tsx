@@ -5,6 +5,7 @@ import { getCountry } from "../../redux/reducers/countries/countrySlice";
 import { updateField } from "../../redux/reducers/form/formSlice";
 import { pricing } from "../../redux/reducers/pricing/priceSlice";
 import { toast } from "react-toastify";
+import { AiOutlineArrowDown } from "react-icons/ai";
 
 interface CountriesProps {
   selectedCountry: string | null;
@@ -49,7 +50,6 @@ const Countries: React.FC<CountriesProps> = ({ onCountrySelect }) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   useEffect(() => {
-    // Fetch the list of countries on component mount
     dispatch(getCountry());
   }, [dispatch]);
 
@@ -61,31 +61,25 @@ const Countries: React.FC<CountriesProps> = ({ onCountrySelect }) => {
   const handleCountryChange = async (country: string, countryId: number) => {
     const { crop_id } = formData;
 
-    // Validate crop selection
     if (!crop_id) {
       toast.error("Please select a crop");
       return;
     }
 
-    // Immediately use the passed values
     setSelectedCountry(country);
     setSelectedCountryId(countryId);
 
-    // Store the selected country in localStorage
     localStorage.setItem("selectedCountry", country);
     localStorage.setItem("selectedCountryId", countryId.toString());
 
     onCountrySelect(country, countryId);
     dispatch(updateField({ field: "country_id", value: countryId.toString() }));
 
-    // Handle the API call with the "Week" duration
     const selectedDuration = "Week";
     dispatch(updateField({ field: "duration", value: selectedDuration }));
-    // console.log("Selected duration:", selectedDuration);
 
     setIsSubmitting(true);
     try {
-      // Ensure country_id is passed as a string
       const updatedFormData = {
         ...formData,
         country_id: countryId.toString(),
@@ -96,32 +90,70 @@ const Countries: React.FC<CountriesProps> = ({ onCountrySelect }) => {
 
       const response = await dispatch(pricing(updatedFormData)).unwrap();
       toast.success(response.message);
-      // console.log("Submission success:", response);
 
       const res = JSON.stringify(response);
       localStorage.setItem("crops_market", res);
       localStorage.setItem("selectedDuration", selectedDuration);
     } catch (err) {
-      // console.error("Submission failed:", err);
       toast.error("An error occurred while submitting.");
     } finally {
       setIsSubmitting(false);
     }
   };
 
+  const [localCountryPrompt, setLocalCountryPrompt] = useState(false);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      const cropsMarket = localStorage.getItem("crops_market");
+      const myLocalCountry = localStorage.getItem("selectedCountryId");
+
+      if (!cropsMarket) {
+        if (formData.crop_id && !myLocalCountry) {
+          setLocalCountryPrompt(true);
+        } else {
+          setLocalCountryPrompt(false);
+        }
+      } else {
+        setLocalCountryPrompt(false);
+      }
+    }, 100);
+    return () => clearInterval(interval);
+  }, [formData.crop_id]);
+
   return (
-    <div className=" bg-white dark:bg-secondary-black dark:text-white rounded-lg">
-      <h2 className="font-bold text-start ml-2 lg:text-start xl:mr-16 pt-2 sm:text-2xl lg:text-base xl:text-lg">
+    <div className="bg-white dark:bg-secondary-black dark:text-white rounded-lg">
+      {localCountryPrompt && (
+        <div className="absolute w-full h-full bg-black/70 inset-0 z-50 flex">
+          <div className="flex gap-2 w-full relative">
+            <div className="flex absolute lg:top-72 lg:left-[18vw] top-36 left-[52vw]">
+              <AiOutlineArrowDown className="text-white text-2xl animate-bounce" />
+              <span className="text-white text-sm bg-black/80 px-2 py-1 rounded-md">
+                Select country
+              </span>
+            </div>
+          </div>
+        </div>
+      )}
+      <h2
+        className={`font-bold text-start ml-2 lg:text-start xl:mr-16 pt-2 sm:text-2xl lg:text-base xl:text-lg ${
+          localCountryPrompt ? "hidden" : ""
+        }`}
+      >
         Countries
       </h2>
-      <ul className="mt-2 pb-2 grid sm:grid-cols-4 grid-cols-2 ml-4 sm:ml-0 lg:flex flex-col">
+      <ul
+        className={`mt-2 pb-2 grid sm:grid-cols-4 grid-cols-2 ml-4 sm:ml-0 lg:flex flex-col ${
+          localCountryPrompt ? "absolute z-[70]" : ""
+        }`}
+      >
         {countriesWithColors.length === 0 ? (
           <li className="text-sm text-white/40 text-center">
             No countries available
           </li>
         ) : (
           countriesWithColors.map(({ name, id, color }) => (
-            <li key={id} className="flex items-center  mb-2 md:px-4 lg:px-1 ">
+            <li key={id} className="flex items-center mb-2 md:px-4 lg:px-1">
               <Checkbox
                 checked={selectedCountry === name}
                 onChange={() => handleCountryChange(name, id)}
