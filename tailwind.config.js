@@ -20,6 +20,9 @@ export default {
         "secondary-black": "#1E1E1E",
         transparent: "transparent",
       },
+      screens: {
+        "1xl": "1366px",
+      },
     },
   },
   plugins: [],

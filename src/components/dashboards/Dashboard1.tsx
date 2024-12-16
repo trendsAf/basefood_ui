@@ -114,16 +114,16 @@ const Dashboard1 = () => {
 
   return (
     <>
-      <div className="grid grid-cols-2 grid-rows-2 gap-4 min-h-[85vh] max-h-[85vh]">
+      <div className="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-2 gap-4 min-h-[85vh] max-h-[86vh]">
         {[0, 1, 2, 3].map((index) => (
           <div
             key={index}
-            className="relative border flex flex-col justify-center rounded-lg overflow-hidden h-[100%]"
+            className="relative border flex flex-col justify-center rounded-lg overflow-hidden h-[100%] min-h-[250px]"
           >
             {selectedComponents[index] ? (
               <>
-                <div className="flex justify-between items-center bg-gray-100 dark:bg-[#252525] dark:text-white px-2 py-1">
-                  <span className="font-semibold text-gray-900 ml-2 dark:text-gray-300">
+                <div className="flex md:flex-row flex-col justify-between items-center bg-gray-100 dark:bg-[#252525] dark:text-white px-2 py-1">
+                  <span className="font-semibold  text-gray-900 ml-2 dark:text-gray-300 text-lg md:text-xl lg:text-base">
                     {getToolbarText(selectedComponents[index])}
                   </span>
                   <div className="flex items-center gap-2">
@@ -164,7 +164,7 @@ const Dashboard1 = () => {
                   </div>
                 </div>
 
-                <div className="w-full h-full p-4 overflow-y-auto">
+                <div className="w-full h-full p-2 md:p-4 overflow-y-auto">
                   {renderComponent(selectedComponents[index])}
                 </div>
               </>

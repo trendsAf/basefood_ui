@@ -1,11 +1,10 @@
-import React, { useEffect, useState } from "react";
 import Checkbox from "@mui/material/Checkbox";
+import React, { useEffect, useState } from "react";
+import { toast } from "react-toastify";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { getCountry } from "../../redux/reducers/countries/countrySlice";
 import { updateField } from "../../redux/reducers/form/formSlice";
 import { pricing } from "../../redux/reducers/pricing/priceSlice";
-import { toast } from "react-toastify";
-import { AiOutlineArrowDown } from "react-icons/ai";
 
 interface CountriesProps {
   selectedCountry: string | null;
@@ -122,24 +121,8 @@ const Countries: React.FC<CountriesProps> = ({ onCountrySelect }) => {
   }, [formData.crop_id]);
 
   return (
-    <div className="bg-white dark:bg-secondary-black dark:text-white rounded-lg">
-      {localCountryPrompt && (
-        <div className="absolute w-full h-full bg-black/70 inset-0 z-50 flex">
-          <div className="flex gap-2 w-full relative">
-            <div className="flex absolute lg:top-72 lg:left-[18vw] top-36 left-[52vw]">
-              <AiOutlineArrowDown className="text-white text-2xl animate-bounce" />
-              <span className="text-white text-sm bg-black/80 px-2 py-1 rounded-md">
-                Select country
-              </span>
-            </div>
-          </div>
-        </div>
-      )}
-      <h2
-        className={`font-bold text-start ml-2 lg:text-start xl:mr-16 pt-2 sm:text-2xl lg:text-base xl:text-lg ${
-          localCountryPrompt ? "hidden" : ""
-        }`}
-      >
+    <div className=" bg-white dark:bg-secondary-black dark:text-white rounded-lg">
+      <h2 className="font-bold text-start ml-4 lg:ml-2 lg:text-start xl:mr-16 pt-2 sm:text-2xl lg:text-base xl:text-lg">
         Countries
       </h2>
       <ul

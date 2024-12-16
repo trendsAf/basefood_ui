@@ -92,7 +92,7 @@ const CropSelector: React.FC = () => {
   };
 
   return (
-    <div className="flex items-center lg:flex-col md:flex-row w-full gap-2 pr-2">
+    <div className="flex flex-col px-2 py-2 xl:py-1 items-center lg:flex-col md:flex-row w-full">
       {/* Category Dropdown */}
       <div className="w-full prompt">
         {localPrompt === "category" && (

@@ -114,11 +114,11 @@ const NewDashboard: React.FC = () => {
 
   return (
     <>
-      <div className="grid grid-cols-2 grid-rows-2 gap-4 min-h-[85vh] max-h-[85vh]">
+      <div className="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-2 gap-4 min-h-[85vh] max-h-[85vh]">
         {[0, 1, 2, 3].map((index) => (
           <div
             key={index}
-            className="relative border flex flex-col justify-center rounded-lg overflow-hidden h-[100%]"
+            className="relative border flex flex-col justify-center rounded-lg overflow-hidden h-auto min-h-[250px]"
           >
             {selectedComponents[index] ? (
               <>
@@ -155,7 +155,6 @@ const NewDashboard: React.FC = () => {
                     </IconButton>
                   </div>
                 </div>
-
                 <div className="w-full h-full p-4 overflow-y-auto">
                   {renderComponent(selectedComponents[index])}
                 </div>
