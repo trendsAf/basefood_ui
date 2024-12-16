@@ -102,7 +102,7 @@ const WatchlistTable: React.FC<WatchlistTableProps> = ({
     <div>
       <TableContainer
         component={Paper}
-        className="shadow-lg dark:bg-secondary-black overflow-auto relative"
+        className="shadow-lg dark:bg-secondary-black overflow-auto commonScroll  relative"
       >
         <Table>
           <TableHead>

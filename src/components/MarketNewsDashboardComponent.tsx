@@ -43,14 +43,16 @@ const MarketNewsDashboardComponent: React.FC = () => {
             key={news.id}
             className="bg-white dark:bg-[#252525] rounded-lg p-2"
           >
-            <h3 className="text-lg font-semibold dark:text-white">
+            <h3 className="text-sm md:text-lg font-semibold dark:text-white logo">
               {news.title}
             </h3>
-            <div className="flex items-center justify-between pr-10">
-              <p className="text-gray-600 dark:text-white text-sm mb-">
+            <div className="flex items-center justify-between md:pr-10">
+              <p className="text-gray-600 dark:text-gray-400 text-sm mb-">
                 {truncateText(news.description, 25)}
               </p>
-              <p className="text-gray-500 text-xs mb-">{news.date}</p>
+              <p className="text-gray-500 text-[12px] md:text-xs mb-">
+                {news.date}
+              </p>
             </div>
             <a
               href={news.link}

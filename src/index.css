@@ -6,6 +6,7 @@
   font-family: "Helvetica", sans-serif;
 }
 
+/* Body scrollbar */
 body::-webkit-scrollbar {
   width: 8px;
 }
@@ -22,6 +23,28 @@ body::-webkit-scrollbar-thumb {
 
 body::-webkit-scrollbar-thumb:hover {
   background-color: #555;
+}
+
+/* Custom scrollbar styles */
+
+.commonScroll::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+  padding: 4px;
+}
+
+.commonScroll::-webkit-scrollbar-thumb {
+  background-color: #888;
+  border-radius: 4px;
+}
+
+.commonScroll::-webkit-scrollbar-thumb:hover {
+  background-color: #555;
+}
+
+.commonScroll::-webkit-scrollbar-track {
+  background-color: #f1f1f1;
+  border-radius: 10px;
 }
 
 .logo {

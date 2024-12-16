@@ -42,13 +42,21 @@ interface SidebarProps {
   isSidebarVisible: boolean;
   isCollapsed: boolean;
   setIsCollapsed: (value: boolean) => void;
+  toggleSidebar: () => void;
 }
 
 const Sidebar = ({
   isSidebarVisible,
   isCollapsed,
   setIsCollapsed,
+  toggleSidebar,
 }: SidebarProps) => {
+  const handleItemClick = () => {
+    // Toggle sidebar visibility on item click
+    if (isSidebarVisible) {
+      toggleSidebar();
+    }
+  };
   const theme = useSelector((state: RootState) => state.theme.value);
   const [isDashboardsOpen, setIsDashboardsOpen] = useState(false);
   const [openLogoutModal, setOpenLogoutModal] = useState(false);
@@ -85,7 +93,7 @@ const Sidebar = ({
         className={`fixed z-40 left-0 top-0 h-[100vh] ${
           isCollapsed
             ? "w-20 border-r border-bg-gray dark:border-[#404040]"
-            : "w-[80%] sm:w-[40%] md:w-[30%] lg:w-[16%] md:transition-none transition-all duration-300"
+            : "w-[80%] sm:w-[40%] md:w-[60%] lg:w-[16%] md:transition-none transition-all duration-300"
         } border-r border-bg-gray dark:border-[#404040] bg-white px-4 lg:px-2 2xl:px-4 flex flex-col  justify-between dark:bg-black transform ${
           isSidebarVisible ? "translate-x-0" : "-translate-x-full"
         } lg:translate-x-0`}
@@ -123,44 +131,26 @@ const Sidebar = ({
           </div>
 
           <nav className="mt-6 flex flex-col justify-center">
-            <ul className="flex flex-col space-y-2 text-sm lg:text-[12px] xl:text-sm  2xl:text-lg">
-              <NavLink
-                to="/"
-                //@ts-ignore
-                activeclassname="active"
-              >
-                <ThemeProvider theme={tooltipTheme}>
-                  <Tooltip
-                    title={`${isCollapsed ? "Today's Market" : ""}`}
-                    placement="right"
-                  >
-                    <li className="flex items-center px-2 py-2 rounded hover:bg-gray-100 dark:hover:bg-gray-800 cursor-pointer">
-                      <GoHome className="lg:text-sm xl:text-lg whitespace-nowrap text-gray-900 dark:text-white" />
-                      {!isCollapsed && (
-                        <span className="ml-2 xl:ml-4 text-gray-900 dark:text-white">
-                          Today's Market
-                        </span>
-                      )}
-                    </li>
-                  </Tooltip>
-                </ThemeProvider>
+            <ul className="flex flex-col space-y-2 text-sm md:text-2xl lg:text-[12px] xl:text-sm  2xl:text-lg">
+              <NavLink to="/" onClick={handleItemClick}>
+                <li className="flex items-center px-2 py-2 rounded hover:bg-gray-100 dark:hover:bg-gray-800 cursor-pointer">
+                  <GoHome className="lg:text-sm xl:text-lg text-gray-900 dark:text-white" />
+                  {!isCollapsed && (
+                    <span className="ml-2 xl:ml-4 text-gray-900 dark:text-white">
+                      Today's Market
+                    </span>
+                  )}
+                </li>
               </NavLink>
-              <NavLink to="news">
-                <ThemeProvider theme={tooltipTheme}>
-                  <Tooltip
-                    title={`${isCollapsed ? "Market News" : ""}`}
-                    placement="right"
-                  >
-                    <li className="flex items-center px-2 py-2 hover:bg-gray-100 dark:hover:bg-gray-800 cursor-pointer rounded">
-                      <LuNewspaper className="lg:text-sm xl:text-lg text-gray-900 dark:text-white" />
-                      {!isCollapsed && (
-                        <span className="ml-2 xl:ml-4 text-gray-900 dark:text-white">
-                          Market News
-                        </span>
-                      )}
-                    </li>
-                  </Tooltip>
-                </ThemeProvider>
+              <NavLink to="/news" onClick={handleItemClick}>
+                <li className="flex items-center px-2 py-2 rounded hover:bg-gray-100 dark:hover:bg-gray-800 cursor-pointer">
+                  <LuNewspaper className="lg:text-sm xl:text-lg text-gray-900 dark:text-white" />
+                  {!isCollapsed && (
+                    <span className="ml-2 xl:ml-4 text-gray-900 dark:text-white">
+                      Market News
+                    </span>
+                  )}
+                </li>
               </NavLink>
               <li>
                 <ThemeProvider theme={tooltipTheme}>
@@ -175,7 +165,7 @@ const Sidebar = ({
                       <div className="flex items-center">
                         <RxDashboard className="lg:text-sm xl:text-lg text-gray-900 dark:text-white" />
                         {!isCollapsed && (
-                          <NavLink to={"/dashboard"}>
+                          <NavLink to={"/dashboard"} onClick={handleItemClick}>
                             <span className="ml-2 xl:ml-4 text-gray-900 dark:text-white">
                               My Dashboards
                             </span>
@@ -195,8 +185,8 @@ const Sidebar = ({
                   </Tooltip>
                 </ThemeProvider>
                 {!isCollapsed && isDashboardsOpen && (
-                  <ul className="pl-10 flex flex-col space-y-2">
-                    <NavLink to={"/dashboard1"}>
+                  <ul className="xl:pl-10 lg:pl-4 pl-6 flex flex-col space-y-2">
+                    <NavLink to={"/dashboard1"} onClick={handleItemClick}>
                       <li className="flex items-center px-2 py-2 hover:bg-gray-100 dark:hover:bg-gray-800 cursor-pointer rounded">
                         <span className="text-gray-900 dark:text-white">
                           Dashboard 1
@@ -208,10 +198,14 @@ const Sidebar = ({
                         Dashboard 2
                       </span>
                     </li> */}
-                    <NavLink to="/dashboards/new" className="flex items-center">
+                    <NavLink
+                      to="/dashboards/new"
+                      className="flex items-center"
+                      onClick={handleItemClick}
+                    >
                       <li className="flex items-center px-2 py-2 hover:bg-gray-100 dark:hover:bg-gray-800 cursor-pointer rounded">
                         <FaPlus className="text-gray-900 dark:text-white text-sm" />
-                        <span className="ml-2 text-gray-900 dark:text-white">
+                        <span className="xl:ml-2 lg:ml-1 ml-2 text-gray-900 dark:text-white">
                           New Dashboard
                         </span>
                       </li>
@@ -224,7 +218,10 @@ const Sidebar = ({
                   title={`${isCollapsed ? "Notifications" : ""}`}
                   placement="right"
                 >
-                  <li className="flex items-center px-2 py-2 hover:bg-gray-100 dark:hover:bg-gray-800 cursor-pointer rounded">
+                  <li
+                    className="flex items-center px-2 py-2 hover:bg-gray-100 dark:hover:bg-gray-800 cursor-pointer rounded"
+                    onClick={handleItemClick}
+                  >
                     <AiOutlineBell className="lg:text-sm xl:text-lg text-gray-900 dark:text-white" />
                     {!isCollapsed && (
                       <span className="ml-2 xl:ml-4 text-gray-900 dark:text-white">
@@ -241,7 +238,10 @@ const Sidebar = ({
                       title={`${isCollapsed ? "Analytics" : ""}`}
                       placement="right"
                     >
-                      <li className="flex items-center px-2 py-2 hover:bg-gray-100 dark:hover:bg-gray-800 cursor-pointer rounded">
+                      <li
+                        className="flex items-center px-2 py-2 hover:bg-gray-100 dark:hover:bg-gray-800 cursor-pointer rounded"
+                        onClick={handleItemClick}
+                      >
                         <LiaMoneyCheckAltSolid className="lg:text-sm xl:text-lg text-gray-900 dark:text-white" />
                         {!isCollapsed && (
                           <span className="ml-2 xl:ml-4 text-gray-900 dark:text-white">
@@ -253,7 +253,7 @@ const Sidebar = ({
                   </ThemeProvider>
                 </a>
               ) : null}
-              <NavLink to="/pricing">
+              <NavLink to="/pricing" onClick={handleItemClick}>
                 <ThemeProvider theme={tooltipTheme}>
                   <Tooltip
                     title={`${isCollapsed ? "Analytics" : ""}`}
@@ -275,7 +275,10 @@ const Sidebar = ({
                   title={`${isCollapsed ? "Subscriptions" : ""}`}
                   placement="right"
                 >
-                  <li className="flex items-center px-2 py-2 hover:bg-gray-100 dark:hover:bg-gray-800 cursor-pointer rounded">
+                  <li
+                    className="flex items-center px-2 py-2 hover:bg-gray-100 dark:hover:bg-gray-800 cursor-pointer rounded"
+                    onClick={handleItemClick}
+                  >
                     <AiOutlineShop className="lg:text-sm xl:text-lg text-gray-900 dark:text-white" />
                     {!isCollapsed && (
                       <span className="ml-2 xl:ml-4 text-gray-900 dark:text-white">
@@ -296,9 +299,14 @@ const Sidebar = ({
                 onClick={handleLogoutClick}
                 className="flex items-center py-2 pl-2 xl:px-4  text-gray-900 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-800 rounded"
               >
-                <MdOutlineLogout className="lg:text-base xl:text-lg" />
+                <MdOutlineLogout className="lg:text-base md:text-2xl xl:text-lg" />
                 {!isCollapsed && (
-                  <span className="ml-1 text-sm xl:ml-4">Logout</span>
+                  <span
+                    className="ml-1 text-sm xl:ml-4 md:text-2xl"
+                    onClick={handleItemClick}
+                  >
+                    Logout
+                  </span>
                 )}
               </button>
             </Tooltip>
