@@ -27,7 +27,7 @@ const Header = ({ toggleSidebar, isCollapsed }: HeaderProps) => {
           <input
             type="text"
             placeholder="Search by product or location"
-            className="ml-2 bg-transparent border-none outline-none w-full text-gray-900 dark:text-gray-100 placeholder-gray-500 dark:placeholder-gray-400"
+            className="ml-2 bg-transparent border-none outline-none w-full text-gray-900 dark:text-gray-100 placeholder-gray-500 dark:placeholder-gray-400 lg:text-xs 2xl:text-lg"
           />
         </div>
       </div>

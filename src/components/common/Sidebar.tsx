@@ -173,11 +173,11 @@ const Sidebar = ({
                         )}
                       </div>
                       {!isCollapsed && (
-                        <span className="text-gray-900 dark:text-white lg:ml-2 xl:ml-2">
+                        <span className="text-gray-900 dark:text-white lg:ml-2 xl:ml-2 ml-3">
                           {isDashboardsOpen ? (
-                            <FaChevronUp className="text-sm" />
+                            <FaChevronUp className="text-base md:text-xl lg:text-sm" />
                           ) : (
-                            <FaChevronDown className="text-sm" />
+                            <FaChevronDown className="text-base md:text-xl lg:text-sm" />
                           )}
                         </span>
                       )}
@@ -302,7 +302,7 @@ const Sidebar = ({
                 <MdOutlineLogout className="lg:text-base md:text-2xl xl:text-lg" />
                 {!isCollapsed && (
                   <span
-                    className="ml-1 text-sm xl:ml-4 md:text-2xl"
+                    className="ml-1 text-sm xl:ml-4 md:text-2xl lg:text-sm"
                     onClick={handleItemClick}
                   >
                     Logout

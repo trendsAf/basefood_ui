@@ -61,8 +61,8 @@ const CropsMarket: React.FC<CropsMarketProps> = ({ onCropSelect }) => {
           <table className="min-w-full whitespace-nowrap text-left border-collapse">
             {/* Sticky Header */}
             <thead className="sticky top-0 bg-white dark:bg-black rounded-md z-10">
-              <tr className="text-gray-500 dark:text-gray-400 text-[10px] sm:text-xl lg:text-[12px] xl:text-base">
-                <th className="py-2 pl-2">Item</th>
+              <tr className="text-gray-500 dark:text-gray-400 text-[10px] sm:text-xl lg:text-[12px] 2xl:text-base">
+                <th className="py-2 pl-2">Crop variety</th>
                 <th className="py-2 px-2 sm:px-0">Min price</th>
                 <th className="py-2 px-2 sm:px-0">Max price</th>
                 <th className="py-2 px-2 sm:px-0">Average price</th>
@@ -73,10 +73,10 @@ const CropsMarket: React.FC<CropsMarketProps> = ({ onCropSelect }) => {
             {/* Scrollable Body */}
             <tbody>
               {cropsData.length <= 0 ? (
-                <tr>
+                <tr className="">
                   <td
                     colSpan={5}
-                    className="text-center md:text-lg lg:text-sm xl:text-lg text-gray-500"
+                    className="text-center md:text-lg lg:text-sm xl:text-lg text-gray-500 h-24"
                   >
                     No data
                   </td>
@@ -85,7 +85,7 @@ const CropsMarket: React.FC<CropsMarketProps> = ({ onCropSelect }) => {
                 cropsData.map((crop, index) => (
                   <tr
                     key={crop.name}
-                    className={`sm:text-lg lg:text-[12px] text-[8px] xl:text-lg ${
+                    className={`sm:text-lg lg:text-[12px] text-[8px] xl:text-[12px] 2xl:text-lg ${
                       index !== cropsData.length - 1
                         ? "border-b dark:border-gray-700"
                         : ""
@@ -101,12 +101,12 @@ const CropsMarket: React.FC<CropsMarketProps> = ({ onCropSelect }) => {
                             color: "#d6d7da",
                           },
                           "& .MuiSvgIcon-root": {
-                            fontSize: [16, 30, 20, 20, 20],
+                            fontSize: [16, 30, 20, 18, 20],
                           },
                           padding: "4px",
                         }}
                       />
-                      <span className="text-gray-700 dark:text-white text-[8px] sm:text-xl lg:text-[12px] xl:text-lg">
+                      <span className="text-gray-700 dark:text-white text-[8px] sm:text-xl lg:text-[12px] 2xl:text-lg">
                         {crop.name}
                       </span>
                     </td>

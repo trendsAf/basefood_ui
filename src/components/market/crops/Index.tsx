@@ -87,18 +87,20 @@ const CropSelector: React.FC = () => {
   };
 
   const handleCropChange = (e: SelectChangeEvent<string>) => {
-    dispatch(updateField({ field: "crop_id", value: e.target.value }));
+    const selectedCropId = e.target.value;
+    dispatch(updateField({ field: "crop_id", value: selectedCropId }));
+    localStorage.setItem("selectedCropId", selectedCropId);
     setLocalPrompt(null);
   };
 
   return (
-    <div className="flex flex-col px-2 py-2 xl:py-1 items-center lg:flex-col md:flex-row w-full">
+    <div className="flex flex-col pr-4 py-2 xl:py-1 items-center lg:flex-col md:flex-row md:gap-4 lg:gap-0 w-full">
       {/* Category Dropdown */}
       <div className="w-full prompt">
         {localPrompt === "category" && (
           <div className="absolute w-full h-full bg-black/70 inset-0 z-50 flex ">
             <div className="flex gap-2 w-full relative">
-              <div className="flex absolute top-32 left-[20vw]">
+              <div className="flex absolute md:top-32 md:left-[20vw] top-36 left-[8vw]">
                 <AiOutlineArrowDown className="text-white text-2xl animate-bounce" />
                 <span className="text-white text-sm bg-black/80 px-2 py-1 rounded-md ml-4">
                   Select category
@@ -127,7 +129,7 @@ const CropSelector: React.FC = () => {
             labelId="category-select-label"
             id="category-select"
             label="Category"
-            className="!text-sm sm:!text-xl lg:!text-sm xl:!text-lg"
+            className="!text-sm sm:!text-xl lg:!text-sm xl:!text-base 2xl:!text-lg"
             value={selectedCategory}
             onChange={handleCategoryChange}
             displayEmpty
@@ -156,7 +158,7 @@ const CropSelector: React.FC = () => {
         {localPrompt === "crop" && (
           <div className="absolute w-full h-full bg-black/70 inset-0 z-50 flex ">
             <div className="flex gap-2 w-full relative">
-              <div className="flex absolute lg:top-52 lg:left-[20vw] top-36 left-[52vw]">
+              <div className="flex absolute lg:top-52 lg:left-[20vw] md:top-36 md:left-[52vw] top-48 left-[8vw]">
                 <AiOutlineArrowDown className="text-white text-2xl animate-bounce" />
                 <span className="text-white text-sm bg-black/80 px-2 py-1 rounded-md ml-4">
                   Select crop
@@ -186,7 +188,7 @@ const CropSelector: React.FC = () => {
             id="crop-select"
             label="Crops"
             className="!text-sm sm:!text-xl lg:!text-sm xl:!text-lg"
-            value={crop_id || ""}
+            value={storedCropId || ""}
             onChange={handleCropChange}
             displayEmpty
           >
@@ -198,9 +200,9 @@ const CropSelector: React.FC = () => {
             </MenuItem>
             {filteredCrops.map((crop) => (
               <MenuItem
-                value={crop.id}
+                value={crop.id.toString()}
                 key={crop.id}
-                className="!text-sm sm:!text-xl lg:!text-sm xl:!text-lg"
+                className="!text-sm sm:!text-xl lg:!text-sm xl:!text-base 2xl:!text-lg"
               >
                 {crop.name}
               </MenuItem>
