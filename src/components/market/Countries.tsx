@@ -1,10 +1,12 @@
-import Checkbox from "@mui/material/Checkbox";
 import React, { useEffect, useState } from "react";
-import { toast } from "react-toastify";
+import Checkbox from "@mui/material/Checkbox";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { getCountry } from "../../redux/reducers/countries/countrySlice";
 import { updateField } from "../../redux/reducers/form/formSlice";
 import { pricing } from "../../redux/reducers/pricing/priceSlice";
+import { toast } from "react-toastify";
+import { AiOutlineArrowDown } from "react-icons/ai";
+import Skeleton from "react-loading-skeleton";
 
 interface CountriesProps {
   selectedCountry: string | null;
@@ -37,7 +39,7 @@ const distinctColors = [
 
 const Countries: React.FC<CountriesProps> = ({ onCountrySelect }) => {
   const dispatch = useAppDispatch();
-  const { countryList } = useAppSelector((state) => state.countries);
+  const { countryList, isLoading } = useAppSelector((state) => state.countries);
   const formData = useAppSelector((state) => state.form);
 
   const [selectedCountry, setSelectedCountry] = useState<string | null>(
@@ -121,8 +123,24 @@ const Countries: React.FC<CountriesProps> = ({ onCountrySelect }) => {
   }, [formData.crop_id]);
 
   return (
-    <div className=" bg-white dark:bg-secondary-black dark:text-white rounded-lg">
-      <h2 className="font-bold text-start ml-4 lg:ml-2 lg:text-start xl:mr-16 pt-2 sm:text-2xl lg:text-base xl:text-lg">
+    <div className="bg-white dark:bg-secondary-black dark:text-white rounded-lg">
+      {localCountryPrompt && (
+        <div className="absolute w-full h-full bg-black/70 inset-0 z-50 flex">
+          <div className="flex gap-2 w-full relative">
+            <div className="flex absolute lg:top-72 lg:left-[18vw] md:top-56 md:left-[8vw] top-[17rem] left-[5vw]">
+              <AiOutlineArrowDown className="text-white text-2xl animate-bounce" />
+              <span className="text-white text-sm md:text-xl lg:text-sm bg-black/80 px-2 py-1 rounded-md">
+                Select country
+              </span>
+            </div>
+          </div>
+        </div>
+      )}
+      <h2
+        className={`font-bold text-start ml-2 lg:text-start xl:mr-16 pt-2 sm:text-2xl lg:text-base xl:text-lg ${
+          localCountryPrompt ? "hidden" : ""
+        }`}
+      >
         Countries
       </h2>
       <ul
@@ -130,7 +148,18 @@ const Countries: React.FC<CountriesProps> = ({ onCountrySelect }) => {
           localCountryPrompt ? "absolute z-[70]" : ""
         }`}
       >
-        {countriesWithColors.length === 0 ? (
+        {isLoading ? (
+          [0, 1, 2, 3, 4, 5, 6, 7].map((_, idx) => (
+            <tr key={idx} className="flex items-center">
+              <td className="p-2">
+                <Skeleton width={20} height={20} />
+              </td>
+              <td className="p-2">
+                <Skeleton height={20} width={100} />
+              </td>
+            </tr>
+          ))
+        ) : countriesWithColors.length === 0 ? (
           <li className="text-sm text-white/40 text-center">
             No countries available
           </li>
@@ -150,7 +179,7 @@ const Countries: React.FC<CountriesProps> = ({ onCountrySelect }) => {
                 }}
                 disabled={isSubmitting}
               />
-              <label className="text-[12px] sm:text-xl lg:text-[12px] xl:text-lg">
+              <label className="text-[12px] sm:text-xl lg:text-[12px] xl:text-sm 2xl:text-lg">
                 {name}
               </label>
             </li>

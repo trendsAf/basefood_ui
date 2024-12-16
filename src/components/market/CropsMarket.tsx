@@ -1,7 +1,8 @@
-import Checkbox from "@mui/material/Checkbox";
 import React, { useEffect, useState } from "react";
-import { TiArrowSortedDown, TiArrowSortedUp } from "react-icons/ti";
+import Checkbox from "@mui/material/Checkbox";
+import Skeleton from "react-loading-skeleton";
 import { toast } from "react-toastify";
+import { TiArrowSortedDown, TiArrowSortedUp } from "react-icons/ti";
 
 interface CropItem {
   name: string;
@@ -18,6 +19,7 @@ interface CropsMarketProps {
 const CropsMarket: React.FC<CropsMarketProps> = ({ onCropSelect }) => {
   const [selectedCrops, setSelectedCrops] = useState<string | null>(null);
   const [cropsData, setCropsData] = useState<CropItem[]>([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -33,9 +35,9 @@ const CropsMarket: React.FC<CropsMarketProps> = ({ onCropSelect }) => {
             max_price: item.max_price,
           }));
           setCropsData(mappedData);
+          setLoading(false);
         } catch (error: any) {
           toast.error(error.message);
-          // console.error("Error parsing crops_market_data:", error);
         }
       }
     }, 1000);
@@ -57,12 +59,12 @@ const CropsMarket: React.FC<CropsMarketProps> = ({ onCropSelect }) => {
         Crops Market
       </h2>
       <div className="w-full overflow-x-auto">
-        <div className="lg:max-h-36 lg:min-h-36 overflow-y-auto commonScroll">
+        <div className="lg:max-h-36 lg:min-h-36 overflow-y-auto commonScroll relative">
           <table className="min-w-full whitespace-nowrap text-left border-collapse">
             {/* Sticky Header */}
             <thead className="sticky top-0 bg-white dark:bg-black rounded-md z-10">
-              <tr className="text-gray-500 dark:text-gray-400 text-[10px] sm:text-xl lg:text-[12px] xl:text-base">
-                <th className="py-2 pl-2">Item</th>
+              <tr className="text-gray-500 dark:text-gray-400 text-[10px] sm:text-xl lg:text-[12px] 2xl:text-base">
+                <th className="py-2 pl-2">Crop variety</th>
                 <th className="py-2 px-2 sm:px-0">Min price</th>
                 <th className="py-2 px-2 sm:px-0">Max price</th>
                 <th className="py-2 px-2 sm:px-0">Average price</th>
@@ -70,13 +72,37 @@ const CropsMarket: React.FC<CropsMarketProps> = ({ onCropSelect }) => {
               </tr>
             </thead>
 
-            {/* Scrollable Body */}
+            {/* Table Body */}
             <tbody>
-              {cropsData.length <= 0 ? (
+              {loading ? (
+                Array.from({ length: 2 }).map((_, idx) => (
+                  <tr
+                    key={idx}
+                    className={`border-b border-white/40 ${idx === 1 ? "border-b-0" : ""}`}
+                  >
+                    <td className="py-2 flex items-center gap-2">
+                      <Skeleton width={20} height={20} />
+                      <Skeleton width={60} height={20} />
+                    </td>
+                    <td className="py-2 pl-1">
+                      <Skeleton width={70} height={20} />
+                    </td>
+                    <td className="py-2 pl-1">
+                      <Skeleton width={70} height={20} />
+                    </td>
+                    <td className="py-2 pl-1">
+                      <Skeleton width={70} height={20} />
+                    </td>
+                    <td className="py-2 pl-1">
+                      <Skeleton width={70} height={20} />
+                    </td>
+                  </tr>
+                ))
+              ) : cropsData.length <= 0 ? (
                 <tr>
                   <td
                     colSpan={5}
-                    className="text-center md:text-lg lg:text-sm xl:text-lg text-gray-500"
+                    className="text-center md:text-lg lg:text-sm xl:text-lg text-gray-500 h-24"
                   >
                     No data
                   </td>
@@ -85,7 +111,7 @@ const CropsMarket: React.FC<CropsMarketProps> = ({ onCropSelect }) => {
                 cropsData.map((crop, index) => (
                   <tr
                     key={crop.name}
-                    className={`sm:text-lg lg:text-[12px] text-[8px] xl:text-lg ${
+                    className={`sm:text-lg lg:text-[12px] text-[8px] xl:text-[12px] 2xl:text-lg ${
                       index !== cropsData.length - 1
                         ? "border-b dark:border-gray-700"
                         : ""
@@ -101,12 +127,12 @@ const CropsMarket: React.FC<CropsMarketProps> = ({ onCropSelect }) => {
                             color: "#d6d7da",
                           },
                           "& .MuiSvgIcon-root": {
-                            fontSize: [16, 30, 20, 20, 20],
+                            fontSize: [16, 30, 20, 18, 20],
                           },
                           padding: "4px",
                         }}
                       />
-                      <span className="text-gray-700 dark:text-white text-[8px] sm:text-xl lg:text-[12px] xl:text-lg">
+                      <span className="text-gray-700 dark:text-white text-[8px] sm:text-xl lg:text-[12px] 2xl:text-lg">
                         {crop.name}
                       </span>
                     </td>
