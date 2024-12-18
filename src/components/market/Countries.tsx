@@ -6,6 +6,7 @@ import { updateField } from "../../redux/reducers/form/formSlice";
 import { pricing } from "../../redux/reducers/pricing/priceSlice";
 import { toast } from "react-toastify";
 import { AiOutlineArrowDown } from "react-icons/ai";
+import Skeleton from "react-loading-skeleton";
 
 interface CountriesProps {
   selectedCountry: string | null;
@@ -38,7 +39,7 @@ const distinctColors = [
 
 const Countries: React.FC<CountriesProps> = ({ onCountrySelect }) => {
   const dispatch = useAppDispatch();
-  const { countryList } = useAppSelector((state) => state.countries);
+  const { countryList, isLoading } = useAppSelector((state) => state.countries);
   const formData = useAppSelector((state) => state.form);
 
   const [selectedCountry, setSelectedCountry] = useState<string | null>(
@@ -136,7 +137,7 @@ const Countries: React.FC<CountriesProps> = ({ onCountrySelect }) => {
         </div>
       )}
       <h2
-        className={`font-bold text-start ml-2 lg:text-start xl:mr-16 pt-2 sm:text-2xl lg:text-base xl:text-lg ${
+        className={`font-bold text-start ml-5 lg:ml-2 lg:text-start xl:mr-16 pt-2 sm:text-2xl lg:text-base 2xl:text-lg ${
           localCountryPrompt ? "hidden" : ""
         }`}
       >
@@ -147,7 +148,18 @@ const Countries: React.FC<CountriesProps> = ({ onCountrySelect }) => {
           localCountryPrompt ? "absolute z-[70]" : ""
         }`}
       >
-        {countriesWithColors.length === 0 ? (
+        {isLoading ? (
+          [0, 1, 2, 3, 4, 5, 6, 7].map((_, idx) => (
+            <tr key={idx} className="flex items-center">
+              <td className="p-2">
+                <Skeleton width={20} height={20} />
+              </td>
+              <td className="p-2">
+                <Skeleton height={20} width={100} />
+              </td>
+            </tr>
+          ))
+        ) : countriesWithColors.length === 0 ? (
           <li className="text-sm text-white/40 text-center">
             No countries available
           </li>
