@@ -115,7 +115,7 @@ const Chart: React.FC<ChartProps> = ({
             key={duration}
             onClick={() => handleDurationChange(duration)}
             disabled={!durations.includes(duration)}
-            className={`px-2 py-1 md:text-lg lg:text-[12px] xl:text-lg rounded-md transition-all ${
+            className={`px-2 py-1 md:text-lg lg:text-[12px] xl:text-base 2xl:text-lg rounded-md transition-all ${
               selectedRange === duration
                 ? "bg-bg-gray dark:bg-black text-brand-blue shadow-sm"
                 : "text-gray-500 dark:text-gray-400 hover:text-brand-blue"

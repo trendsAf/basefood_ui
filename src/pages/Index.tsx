@@ -128,7 +128,7 @@ const Dashboard: React.FC<DashboardProps> = () => {
           <h1 className="logo text-start xl:text-xl lg:text-sm sm:text-2xl">
             Market insights
           </h1>
-          <div className="flex flex-col gap-4">
+          <div className="flex flex-col gap-4 lg:gap-2 1xl:gap-4">
             {insightsData.map((insight, idx) => (
               <MarketInsights
                 key={idx}

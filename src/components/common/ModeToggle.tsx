@@ -28,7 +28,7 @@ const ModeToggle = ({ isCollapsed, isDarkMode, sidebar }: ModeToggleProps) => {
             />
           )}
           <span
-            className={`text-sm md:text-2xl lg:text-sm xl:text-lg  whitespace-nowrap  ${isDarkMode ? "text-gray-200 " : "text-gray-900"}`}
+            className={`text-sm md:text-2xl lg:text-sm xl:text-sm  whitespace-nowrap  ${isDarkMode ? "text-gray-200 " : "text-gray-900"}`}
           >
             {isDarkMode ? "Dark mode" : "Light mode"}
           </span>
