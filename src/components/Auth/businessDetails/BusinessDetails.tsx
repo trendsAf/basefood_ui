@@ -61,9 +61,9 @@ const BusinessDetails: React.FC<BusinessDetailsProps> = ({
       <SignupLeftSection logo={Logo} features={features} />
 
       <div className="w-full px-[4%] flex items-center justify-center">
-        <div className="p-6 bg-white rounded-lg w-full">
+        <div className="px-6 py-4 bg-white rounded-lg w-full">
           <h1 className="text-2xl font-semibold mb-6">Company Information</h1>
-          <form onSubmit={handleSubmit(onSubmitForm)} className="space-y-6">
+          <form onSubmit={handleSubmit(onSubmitForm)} className="space-y-4">
             {/* <p>Form Errors: {JSON.stringify(errors)}</p> */}
             <div>
               <Controller
@@ -73,7 +73,7 @@ const BusinessDetails: React.FC<BusinessDetailsProps> = ({
                 render={({ field }) => (
                   <input
                     {...field}
-                    className={`w-full p-3 border ${
+                    className={`w-full p-2 border ${
                       errors.company_name ? "border-red-500" : "border-gray-300"
                     } rounded-md`}
                     placeholder="Enter company name"
@@ -88,14 +88,18 @@ const BusinessDetails: React.FC<BusinessDetailsProps> = ({
             </div>
 
             <div>
-              <FormControl fullWidth error={Boolean(errors.country)}>
+              <FormControl
+                size="small"
+                fullWidth
+                error={Boolean(errors.country)}
+              >
                 <InputLabel>Select country</InputLabel>
                 <Controller
                   name="country"
                   control={control}
                   defaultValue=""
                   render={({ field }) => (
-                    <Select {...field} label="Select country">
+                    <Select {...field} label="Select country" size="small">
                       {countries.map((country) => (
                         <MenuItem key={country.code} value={country.code}>
                           {country.name}
@@ -120,7 +124,7 @@ const BusinessDetails: React.FC<BusinessDetailsProps> = ({
                 render={({ field }) => (
                   <input
                     {...field}
-                    className={`w-full p-3 border ${
+                    className={`w-full p-2 border ${
                       errors.province ? "border-red-500" : "border-gray-300"
                     } rounded-md`}
                     placeholder="Enter province"
@@ -135,7 +139,11 @@ const BusinessDetails: React.FC<BusinessDetailsProps> = ({
             </div>
 
             <div>
-              <FormControl fullWidth error={Boolean(errors.company_type)}>
+              <FormControl
+                size="small"
+                fullWidth
+                error={Boolean(errors.company_type)}
+              >
                 <InputLabel>Select company type</InputLabel>
                 <Controller
                   name="company_type"
@@ -160,7 +168,11 @@ const BusinessDetails: React.FC<BusinessDetailsProps> = ({
             </div>
 
             <div>
-              <FormControl fullWidth error={Boolean(errors.company_size)}>
+              <FormControl
+                size="small"
+                fullWidth
+                error={Boolean(errors.company_size)}
+              >
                 <InputLabel>Select company size</InputLabel>
                 <Controller
                   name="company_size"
@@ -185,7 +197,11 @@ const BusinessDetails: React.FC<BusinessDetailsProps> = ({
             </div>
 
             <div>
-              <FormControl fullWidth error={Boolean(errors.start_year)}>
+              <FormControl
+                size="small"
+                fullWidth
+                error={Boolean(errors.start_year)}
+              >
                 <InputLabel>Select year founded</InputLabel>
                 <Controller
                   name="start_year"
@@ -213,7 +229,11 @@ const BusinessDetails: React.FC<BusinessDetailsProps> = ({
             </div>
 
             <div>
-              <FormControl fullWidth error={Boolean(errors.annual_revenue)}>
+              <FormControl
+                size="small"
+                fullWidth
+                error={Boolean(errors.annual_revenue)}
+              >
                 <InputLabel>Select annual revenue</InputLabel>
                 <Controller
                   name="annual_revenue"
@@ -238,7 +258,11 @@ const BusinessDetails: React.FC<BusinessDetailsProps> = ({
             </div>
 
             <div>
-              <FormControl fullWidth error={Boolean(errors.company_role)}>
+              <FormControl
+                size="small"
+                fullWidth
+                error={Boolean(errors.company_role)}
+              >
                 <InputLabel>Select role</InputLabel>
                 <Controller
                   name="company_role"
@@ -270,7 +294,7 @@ const BusinessDetails: React.FC<BusinessDetailsProps> = ({
                 render={({ field }) => (
                   <input
                     {...field}
-                    className={`w-full p-3 border ${
+                    className={`w-full p-2 border ${
                       errors.phone ? "border-red-500" : "border-gray-300"
                     } rounded-md`}
                     placeholder="Enter phone number"
@@ -285,7 +309,7 @@ const BusinessDetails: React.FC<BusinessDetailsProps> = ({
             <div>
               <button
                 type="submit"
-                className="w-full p-3 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition-colors"
+                className="w-full p-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition-colors"
                 disabled={isLoading}
               >
                 {isLoading ? "Submitting..." : "Next"}

@@ -1,18 +1,18 @@
-import React, { useEffect, useState } from "react";
+import Cookies from "js-cookie";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Chart from "../components/market/Chart";
 import Countries from "../components/market/Countries";
 import Crops from "../components/market/crops/Index";
 import CropsMarket from "../components/market/CropsMarket";
 import MarketInsights from "../components/market/MarketInsights";
-import { decodeToken } from "../utils/config/decode";
-import marketData from "../utils/marketData.json";
-import { insightsData } from "../utils/market/insightData";
 import MarketIndicators from "../components/MarketIndicators";
 import { useAppDispatch, useAppSelector } from "../redux/hooks";
 import { getCountry } from "../redux/reducers/countries/countrySlice";
-import Cookies from "js-cookie";
 import { updateField } from "../redux/reducers/form/formSlice";
+import { decodeToken } from "../utils/config/decode";
+import { insightsData } from "../utils/market/insightData";
+import marketData from "../utils/marketData.json";
 
 const distinctColors = [
   "#FF4136",
@@ -38,11 +38,11 @@ const distinctColors = [
   "#BF360C",
 ];
 
-interface DashboardProps {
-  isCollapsed?: boolean;
-}
+// interface DashboardProps {
+//   isCollapsed?: boolean;
+// }
 
-const Dashboard: React.FC<DashboardProps> = () => {
+const Dashboard = () => {
   const dispatch = useAppDispatch();
   const { countryList } = useAppSelector((state) => state.countries);
   const { country_id } = useAppSelector((state) => state.form);

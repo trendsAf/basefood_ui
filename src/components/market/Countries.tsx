@@ -1,12 +1,12 @@
-import React, { useEffect, useState } from "react";
 import Checkbox from "@mui/material/Checkbox";
+import { useEffect, useState } from "react";
+import { AiOutlineArrowDown } from "react-icons/ai";
+import Skeleton from "react-loading-skeleton";
+import { toast } from "react-toastify";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { getCountry } from "../../redux/reducers/countries/countrySlice";
 import { updateField } from "../../redux/reducers/form/formSlice";
 import { pricing } from "../../redux/reducers/pricing/priceSlice";
-import { toast } from "react-toastify";
-import { AiOutlineArrowDown } from "react-icons/ai";
-import Skeleton from "react-loading-skeleton";
 
 interface CountriesProps {
   selectedCountry: string | null;
@@ -37,7 +37,7 @@ const distinctColors = [
   "#BF360C",
 ];
 
-const Countries: React.FC<CountriesProps> = ({ onCountrySelect }) => {
+const Countries = ({ onCountrySelect }: CountriesProps) => {
   const dispatch = useAppDispatch();
   const { countryList, isLoading } = useAppSelector((state) => state.countries);
   const formData = useAppSelector((state) => state.form);
@@ -150,14 +150,14 @@ const Countries: React.FC<CountriesProps> = ({ onCountrySelect }) => {
       >
         {isLoading ? (
           [0, 1, 2, 3, 4, 5, 6, 7].map((_, idx) => (
-            <tr key={idx} className="flex items-center">
-              <td className="p-2">
+            <li key={idx} className="flex items-center">
+              <div className="p-2">
                 <Skeleton width={20} height={20} />
-              </td>
-              <td className="p-2">
+              </div>
+              <div className="p-2">
                 <Skeleton height={20} width={100} />
-              </td>
-            </tr>
+              </div>
+            </li>
           ))
         ) : countriesWithColors.length === 0 ? (
           <li className="text-sm text-white/40 text-center">

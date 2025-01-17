@@ -9,17 +9,12 @@ import { useAppDispatch, useAppSelector } from "../../../redux/hooks";
 import { getCropsCategory } from "../../../redux/reducers/crops/cropCategorySlice";
 import { getCrops } from "../../../redux/reducers/crops/cropSlice";
 import { updateField } from "../../../redux/reducers/form/formSlice";
-import { AiOutlineArrowDown } from "react-icons/ai";
 
 const CropSelector: React.FC = () => {
   const dispatch = useAppDispatch();
 
-  const [selectedCategory, setSelectedCategory] = useState<string>(
-    localStorage.getItem("selectedCategory") || "",
-  );
-
-  const storedCropId = localStorage.getItem("selectedCropId") || "";
-
+  // States
+  const [selectedCategory, setSelectedCategory] = useState<string>("");
   const { cropCategoryList, isLoading: categoryLoading } = useAppSelector(
     (state) => state.getCropCategory,
   );
@@ -28,124 +23,84 @@ const CropSelector: React.FC = () => {
   );
   const { crop_id } = useAppSelector((state) => state.form);
 
-  const [localPrompt, setLocalPrompt] = useState<"category" | "crop" | null>(
-    null,
-  );
-
+  // Fetch category and crop lists
   useEffect(() => {
     dispatch(getCropsCategory());
     dispatch(getCrops());
-    if (storedCropId) {
+  }, [dispatch]);
+
+  // Sync with localStorage on mount
+  useEffect(() => {
+    const storedCategory = localStorage.getItem("selectedCategory");
+    const storedCropId = localStorage.getItem("selectedCropId");
+
+    // Check if stored category exists and is valid
+    if (
+      storedCategory &&
+      cropCategoryList.some((cat) => cat.id.toString() === storedCategory)
+    ) {
+      setSelectedCategory(storedCategory);
+    }
+
+    // Check if stored crop ID exists and is valid
+    if (
+      storedCropId &&
+      cropList.some((crop) => crop.id.toString() === storedCropId)
+    ) {
       dispatch(updateField({ field: "crop_id", value: storedCropId }));
     }
-  }, [dispatch, storedCropId]);
+  }, [cropCategoryList, cropList, dispatch]);
 
+  // Update localStorage when category changes
   useEffect(() => {
     if (selectedCategory) {
-      dispatch(updateField({ field: "crop_id", value: "" }));
       localStorage.setItem("selectedCategory", selectedCategory);
     }
-  }, [selectedCategory, dispatch]);
+  }, [selectedCategory]);
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      const cropsMarket = localStorage.getItem("crops_market");
-      const localCategory = localStorage.getItem("selectedCategory");
-      const localCrop = localStorage.getItem("selectedCropId");
-
-      if (!cropsMarket) {
-        if (!localCategory) {
-          setLocalPrompt("category");
-        } else if (!localCrop) {
-          setLocalPrompt("crop");
-        } else {
-          setLocalPrompt(null);
-        }
-      } else {
-        setLocalPrompt(null);
-      }
-    }, 100);
-
-    return () => clearInterval(interval);
-  }, []);
-
-  const filteredCrops = selectedCategory
-    ? cropList.filter(
-        (crop) => crop.crop_category?.toString() === selectedCategory,
-      )
-    : [];
-
+  // Update localStorage when crop ID changes
   useEffect(() => {
     if (crop_id) {
       localStorage.setItem("selectedCropId", crop_id);
     }
   }, [crop_id]);
 
+  // Filter crops based on selected category
+  const filteredCrops = selectedCategory
+    ? cropList.filter(
+        (crop) => crop.crop_category?.toString() === selectedCategory,
+      )
+    : [];
+
+  // Handlers
   const handleCategoryChange = (e: SelectChangeEvent<string>) => {
-    setSelectedCategory(e.target.value);
-    setLocalPrompt("crop");
+    const newCategory = e.target.value;
+    setSelectedCategory(newCategory);
+    dispatch(updateField({ field: "crop_id", value: "" })); // Reset crop when category changes
   };
 
   const handleCropChange = (e: SelectChangeEvent<string>) => {
     const selectedCropId = e.target.value;
     dispatch(updateField({ field: "crop_id", value: selectedCropId }));
-    localStorage.setItem("selectedCropId", selectedCropId);
-    setLocalPrompt(null);
   };
 
   return (
     <div className="flex flex-col pr-4 py-2 xl:py-1 items-center lg:flex-col md:flex-row md:gap-4 lg:gap-0 w-full">
       {/* Category Dropdown */}
       <div className="w-full prompt">
-        {localPrompt === "category" && (
-          <div className="absolute w-full h-full bg-black/70 inset-0 z-50 flex ">
-            <div className="flex gap-2 w-full relative">
-              <div className="flex absolute md:top-32 md:left-[20vw] top-36 left-[8vw]">
-                <AiOutlineArrowDown className="text-white text-2xl animate-bounce" />
-                <span className="text-white text-sm bg-black/80 px-2 py-1 rounded-md ml-4">
-                  Select category
-                </span>
-              </div>
-            </div>
-          </div>
-        )}
         <FormControl
           sx={{ m: 1, minWidth: 120, width: "100%" }}
           size="small"
           disabled={categoryLoading || cropCategoryList.length === 0}
-          className={`${localPrompt === "category" ? "absolute z-[70] inner" : ""}`}
         >
-          <svg height="100%" width="100%" xmlns="http://www.w3.org/2000/svg">
-            <rect
-              rx="8"
-              ry="8"
-              className={`line ${!localPrompt ? "hidden" : ""}`}
-              height="100%"
-              width="100%"
-              strokeLinejoin="round"
-            />
-          </svg>
           <Select<string>
-            labelId="category-select-label"
-            id="category-select"
-            label="Category"
-            className="!text-sm sm:!text-xl lg:!text-sm xl:!text-base 2xl:!text-lg"
             value={selectedCategory}
             onChange={handleCategoryChange}
             displayEmpty
           >
-            <MenuItem
-              value=""
-              className="!text-sm sm:!text-xl lg:!text-sm xl:!text-lg"
-            >
-              Select Category
-            </MenuItem>
+            <MenuItem value="">Select Category</MenuItem>
             {cropCategoryList.map((category) => (
-              <MenuItem
-                value={category.id.toString()}
-                key={category.id}
-                className="!text-sm sm:!text-xl lg:!text-sm xl:!text-lg"
-              >
+              <MenuItem key={category.id} value={category.id.toString()}>
                 {category.name}
               </MenuItem>
             ))}
@@ -155,55 +110,24 @@ const CropSelector: React.FC = () => {
 
       {/* Crops Dropdown */}
       <div className="w-full prompt">
-        {localPrompt === "crop" && (
-          <div className="absolute w-full h-full bg-black/70 inset-0 z-50 flex ">
-            <div className="flex gap-2 w-full relative">
-              <div className="flex absolute lg:top-52 lg:left-[20vw] md:top-36 md:left-[52vw] top-48 left-[8vw]">
-                <AiOutlineArrowDown className="text-white text-2xl animate-bounce" />
-                <span className="text-white text-sm bg-black/80 px-2 py-1 rounded-md ml-4">
-                  Select crop
-                </span>
-              </div>
-            </div>
-          </div>
-        )}
         <FormControl
           sx={{ m: 1, minWidth: 120, width: "100%" }}
           size="small"
           disabled={cropsLoading || !filteredCrops.length || !selectedCategory}
-          className={`${localPrompt === "crop" ? "absolute z-[70] inner" : ""}`}
         >
-          <svg height="100%" width="100%" xmlns="http://www.w3.org/2000/svg">
-            <rect
-              rx="8"
-              ry="8"
-              className={`line ${!localPrompt ? "hidden" : ""}`}
-              height="100%"
-              width="100%"
-              strokeLinejoin="round"
-            />
-          </svg>
           <Select<string>
-            labelId="crop-select-label"
-            id="crop-select"
-            label="Crops"
-            className="!text-sm sm:!text-xl lg:!text-sm xl:!text-lg"
-            value={storedCropId || ""}
+            value={
+              crop_id &&
+              filteredCrops.some((crop) => crop.id.toString() === crop_id)
+                ? crop_id
+                : ""
+            }
             onChange={handleCropChange}
             displayEmpty
           >
-            <MenuItem
-              value=""
-              className="!text-sm sm:!text-xl lg:!text-sm xl:!text-lg"
-            >
-              Select Crop
-            </MenuItem>
+            <MenuItem value="">Select Crop</MenuItem>
             {filteredCrops.map((crop) => (
-              <MenuItem
-                value={crop.id.toString()}
-                key={crop.id}
-                className="!text-sm sm:!text-xl lg:!text-sm xl:!text-base 2xl:!text-lg"
-              >
+              <MenuItem key={crop.id} value={crop.id.toString()}>
                 {crop.name}
               </MenuItem>
             ))}

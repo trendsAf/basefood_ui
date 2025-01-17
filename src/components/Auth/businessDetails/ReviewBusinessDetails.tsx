@@ -6,8 +6,40 @@ import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { BusinessDetailsFormValues } from "../../../@types/fileTypes";
 import Logo from "../../../assets/basefood_logo.png";
+import {
+  companyTypes,
+  companySizes,
+  revenueRanges,
+  roles,
+  countries,
+} from "../../../utils/countriesData";
 import { features } from "../../../utils/signUpData";
 import SignupLeftSection from "../../common/SignupLeftSection";
+
+// Helper function to map the value to its corresponding name
+const getCompanyTypeName = (value: string) => {
+  const type = companyTypes.find((item) => item.value === value);
+  return type ? type.name : value;
+};
+
+const getCompanySizeName = (value: string) => {
+  const size = companySizes.find((item) => item.value === value);
+  return size ? size.name : value;
+};
+
+const getRevenueRangeName = (value: string) => {
+  const range = revenueRanges.find((item) => item.value === value);
+  return range ? range.name : value;
+};
+
+const getRoleName = (value: string) => {
+  const role = roles.find((item) => item.value === value);
+  return role ? role.name : value;
+};
+const getCountryName = (value: string) => {
+  const country = countries.find((item) => item.code === value);
+  return country ? country.name : value;
+};
 
 interface ReviewBusinessDetailsProps {
   data: BusinessDetailsFormValues;
@@ -52,6 +84,7 @@ const ReviewBusinessDetails: React.FC<ReviewBusinessDetailsProps> = ({
                 value={data.company_name}
                 variant="outlined"
                 fullWidth
+                size="small"
                 label="Company Name"
                 InputProps={{
                   readOnly: true,
@@ -62,9 +95,10 @@ const ReviewBusinessDetails: React.FC<ReviewBusinessDetailsProps> = ({
 
             <div className="flex items-center">
               <TextField
-                value={data.country}
+                value={getCountryName(data.country)}
                 variant="outlined"
                 fullWidth
+                size="small"
                 label="Country"
                 InputProps={{
                   readOnly: true,
@@ -77,7 +111,8 @@ const ReviewBusinessDetails: React.FC<ReviewBusinessDetailsProps> = ({
                 value={data.province}
                 variant="outlined"
                 fullWidth
-                label="Country"
+                size="small"
+                label="Province"
                 InputProps={{
                   readOnly: true,
                   sx: { backgroundColor: "rgba(0, 0, 0, 0.05)" },
@@ -87,9 +122,10 @@ const ReviewBusinessDetails: React.FC<ReviewBusinessDetailsProps> = ({
 
             <div className="flex items-center">
               <TextField
-                value={data.company_type}
+                value={getCompanyTypeName(data.company_type)}
                 variant="outlined"
                 fullWidth
+                size="small"
                 label="Company Type"
                 InputProps={{
                   readOnly: true,
@@ -100,9 +136,10 @@ const ReviewBusinessDetails: React.FC<ReviewBusinessDetailsProps> = ({
 
             <div className="flex items-center">
               <TextField
-                value={data.company_size}
+                value={getCompanySizeName(data.company_size)}
                 variant="outlined"
                 fullWidth
+                size="small"
                 label="Company Size"
                 InputProps={{
                   readOnly: true,
@@ -113,9 +150,10 @@ const ReviewBusinessDetails: React.FC<ReviewBusinessDetailsProps> = ({
 
             <div className="flex items-center">
               <TextField
-                value={data.annual_revenue}
+                value={getRevenueRangeName(data.annual_revenue)}
                 variant="outlined"
                 fullWidth
+                size="small"
                 label="Revenue Range"
                 InputProps={{
                   readOnly: true,
@@ -129,6 +167,7 @@ const ReviewBusinessDetails: React.FC<ReviewBusinessDetailsProps> = ({
                 value={data.start_year}
                 variant="outlined"
                 fullWidth
+                size="small"
                 label="Year Founded"
                 InputProps={{
                   readOnly: true,
@@ -139,9 +178,10 @@ const ReviewBusinessDetails: React.FC<ReviewBusinessDetailsProps> = ({
 
             <div className="flex items-center">
               <TextField
-                value={data.company_role}
+                value={getRoleName(data.company_role)}
                 variant="outlined"
                 fullWidth
+                size="small"
                 label="Role"
                 InputProps={{
                   readOnly: true,
@@ -154,6 +194,7 @@ const ReviewBusinessDetails: React.FC<ReviewBusinessDetailsProps> = ({
                 value={data.phone}
                 variant="outlined"
                 fullWidth
+                size="small"
                 label="Phone number"
                 InputProps={{
                   readOnly: true,
