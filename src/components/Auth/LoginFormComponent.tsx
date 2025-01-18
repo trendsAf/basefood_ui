@@ -39,7 +39,10 @@ const LoginFormComponent = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
-  const { isLoading, error } = useAppSelector((state) => state.login);
+  const {
+    isLoading,
+    // error
+  } = useAppSelector((state) => state.login);
 
   const onSubmit = async (data: LoginTypes) => {
     try {
@@ -147,7 +150,7 @@ const LoginFormComponent = () => {
           </div>
         </div>
       </form>
-      {error && <p className="text-red-500 text-center mt-2">{error}</p>}
+      {/* {error && <p className="text-red-500 text-center mt-2">{error}</p>} */}
       <div className="flex justify-center items-center w-full">
         <Link to={"/forgot_password"} className="w-full">
           <button className="text-center helvetica text-sm my-5 text-brand-blue">

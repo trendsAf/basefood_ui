@@ -52,7 +52,7 @@ const Signup = () => {
         <div className=" flex flex-col items-center justify-center space-y-6 w-[80%] py-5 rounded-lg">
           <div className="w-full max-w-md">
             <div>
-              <h1 className="text-2xl space_grotesk2  text-center mb-10">
+              <h1 className="text-2xl space_grotesk2  text-center mb-5 2xl:mb-10">
                 Sign up for a <b className="font-bold">basefood</b> Account
               </h1>
             </div>

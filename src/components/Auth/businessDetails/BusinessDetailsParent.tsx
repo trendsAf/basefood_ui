@@ -3,6 +3,8 @@ import { useState } from "react";
 import { BusinessDetailsFormValues } from "../../../@types/fileTypes";
 import BusinessDetails from "./BusinessDetails";
 import ReviewBusinessDetails from "./ReviewBusinessDetails";
+import { ThemeProvider, createTheme } from "@mui/material/styles";
+import CssBaseline from "@mui/material/CssBaseline";
 
 const BusinessDetailsParent = () => {
   const [formData, setFormData] = useState<
@@ -23,16 +25,33 @@ const BusinessDetailsParent = () => {
     console.log("");
   };
 
+  const theme = createTheme({
+    palette: {
+      primary: {
+        main: "#1976d2",
+      },
+    },
+  });
+
   return (
     <div>
       {isReviewing && formData ? (
-        <ReviewBusinessDetails
-          data={formData}
-          onEdit={handleEditSection}
-          onComplete={handleCompleteRegistration}
-        />
+        <ThemeProvider theme={theme}>
+          <CssBaseline />
+          <ReviewBusinessDetails
+            data={formData}
+            onEdit={handleEditSection}
+            onComplete={handleCompleteRegistration}
+          />
+        </ThemeProvider>
       ) : (
-        <BusinessDetails onSubmit={handleFormSubmit} defaultValues={formData} />
+        <ThemeProvider theme={theme}>
+          <CssBaseline />
+          <BusinessDetails
+            onSubmit={handleFormSubmit}
+            defaultValues={formData}
+          />
+        </ThemeProvider>
       )}
     </div>
   );

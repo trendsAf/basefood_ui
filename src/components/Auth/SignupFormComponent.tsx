@@ -10,7 +10,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { RegisterTypes } from "../../@types/fileTypes";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { register } from "../../redux/reducers/auth/registerSlice";
-import { textFieldSx } from "../../utils/MUI/muiStyles";
+
 import { signupSchema } from "../../validations/formValidations";
 import { useState } from "react";
 import { VisibilityOff, Visibility } from "@mui/icons-material";
@@ -60,10 +60,10 @@ const SignupFormComponent: React.FC = () => {
   return (
     <div>
       <ToastContainer />
-      <div className="flex justify-center my-4">
+      <div className="flex justify-center my-2 2xl:my-4">
         <button
           type="button"
-          className="bg-[#e5e5e5] text-black px-5 py-3 w-full rounded-[5px] font-bold hover:bg-[#d1d0d0] transition-all duration-300 helvetica flex items-center justify-center gap-3"
+          className="bg-[#e5e5e5] text-black px-5 py-2 2xl:py-3 w-full rounded-[5px] font-bold hover:bg-[#d1d0d0] transition-all duration-300 helvetica flex items-center justify-center gap-3"
         >
           <FcGoogle className="text-2xl" />
           Continue with Google
@@ -72,7 +72,7 @@ const SignupFormComponent: React.FC = () => {
       <div className="flex justify-center my-4">
         <button
           type="button"
-          className="bg-[#e5e5e5] text-black px-5 py-3 w-full rounded-[5px] font-bold hover:bg-[#d1d0d0] transition-all helvetica duration-300 flex items-center justify-center gap-3"
+          className="bg-[#e5e5e5] text-black px-5 py-2 2xl:py-3 w-full rounded-[5px] font-bold hover:bg-[#d1d0d0] transition-all helvetica duration-300 flex items-center justify-center gap-3"
         >
           <FaLinkedinIn className="text-2xl text-blue-700" />
           Continue with LinkedIn
@@ -82,7 +82,7 @@ const SignupFormComponent: React.FC = () => {
         onSubmit={handleSubmit(onSubmit)}
         className="w-full max-w-md mx-auto border-t border-b border-black/20 py-4"
       >
-        <div className="flex flex-col gap-4">
+        <div className="flex flex-col gap-3 2xl:gap-4">
           <Controller
             name="firstname"
             control={control}
@@ -94,7 +94,7 @@ const SignupFormComponent: React.FC = () => {
                 variant="outlined"
                 fullWidth
                 className="bg-white"
-                sx={textFieldSx}
+                size="small"
                 error={!!errors?.firstname}
                 helperText={errors?.firstname?.message}
               />
@@ -111,7 +111,7 @@ const SignupFormComponent: React.FC = () => {
                 variant="outlined"
                 fullWidth
                 className="bg-white"
-                sx={textFieldSx}
+                size="small"
                 error={!!errors?.lastname}
                 helperText={errors?.lastname?.message}
               />
@@ -129,7 +129,7 @@ const SignupFormComponent: React.FC = () => {
                 variant="outlined"
                 fullWidth
                 className="bg-white"
-                sx={textFieldSx}
+                size="small"
                 error={!!errors?.email}
                 helperText={errors?.email?.message}
               />
@@ -147,7 +147,7 @@ const SignupFormComponent: React.FC = () => {
                 variant="outlined"
                 fullWidth
                 className="bg-white"
-                sx={textFieldSx}
+                size="small"
                 error={!!errors.password}
                 helperText={errors.password?.message}
                 InputProps={{
@@ -180,7 +180,7 @@ const SignupFormComponent: React.FC = () => {
                 variant="outlined"
                 fullWidth
                 className="bg-white"
-                sx={textFieldSx}
+                size="small"
                 error={!!errors?.confirmPassword}
                 helperText={errors?.confirmPassword?.message}
                 // helperText={errors.password?.message}
@@ -212,7 +212,7 @@ const SignupFormComponent: React.FC = () => {
                 variant="outlined"
                 fullWidth
                 className="bg-white"
-                sx={textFieldSx}
+                size="small"
                 error={!!errors?.confirmPassword}
                 helperText={errors?.confirmPassword?.message}
               />
@@ -221,7 +221,7 @@ const SignupFormComponent: React.FC = () => {
           <div className="flex justify-center">
             <button
               type="submit"
-              className={`text-white bg-brand-blue px-5 py-3 w-full rounded-[5px] font-bold transition-all duration-300 ${isLoading ? "opacity-50 cursor-not-allowed" : "hover:bg-blue-600"}`}
+              className={`text-white bg-brand-blue px-5 py-2 w-full rounded-[5px] font-bold transition-all duration-300 ${isLoading ? "opacity-50 cursor-not-allowed" : "hover:bg-blue-600"}`}
               // disabled={isLoading}
             >
               {isLoading ? "Creating..." : "Create Account"}
@@ -229,14 +229,14 @@ const SignupFormComponent: React.FC = () => {
           </div>
         </div>
       </form>
-      <div className="flex justify-center mt-5">
+      <div className="flex justify-center mt-3 2xl:mt-5">
         <div className="w-2/3">
           <p className="text-center helvetica text-sm font-sans font-normal">
             By continuing, you agree to baseFood's
             <span className="logo cursor-pointer"> Terms of Service </span>
             and <span className="logo">Privacy Policy</span>
           </p>
-          <div className="text-sm helvetica text-center mt-5">
+          <div className="text-sm helvetica text-center mt-3 2xl:mt-5">
             <h1>
               Already have an account?
               <Link to={"/login"}>

@@ -7,7 +7,7 @@ import Cookies from "js-cookie";
 
 const ProfileDropdown = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const userInfo = JSON.parse(Cookies.get("userInfo") as string) || undefined;
+  const userInfo = Cookies?.get("userInfo") as any;
 
   const toggleDropdown = () => {
     setIsOpen(!isOpen);
@@ -20,7 +20,7 @@ const ProfileDropdown = () => {
         className="flex items-center space-x-2 text-gray-900 dark:text-white relative z-50"
       >
         <CgProfile className="text-3xl" />
-        <span>{userInfo.firstname}</span>
+        <span>{userInfo?.firstname}</span>
         <motion.div
           animate={{ rotate: isOpen ? 180 : 0 }}
           transition={{
