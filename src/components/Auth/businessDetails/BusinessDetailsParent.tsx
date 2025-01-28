@@ -34,7 +34,7 @@ const BusinessDetailsParent = () => {
   });
 
   return (
-    <div>
+    <div className="bg-white">
       {isReviewing && formData ? (
         <ThemeProvider theme={theme}>
           <CssBaseline />

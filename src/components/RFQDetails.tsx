@@ -8,6 +8,7 @@ import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "../redux/store";
 import SubmitQuoteModal from "./common/cards/SubmitQuoteModal";
+import { createTheme, CssBaseline, ThemeProvider } from "@mui/material";
 
 const RFQDetails = () => {
   const theme = useSelector((state: RootState) => state.theme.value);
@@ -23,6 +24,15 @@ const RFQDetails = () => {
       document.querySelector("body")?.classList.remove("dark");
     }
   }, [theme]);
+
+  const formtheme = createTheme({
+    palette: {
+      primary: {
+        main: "#1976d2",
+      },
+    },
+  });
+
   return (
     <>
       <div className="bg-slate-100 dark:bg-[#252525] min-h-screen mt-16 dark:text-white ">
@@ -96,7 +106,10 @@ const RFQDetails = () => {
         </div>
       </div>
       {openQuoteModal && (
-        <SubmitQuoteModal toggleQuoteModal={toggleQouteModal} />
+        <ThemeProvider theme={formtheme}>
+          <CssBaseline />
+          <SubmitQuoteModal toggleQuoteModal={toggleQouteModal} />
+        </ThemeProvider>
       )}
     </>
   );

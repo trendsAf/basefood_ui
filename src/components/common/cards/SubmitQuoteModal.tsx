@@ -46,7 +46,7 @@ const SubmitQuoteModal = ({ toggleQuoteModal }: SubmitQuoteModalProps) => {
             animate={{ opacity: 1, y: 0, scale: 1.1 }}
             exit={{ opacity: 0, y: 50, scale: 0 }}
             transition={{ duration: 0.5 }}
-            className="w-full sm:w-4/5 md:w-2/3 lg:w-1/2 h-auto bg-white text-black py-6 md:py-12 px-10 md:px-8 lg:px-16 relative shadow-lg"
+            className="w-full sm:w-4/5 md:w-2/3 lg:w-1/2 h-auto bg-white rounded text-black py-6 md:py-12 px-10 md:px-8 lg:px-16 relative shadow-lg"
           >
             <IoClose
               className="absolute text-4xl text-red right-4 top-4 cursor-pointer"
@@ -58,6 +58,7 @@ const SubmitQuoteModal = ({ toggleQuoteModal }: SubmitQuoteModalProps) => {
                 <TextField
                   label="Full Name"
                   fullWidth
+                  size="small"
                   {...register("fullName", {
                     required: "Full name is required",
                   })}
@@ -71,6 +72,7 @@ const SubmitQuoteModal = ({ toggleQuoteModal }: SubmitQuoteModalProps) => {
                 <TextField
                   label="Company Name"
                   fullWidth
+                  size="small"
                   {...register("companyName", {
                     required: "Company name is required",
                   })}
@@ -86,6 +88,7 @@ const SubmitQuoteModal = ({ toggleQuoteModal }: SubmitQuoteModalProps) => {
                 <TextField
                   label="Quantity"
                   fullWidth
+                  size="small"
                   type="number"
                   {...register("quantity", {
                     required: "Quantity is required",
@@ -100,6 +103,7 @@ const SubmitQuoteModal = ({ toggleQuoteModal }: SubmitQuoteModalProps) => {
                 <TextField
                   label="Message"
                   fullWidth
+                  size="small"
                   multiline
                   rows={2}
                   {...register("message", { required: "Message is required" })}
