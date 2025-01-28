@@ -73,11 +73,12 @@ const Buyers: React.FC = () => {
             <IoIosArrowForward />
           </div>
         </div>
-        <div className="mt-14 text-black/50">
+        <div className="my-2 mt-5 text-sm 2xl:text-lg text-black/50 dark:text-white">
           <h1>
-            {" "}
-            <b className="underline cursor-pointer">Create an RFQ</b> to let
-            suppliers know what you need.
+            <b className="underline cursor-pointer hover:text-brand-blue mr-2">
+              Create an RFQ
+            </b>
+            to let suppliers know what you need.
           </h1>
         </div>
         <div className="lg:hidden">
@@ -110,7 +111,7 @@ const Buyers: React.FC = () => {
             ))}
           </Carousel>
         </div>
-        <div className="hidden lg:block space-y-4 w-4/5">
+        <div className="hidden lg:block space-y-4 w-4/5 lg:w-[95%] xl:w-[90%] 2xl:w-4/5 mb-10">
           {ongoingData.map((data, idx) => (
             <OngoingCard
               companyName={data.companyName}
