@@ -127,9 +127,9 @@ const Countries = ({ onCountrySelect }: CountriesProps) => {
       {localCountryPrompt && (
         <div className="absolute w-full h-full bg-black/70 inset-0 z-50 flex">
           <div className="flex gap-2 w-full relative">
-            <div className="flex absolute lg:top-72 lg:left-[18vw] md:top-56 md:left-[8vw] top-[17rem] left-[5vw]">
+            <div className="flex absolute lg:top-[17rem] xl:top-72 xl:left-[17vw] lg:left-[18vw] md:top-52 md:left-[5vw] sm:left-[3vw] top-[13rem] left-[5vw]">
               <AiOutlineArrowDown className="text-white text-2xl animate-bounce" />
-              <span className="text-white text-sm md:text-xl lg:text-sm bg-black/80 px-2 py-1 rounded-md">
+              <span className="text-white text-sm sm:text-base md:text-xl lg:text-sm bg-black/80 px-2 py-1 rounded-md">
                 Select country
               </span>
             </div>
@@ -144,12 +144,12 @@ const Countries = ({ onCountrySelect }: CountriesProps) => {
         Countries
       </h2>
       <ul
-        className={`mt-2 pb-2 grid sm:grid-cols-4 grid-cols-2 ml-4 sm:ml-0 lg:flex flex-col ${
-          localCountryPrompt ? "absolute z-[70]" : ""
+        className={`mt-2 pb-2 grid sm:grid-cols-3 grid-cols-2 ml-4 sm:ml-0 lg:flex flex-col ${
+          localCountryPrompt ? "relative z-[70]" : ""
         }`}
       >
         {isLoading ? (
-          [0, 1, 2, 3, 4, 5, 6, 7].map((_, idx) => (
+          [0, 1, 2, 3, 4, 5, 6, 7].map((_item, idx) => (
             <li key={idx} className="flex items-center">
               <div className="p-2">
                 <Skeleton width={20} height={20} />
@@ -165,24 +165,26 @@ const Countries = ({ onCountrySelect }: CountriesProps) => {
           </li>
         ) : (
           countriesWithColors.map(({ name, id, color }) => (
-            <li key={id} className="flex items-center mb-2 md:px-4 lg:px-1">
-              <Checkbox
-                checked={selectedCountry === name}
-                onChange={() => handleCountryChange(name, id)}
-                sx={{
-                  color: selectedCountry === name ? color : "default",
-                  "&.Mui-checked": {
-                    color: color,
-                  },
-                  "& .MuiSvgIcon-root": { fontSize: [16, 30, 20, 20, 20] },
-                  padding: "4px",
-                }}
-                disabled={isSubmitting}
-              />
-              <label className="text-[12px] sm:text-xl lg:text-[12px] xl:text-sm 2xl:text-lg">
-                {name}
-              </label>
-            </li>
+            <>
+              <li key={id} className="flex items-center mb-2 md:px-4 lg:px-1">
+                <Checkbox
+                  checked={selectedCountry === name}
+                  onChange={() => handleCountryChange(name, id)}
+                  sx={{
+                    color: selectedCountry === name ? color : "default",
+                    "&.Mui-checked": {
+                      color: color,
+                    },
+                    "& .MuiSvgIcon-root": { fontSize: [16, 30, 20, 20, 20] },
+                    padding: "4px",
+                  }}
+                  disabled={isSubmitting}
+                />
+                <label className="text-[12px] sm:text-xl lg:text-[12px] xl:text-sm 2xl:text-lg">
+                  {name}
+                </label>
+              </li>
+            </>
           ))
         )}
       </ul>
