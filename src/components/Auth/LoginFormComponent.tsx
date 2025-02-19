@@ -1,7 +1,8 @@
-/* eslint-disable no-console */
 import { yupResolver } from "@hookform/resolvers/yup";
+import { Visibility, VisibilityOff } from "@mui/icons-material";
 import { IconButton, TextField } from "@mui/material";
 import Cookies from "js-cookie";
+import { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { FaLinkedinIn } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
@@ -10,11 +11,9 @@ import "react-toastify/dist/ReactToastify.css";
 import { LoginTypes } from "../../@types/fileTypes";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { login } from "../../redux/reducers/auth/loginSlice";
+import { decodeToken } from "../../utils/config/decode";
 import { loginSchema } from "../../validations/formValidations";
 import GoogleButton from "../common/buttons/GoogleButton";
-import { useState } from "react";
-import { Visibility, VisibilityOff } from "@mui/icons-material";
-import { decodeToken } from "../../utils/config/decode";
 
 const LoginFormComponent = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -39,15 +38,11 @@ const LoginFormComponent = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
-  const {
-    isLoading,
-    // error
-  } = useAppSelector((state) => state.login);
+  const { isLoading } = useAppSelector((state) => state.login);
 
   const onSubmit = async (data: LoginTypes) => {
     try {
       const res = await dispatch(login(data)).unwrap();
-      console.log(res, "Reeeeeesssssponse");
       if (res && res?.auth_token) {
         Cookies.set("access_token", res?.auth_token);
         toast.success("You're logged in");
@@ -150,7 +145,6 @@ const LoginFormComponent = () => {
           </div>
         </div>
       </form>
-      {/* {error && <p className="text-red-500 text-center mt-2">{error}</p>} */}
       <div className="flex justify-center items-center w-full">
         <Link to={"/forgot_password"} className="w-full">
           <button className="text-center helvetica text-sm my-5 text-brand-blue">

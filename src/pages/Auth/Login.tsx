@@ -1,6 +1,7 @@
 import { TbPlant, TbChartBar, TbCloudComputing, TbUsers } from "react-icons/tb";
 import LoginFormComponent from "../../components/Auth/LoginFormComponent";
 import Logo from "../../assets/basefood_lowercase.png";
+import { createTheme, CssBaseline, ThemeProvider } from "@mui/material";
 
 const Login = () => {
   const features = [
@@ -9,6 +10,14 @@ const Login = () => {
     "Leverage AI for predictive farming insights",
     "Connect with a network of farmers and agri-experts",
   ];
+
+  const theme = createTheme({
+    palette: {
+      primary: {
+        main: "#1976d2",
+      },
+    },
+  });
 
   return (
     <div className="bg-white flex h-screen">
@@ -53,7 +62,10 @@ const Login = () => {
             <h1 className="text-2xl text-center space_grotesk2  mb-10">
               Log in to your <b className="font-bold">basefood</b> Account
             </h1>
-            <LoginFormComponent />
+            <ThemeProvider theme={theme}>
+              <CssBaseline />
+              <LoginFormComponent />
+            </ThemeProvider>
           </div>
         </div>
       </div>

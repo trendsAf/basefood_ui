@@ -1,22 +1,23 @@
 import Cookies from "js-cookie";
 import { FC, useEffect } from "react";
 import { Outlet, useNavigate } from "react-router-dom";
+import SessionTimeoutHook from "../../redux/hooks/SessionTimeoutHook";
 
 const ProtectedRoutesComponent: FC = () => {
   const navigate = useNavigate();
-  const token = Cookies.get("access_token");
+  const access_token = Cookies?.get("access_token");
 
   useEffect(() => {
-    if (!token) {
-      navigate("/login");
+    if (!access_token) {
+      navigate("/login", { replace: true });
     }
-  }, [token, navigate]);
+  }, [access_token, navigate]);
 
-  if (!token) {
-    return null;
-  }
-
-  return <Outlet />;
+  return access_token ? (
+    <SessionTimeoutHook>
+      <Outlet />
+    </SessionTimeoutHook>
+  ) : null;
 };
 
 export default ProtectedRoutesComponent;
