@@ -92,9 +92,9 @@ const Sidebar = ({
       <div
         className={`fixed z-40 left-0 top-0 h-[100vh] ${
           isCollapsed
-            ? "w-20 border-r border-bg-gray dark:border-[#404040]"
+            ? "w-20 border-r dark:border-[#404040]"
             : "w-[80%] sm:w-[40%] md:w-[60%] lg:w-[16%] md:transition-none transition-all duration-300"
-        } border-r border-bg-gray dark:border-[#404040] bg-white px-4 lg:px-2 2xl:px-4 flex flex-col  justify-between dark:bg-black transform ${
+        } border-r b dark:border-[#404040] bg-bg-gray shadow-lg px-4 lg:px-2 2xl:px-4 flex flex-col  justify-between dark:bg-black transform ${
           isSidebarVisible ? "translate-x-0" : "-translate-x-full"
         } lg:translate-x-0`}
       >
@@ -132,18 +132,36 @@ const Sidebar = ({
 
           <nav className="mt-6 flex flex-col justify-center">
             <ul className="flex flex-col space-y-2 text-sm md:text-2xl lg:text-[12px] xl:text-sm  2xl:text-lg">
-              <NavLink to="/" onClick={handleItemClick}>
-                <li className="flex items-center px-2 py-2 rounded hover:bg-gray-100 dark:hover:bg-gray-800 cursor-pointer">
-                  <GoHome className="lg:text-sm xl:text-lg text-gray-900 dark:text-white" />
+              <NavLink
+                to="/"
+                onClick={handleItemClick}
+                className={({ isActive }) =>
+                  `flex items-center  py-1 gray-900 dark:text-white rounded hover:bg-[#CCE2F3]/50 dark:hover:bg-gray-800 cursor-pointer ${
+                    isActive
+                      ? "bg-[#CCE2F3]/50 dark:bg-gray-700 border-blue-500 border-l-4"
+                      : ""
+                  }`
+                }
+              >
+                <li className="flex items-center px-2 py-2 rounded hover:bg-[#CCE2F3]/50 dark:hover:bg-gray-800 cursor-pointer">
+                  <GoHome className="lg:text-sm xl:text-lg" />
                   {!isCollapsed && (
-                    <span className="ml-2 xl:ml-4 text-gray-900 dark:text-white">
-                      Today's Market
-                    </span>
+                    <span className="ml-2 xl:ml-4 text-">Today's Market</span>
                   )}
                 </li>
               </NavLink>
-              <NavLink to="/news" onClick={handleItemClick}>
-                <li className="flex items-center px-2 py-2 rounded hover:bg-gray-100 dark:hover:bg-gray-800 cursor-pointer">
+              <NavLink
+                to="/news"
+                onClick={handleItemClick}
+                className={({ isActive }) =>
+                  `flex items-center  py-1 gray-900 dark:text-white rounded hover:bg-[#CCE2F3]/50 dark:hover:bg-gray-800 cursor-pointer ${
+                    isActive
+                      ? "bg-[#CCE2F3]/50 dark:bg-gray-700 text-blue-700 border-blue-500 border-l-4"
+                      : ""
+                  }`
+                }
+              >
+                <li className="flex items-center px-2 py-2 rounded hover:bg-[#CCE2F3]/50 dark:hover:bg-gray-800 cursor-pointer">
                   <LuNewspaper className="lg:text-sm xl:text-lg text-gray-900 dark:text-white" />
                   {!isCollapsed && (
                     <span className="ml-2 xl:ml-4 text-gray-900 dark:text-white">
@@ -154,56 +172,67 @@ const Sidebar = ({
               </NavLink>
               <li>
                 <ThemeProvider theme={tooltipTheme}>
-                  <Tooltip
-                    title={`${isCollapsed ? "My Dashboards" : ""}`}
-                    placement="right"
+                  <NavLink
+                    to={"/dashboard"}
+                    onClick={handleItemClick}
+                    className={({ isActive }) =>
+                      `flex items-center  py-1 gray-900 dark:text-white rounded hover:bg-[#CCE2F3]/50 dark:hover:bg-gray-800 cursor-pointer ${
+                        isActive
+                          ? "bg-[#CCE2F3]/50 dark:bg-gray-700 text-blue-700 border-blue-500 border-l-4"
+                          : ""
+                      }`
+                    }
                   >
-                    <div
-                      className="flex items-center px-2 py-2 hover:bg-gray-100 dark:hover:bg-gray-800 cursor-pointer rounded"
-                      onClick={toggleDashboards}
+                    <Tooltip
+                      title={`${isCollapsed ? "My Dashboards" : ""}`}
+                      placement="right"
                     >
-                      <div className="flex items-center">
-                        <RxDashboard className="lg:text-sm xl:text-lg text-gray-900 dark:text-white" />
+                      <div
+                        className="flex items-center px-2 py-2 hover:bg-[#CCE2F3]/50 dark:hover:bg-gray-800 cursor-pointer rounded"
+                        onClick={toggleDashboards}
+                      >
+                        <div className="flex items-center">
+                          <RxDashboard className="lg:text-sm xl:text-lg text-gray-900 dark:text-white" />
+                          {!isCollapsed && (
+                            <NavLink
+                              to={"/dashboard"}
+                              onClick={handleItemClick}
+                            >
+                              <span className="ml-2 xl:ml-4 text-gray-900 dark:text-white">
+                                My Dashboards
+                              </span>
+                            </NavLink>
+                          )}
+                        </div>
                         {!isCollapsed && (
-                          <NavLink to={"/dashboard"} onClick={handleItemClick}>
-                            <span className="ml-2 xl:ml-4 text-gray-900 dark:text-white">
-                              My Dashboards
-                            </span>
-                          </NavLink>
+                          <span className="text-gray-900 dark:text-white lg:ml-2 xl:ml-2 ml-3">
+                            {isDashboardsOpen ? (
+                              <FaChevronUp className="text-base md:text-xl lg:text-sm" />
+                            ) : (
+                              <FaChevronDown className="text-base md:text-xl lg:text-sm" />
+                            )}
+                          </span>
                         )}
                       </div>
-                      {!isCollapsed && (
-                        <span className="text-gray-900 dark:text-white lg:ml-2 xl:ml-2 ml-3">
-                          {isDashboardsOpen ? (
-                            <FaChevronUp className="text-base md:text-xl lg:text-sm" />
-                          ) : (
-                            <FaChevronDown className="text-base md:text-xl lg:text-sm" />
-                          )}
-                        </span>
-                      )}
-                    </div>
-                  </Tooltip>
+                    </Tooltip>
+                  </NavLink>
                 </ThemeProvider>
                 {!isCollapsed && isDashboardsOpen && (
                   <ul className="xl:pl-10 lg:pl-4 pl-6 flex flex-col space-y-2">
                     <NavLink to={"/dashboard1"} onClick={handleItemClick}>
-                      <li className="flex items-center px-2 py-2 hover:bg-gray-100 dark:hover:bg-gray-800 cursor-pointer rounded">
+                      <li className="flex items-center px-2 py-2 hover:bg-[#CCE2F3]/50 dark:hover:bg-gray-800 cursor-pointer rounded">
                         <span className="text-gray-900 dark:text-white">
                           Dashboard 1
                         </span>
                       </li>
                     </NavLink>
-                    {/* <li className="flex items-center px-2 py-2 hover:bg-gray-100 dark:hover:bg-gray-800 cursor-pointer rounded">
+                    {/* <li className="flex items-center px-2 py-2 hover:bg-[#CCE2F3]/50 dark:hover:bg-gray-800 cursor-pointer rounded">
                       <span className="text-gray-900 dark:text-white">
                         Dashboard 2
                       </span>
                     </li> */}
-                    <NavLink
-                      to="/dashboards/new"
-                      className="flex items-center"
-                      onClick={handleItemClick}
-                    >
-                      <li className="flex items-center px-2 py-2 hover:bg-gray-100 dark:hover:bg-gray-800 cursor-pointer rounded">
+                    <NavLink to="/dashboards/new" onClick={handleItemClick}>
+                      <li className="flex items-center px-2 py-2 hover:bg-[#CCE2F3]/50 dark:hover:bg-gray-800 cursor-pointer rounded">
                         <FaPlus className="text-gray-900 dark:text-white text-sm" />
                         <span className="xl:ml-2 lg:ml-1 ml-2 text-gray-900 dark:text-white">
                           New Dashboard
@@ -219,7 +248,7 @@ const Sidebar = ({
                   placement="right"
                 >
                   <li
-                    className="flex items-center px-2 py-2 hover:bg-gray-100 dark:hover:bg-gray-800 cursor-pointer rounded"
+                    className="flex items-center px-2 py-2 hover:bg-[#CCE2F3]/50 dark:hover:bg-gray-800 cursor-pointer rounded"
                     onClick={handleItemClick}
                   >
                     <AiOutlineBell className="lg:text-sm xl:text-lg text-gray-900 dark:text-white" />
@@ -239,7 +268,7 @@ const Sidebar = ({
                       placement="right"
                     >
                       <li
-                        className="flex items-center px-2 py-2 hover:bg-gray-100 dark:hover:bg-gray-800 cursor-pointer rounded"
+                        className="flex items-center px-2 py-2 hover:bg-[#CCE2F3]/50 dark:hover:bg-gray-800 cursor-pointer rounded"
                         onClick={handleItemClick}
                       >
                         <LiaMoneyCheckAltSolid className="lg:text-sm xl:text-lg text-gray-900 dark:text-white" />
@@ -253,13 +282,23 @@ const Sidebar = ({
                   </ThemeProvider>
                 </a>
               ) : null}
-              <NavLink to="/pricing" onClick={handleItemClick}>
+              <NavLink
+                to="/pricing"
+                onClick={handleItemClick}
+                className={({ isActive }) =>
+                  `flex items-center  py-1 gray-900 dark:text-white rounded hover:bg-[#CCE2F3]/50 dark:hover:bg-gray-800 cursor-pointer ${
+                    isActive
+                      ? "bg-[#CCE2F3]/50 dark:bg-gray-700 text-blue-700 border-blue-500 border-l-4"
+                      : ""
+                  }`
+                }
+              >
                 <ThemeProvider theme={tooltipTheme}>
                   <Tooltip
                     title={`${isCollapsed ? "Analytics" : ""}`}
                     placement="right"
                   >
-                    <li className="flex items-center px-2 py-2 hover:bg-gray-100 dark:hover:bg-gray-800 cursor-pointer rounded">
+                    <li className="flex items-center px-2 py-2 hover:bg-[#CCE2F3]/50 dark:hover:bg-gray-800 cursor-pointer rounded">
                       <FaShoppingBasket className="lg:text-sm xl:text-lg text-gray-900 dark:text-white" />
                       {!isCollapsed && (
                         <span className="ml-2 xl:ml-4 text-gray-900 dark:text-white">
@@ -276,7 +315,7 @@ const Sidebar = ({
                   placement="right"
                 >
                   <li
-                    className="flex items-center px-2 py-2 hover:bg-gray-100 dark:hover:bg-gray-800 cursor-pointer rounded"
+                    className="flex items-center px-2 py-2 hover:bg-[#CCE2F3]/50 dark:hover:bg-gray-800 cursor-pointer rounded"
                     onClick={handleItemClick}
                   >
                     <AiOutlineShop className="lg:text-sm xl:text-lg text-gray-900 dark:text-white" />
@@ -297,7 +336,7 @@ const Sidebar = ({
             <Tooltip title={`${isCollapsed ? "Logout" : ""}`} placement="right">
               <button
                 onClick={handleLogoutClick}
-                className="flex items-center py-2 pl-2 xl:px-4  text-gray-900 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-800 rounded"
+                className="flex items-center py-2 pl-2 xl:px-4  text-gray-900 dark:text-white hover:bg-[#CCE2F3]/50 dark:hover:bg-gray-800 rounded"
               >
                 <MdOutlineLogout className="lg:text-base md:text-2xl xl:text-lg" />
                 {!isCollapsed && (

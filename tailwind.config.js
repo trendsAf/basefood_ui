@@ -6,7 +6,7 @@ export default {
     extend: {
       colors: {
         white: "#fff",
-        "bg-gray": "#F7F8FA",
+        "bg-gray": "#EDF4FA",
         "dark-gray": "#687588",
         "brand-blue": "#1456F5",
         "light-blue": "#EBF1FE",
