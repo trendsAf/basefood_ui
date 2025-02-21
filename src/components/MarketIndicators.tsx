@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import React, { useState, useRef } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, FreeMode } from "swiper/modules";
@@ -78,7 +79,7 @@ const MarketIndicators: React.FC = () => {
   };
 
   return (
-    <div className="w-full bg-white dark:bg-secondary-black rounded-md shadow-sm overflow-hidden">
+    <div className="w-full bg-white dark:bg-secondary-black rounded-md overflow-hidden shadow">
       <Swiper
         modules={[Autoplay, FreeMode]}
         spaceBetween={0}

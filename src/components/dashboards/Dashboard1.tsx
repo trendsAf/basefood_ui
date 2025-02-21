@@ -114,11 +114,11 @@ const Dashboard1 = () => {
 
   return (
     <>
-      <div className="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-2 gap-4 min-h-[85vh] max-h-[86vh]">
+      <div className="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-2 gap-4 min-h-[85vh]">
         {[0, 1, 2, 3].map((index) => (
           <div
             key={index}
-            className="relative border flex flex-col justify-center rounded-lg overflow-hidden h-[100%] min-h-[250px]"
+            className="relative border flex flex-col justify-center rounded-lg overflow-hidden h-[100%] min-h-[250px] bg-white shadow dark:bg-[#252525]"
           >
             {selectedComponents[index] ? (
               <>
