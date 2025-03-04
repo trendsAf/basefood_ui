@@ -54,7 +54,7 @@ const CropsMarket: React.FC<CropsMarketProps> = ({ onCropSelect }) => {
   };
 
   return (
-    <div className="px-4 lg:p-1 xl:px-4 bg-white dark:text-white rounded-lg dark:bg-[#1E1E1E]">
+    <div className="px-4 lg:p-1 xl:px-4 bg-white dark:text-white rounded-lg dark:bg-[#1E1E1E] shadow">
       <h2 className="text-md py-2 sm:py-3 lg:py-2 font-bold px-2 text-sm sm:text-2xl lg:text-sm xl:text-base 2xl:text-lg">
         Crops Market
       </h2>
@@ -62,7 +62,7 @@ const CropsMarket: React.FC<CropsMarketProps> = ({ onCropSelect }) => {
         <div className="lg:max-h-36 lg:min-h-36 overflow-y-auto commonScroll relative">
           <table className="min-w-full whitespace-nowrap text-left border-collapse">
             {/* Sticky Header */}
-            <thead className="sticky top-0 bg-white dark:bg-black rounded-md z-10">
+            <thead className="sticky top-0 bg-bg-gray dark:bg-black rounded-md z-10">
               <tr className="text-gray-500 dark:text-gray-400 text-[10px] sm:text-xl lg:text-[12px] 2xl:text-base">
                 <th className="py-2 pl-2">Crop variety</th>
                 <th className="py-2 px-2 sm:px-0">Min price</th>
@@ -81,20 +81,44 @@ const CropsMarket: React.FC<CropsMarketProps> = ({ onCropSelect }) => {
                     className={`border-b border-white/40 ${idx === 1 ? "border-b-0" : ""}`}
                   >
                     <td className="py-2 flex items-center gap-2">
-                      <Skeleton width={20} height={20} />
-                      <Skeleton width={60} height={20} />
+                      <Skeleton
+                        width={20}
+                        height={20}
+                        className="bg-[#B0B0B0]"
+                      />
+                      <Skeleton
+                        width={60}
+                        height={20}
+                        className="bg-[#B0B0B0]"
+                      />
                     </td>
                     <td className="py-2 pl-1">
-                      <Skeleton width={70} height={20} />
+                      <Skeleton
+                        width={70}
+                        height={20}
+                        className="bg-[#B0B0B0]"
+                      />
                     </td>
                     <td className="py-2 pl-1">
-                      <Skeleton width={70} height={20} />
+                      <Skeleton
+                        width={70}
+                        height={20}
+                        className="bg-[#B0B0B0]"
+                      />
                     </td>
                     <td className="py-2 pl-1">
-                      <Skeleton width={70} height={20} />
+                      <Skeleton
+                        width={70}
+                        height={20}
+                        className="bg-[#B0B0B0]"
+                      />
                     </td>
                     <td className="py-2 pl-1">
-                      <Skeleton width={70} height={20} />
+                      <Skeleton
+                        width={70}
+                        height={20}
+                        className="bg-[#B0B0B0]"
+                      />
                     </td>
                   </tr>
                 ))

@@ -123,7 +123,7 @@ const Countries = ({ onCountrySelect }: CountriesProps) => {
   }, [formData.crop_id]);
 
   return (
-    <div className="bg-white dark:bg-secondary-black dark:text-white rounded-lg">
+    <div className="bg-white dark:bg-secondary-black dark:text-white rounded-lg shadow">
       {localCountryPrompt && (
         <div className="absolute w-full h-full bg-black/70 inset-0 z-50 flex">
           <div className="flex gap-2 w-full relative">
@@ -150,12 +150,12 @@ const Countries = ({ onCountrySelect }: CountriesProps) => {
       >
         {isLoading ? (
           [0, 1, 2, 3, 4, 5, 6, 7].map((_item, idx) => (
-            <li key={idx} className="flex items-center">
-              <div className="p-2">
-                <Skeleton width={20} height={20} />
+            <li key={idx} className="flex items-center ">
+              <div>
+                <Skeleton width={20} height={20} className="bg-[#B0B0B0]" />
               </div>
               <div className="p-2">
-                <Skeleton height={20} width={100} />
+                <Skeleton height={20} width={100} className="bg-[#B0B0B0]" />
               </div>
             </li>
           ))

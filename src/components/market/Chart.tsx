@@ -102,7 +102,7 @@ const Chart: React.FC<ChartProps> = ({
   };
 
   return (
-    <div className="p-4 bg-white dark:bg-secondary-black dark:text-white rounded-[4px]">
+    <div className="p-4 bg-white dark:bg-secondary-black dark:text-white rounded-[4px] shadow">
       <ToastContainer />
       <h2 className="text-md font-bold mb-2 sm:text-2xl lg:text-sm xl:text-lg">
         Crop Price Movement

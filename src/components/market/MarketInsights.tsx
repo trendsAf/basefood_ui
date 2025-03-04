@@ -6,7 +6,7 @@ interface MarketInsightsProps {
 
 const MarketInsights = ({ name, data }: MarketInsightsProps) => {
   return (
-    <div className="bg-white dark:bg-secondary-black py-1 lg:py-3 xl:py-1 1xl:py-2 rounded px-4 w-full md:pb-4">
+    <div className="bg-white dark:bg-secondary-black py-1 lg:py-3 xl:py-1 1xl:py-2 rounded px-4 w-full md:pb-4 shadow">
       <div className="insights-container">
         <h3 className="logo sm:text-xl sm:py-2 lg:p-0 lg:text-[12px] xl:text-sm 2xl:text-lg ">
           {name}

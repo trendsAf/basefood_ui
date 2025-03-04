@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import Cookies from "js-cookie";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -82,8 +83,6 @@ const Dashboard = () => {
   const handleCountrySelect = (country: string, countryId: number) => {
     setSelectedCountry(country);
     dispatch(updateField({ field: "country_id", value: countryId }));
-
-    // Log the selected country
     console.log("Selected Country in Countries Component:", country_id);
   };
 
@@ -105,7 +104,7 @@ const Dashboard = () => {
       <MarketIndicators />
       <div className="flex flex-col lg:flex-row w-full pt-3 items-start justify-between gap-3 px-4 md:px-0">
         <div className={"flex w-full lg:w-[20%] flex-col gap-4"}>
-          <div className="bg-white dark:bg-secondary-black px-2 py-1 rounded">
+          <div className="bg-white dark:bg-secondary-black px-2 py-1 rounded shadow">
             <Crops />
           </div>
           <div className={"w-full"}>
