@@ -96,7 +96,6 @@ const LoginFormComponent = () => {
                 label="Email"
                 variant="outlined"
                 fullWidth
-                className="bg-white dark:bg-secondary-black"
                 sx={textFieldSx}
                 error={!!errors.email}
                 helperText={errors.email?.message}
