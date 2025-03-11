@@ -14,6 +14,7 @@ import { register } from "../../redux/reducers/auth/registerSlice";
 import { signupSchema } from "../../validations/formValidations";
 import { useState } from "react";
 import { VisibilityOff, Visibility } from "@mui/icons-material";
+import { CirclesWithBar, ThreeDots } from "react-loader-spinner";
 
 const SignupFormComponent: React.FC = () => {
   const navigate = useNavigate();
@@ -222,9 +223,33 @@ const SignupFormComponent: React.FC = () => {
             <button
               type="submit"
               className={`text-white bg-brand-blue px-5 py-2 w-full rounded-[5px] font-bold transition-all duration-300 ${isLoading ? "opacity-50 cursor-not-allowed" : "hover:bg-blue-600"}`}
-              // disabled={isLoading}
+              disabled={isLoading}
             >
-              {isLoading ? "Creating..." : "Create Account"}
+              {isLoading ? (
+                <div className="flex items-center gap-2 justify-center">
+                  <CirclesWithBar
+                    visible={true}
+                    height="30"
+                    width="30"
+                    color="#ffff"
+                    ariaLabel="puff-loading"
+                    wrapperStyle={{}}
+                    wrapperClass=""
+                  />
+                  Processing
+                  <ThreeDots
+                    visible={true}
+                    height="30"
+                    width="30"
+                    color="#ffff"
+                    ariaLabel="puff-loading"
+                    wrapperStyle={{}}
+                    wrapperClass=""
+                  />
+                </div>
+              ) : (
+                "Create Account"
+              )}
             </button>
           </div>
         </div>

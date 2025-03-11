@@ -5,6 +5,7 @@ import Cookies from "js-cookie";
 import { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { FaLinkedinIn } from "react-icons/fa";
+import { CirclesWithBar, ThreeDots } from "react-loader-spinner";
 import { Link, useNavigate } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -139,7 +140,31 @@ const LoginFormComponent = () => {
               type="submit"
               disabled={isLoading}
             >
-              {isLoading ? "Loading..." : "Login"}
+              {isLoading ? (
+                <div className="flex items-center gap-2 justify-center">
+                  <CirclesWithBar
+                    visible={true}
+                    height="30"
+                    width="30"
+                    color="#ffff"
+                    ariaLabel="puff-loading"
+                    wrapperStyle={{}}
+                    wrapperClass=""
+                  />
+                  Processing
+                  <ThreeDots
+                    visible={true}
+                    height="30"
+                    width="30"
+                    color="#ffff"
+                    ariaLabel="puff-loading"
+                    wrapperStyle={{}}
+                    wrapperClass=""
+                  />
+                </div>
+              ) : (
+                "Login"
+              )}
             </button>
           </div>
         </div>

@@ -8,6 +8,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { ResetType } from "../../@types/fileTypes";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { passwordResetRequest } from "../../redux/reducers/auth/passwordResetRequestSlice";
+import { CirclesWithBar, ThreeDots } from "react-loader-spinner";
 
 const ForgotPassword: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -83,7 +84,31 @@ const ForgotPassword: React.FC = () => {
                     className="text-white bg-brand-blue px-5 py-3 w-full rounded-[5px] font-bold transition-all duration-300"
                     disabled={isLoading}
                   >
-                    {isLoading ? "Sending..." : "Send"}
+                    {isLoading ? (
+                      <div className="flex items-center gap-2 justify-center">
+                        <CirclesWithBar
+                          visible={true}
+                          height="30"
+                          width="30"
+                          color="#ffff"
+                          ariaLabel="puff-loading"
+                          wrapperStyle={{}}
+                          wrapperClass=""
+                        />
+                        Processing
+                        <ThreeDots
+                          visible={true}
+                          height="30"
+                          width="30"
+                          color="#ffff"
+                          ariaLabel="puff-loading"
+                          wrapperStyle={{}}
+                          wrapperClass=""
+                        />
+                      </div>
+                    ) : (
+                      "Send"
+                    )}
                   </button>
                 </div>
               </div>

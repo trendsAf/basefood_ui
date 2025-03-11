@@ -12,6 +12,7 @@ import { reset } from "../../../redux/reducers/auth/resetSlice";
 import { textFieldSx } from "../../../utils/MUI/muiStyles";
 import { emailSchema } from "../../../validations/formValidations";
 import LinkComponent from "./LinkComponent";
+import { CirclesWithBar, ThreeDots } from "react-loader-spinner";
 
 interface RequestNewLinkComponentProps {
   onNext: () => void;
@@ -83,7 +84,31 @@ const RequestNewLinkComponent: React.FC<RequestNewLinkComponentProps> = ({
                 className={`text-white bg-brand-blue px-5 py-3 w-full rounded-[5px] font-bold transition-all duration-300 ${isLoading ? "opacity-50 cursor-not-allowed" : "hover:bg-blue-600"}`}
                 disabled={isLoading}
               >
-                {isLoading ? "Requesting..." : "Request link"}
+                {isLoading ? (
+                  <div className="flex items-center gap-2 justify-center">
+                    <CirclesWithBar
+                      visible={true}
+                      height="30"
+                      width="30"
+                      color="#ffff"
+                      ariaLabel="puff-loading"
+                      wrapperStyle={{}}
+                      wrapperClass=""
+                    />
+                    Processing
+                    <ThreeDots
+                      visible={true}
+                      height="30"
+                      width="30"
+                      color="#ffff"
+                      ariaLabel="puff-loading"
+                      wrapperStyle={{}}
+                      wrapperClass=""
+                    />
+                  </div>
+                ) : (
+                  "Request Link"
+                )}
               </button>
             </div>
           </div>
