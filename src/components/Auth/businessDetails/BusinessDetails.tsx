@@ -19,6 +19,7 @@ import { businessDetailsSchema } from "../../../validations/formValidations";
 import SignupLeftSection from "../../common/SignupLeftSection";
 import Cookies from "js-cookie";
 import { decodeToken } from "../../../utils/config/decode";
+import { CirclesWithBar, ThreeDots } from "react-loader-spinner";
 
 interface BusinessDetailsProps {
   onSubmit: (data: BusinessDetailsFormValues) => void;
@@ -312,7 +313,31 @@ const BusinessDetails: React.FC<BusinessDetailsProps> = ({
                 className="w-full p-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition-colors"
                 disabled={isLoading}
               >
-                {isLoading ? "Submitting..." : "Next"}
+                {isLoading ? (
+                  <div className="flex items-center gap-2 justify-center">
+                    <CirclesWithBar
+                      visible={true}
+                      height="30"
+                      width="30"
+                      color="#ffff"
+                      ariaLabel="puff-loading"
+                      wrapperStyle={{}}
+                      wrapperClass=""
+                    />
+                    Processing
+                    <ThreeDots
+                      visible={true}
+                      height="30"
+                      width="30"
+                      color="#ffff"
+                      ariaLabel="puff-loading"
+                      wrapperStyle={{}}
+                      wrapperClass=""
+                    />
+                  </div>
+                ) : (
+                  "Next"
+                )}
               </button>
               {/* {error && <p className="text-red-500 text-sm mt-2">{error}</p>} */}
             </div>
